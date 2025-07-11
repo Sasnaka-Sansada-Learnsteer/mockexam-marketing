@@ -1,0 +1,100 @@
+.exam-timetable {
+  padding: 5rem 0;
+  background-color: #fff;
+}
+
+.exam-timetable .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.exam-timetable h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.exam-timetable h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #4361ee;
+}
+
+.timetable-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 2rem;
+}
+
+.exam-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.exam-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.exam-card-header {
+  background-color: #4361ee;
+  color: white;
+  padding: 1.2rem;
+  text-align: center;
+}
+
+.exam-card-header h3 {
+  font-size: 1.4rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.exam-card-body {
+  padding: 1.5rem;
+}
+
+.exam-detail {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.exam-detail:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.detail-value {
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .timetable-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .exam-timetable h2 {
+    font-size: 2rem;
+  }
+}

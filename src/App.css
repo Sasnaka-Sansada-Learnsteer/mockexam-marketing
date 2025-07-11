@@ -1,38 +1,103 @@
+/* Global Layout */
+body {
+  background-color: #ffffff;
+  color: #333;
+  font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+header.app-header {
+  background-color: #4abbf7;
+  padding: 2rem;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+h1, h2 {
+  color: #333;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+section {
+  padding: 3rem 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+button {
+  background-color: #4abbf7;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background-color: #2aa6e0;
+}
+
+/* Sponsors grid */
+.sponsors-logos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.sponsors-logos img {
+  height: 50px;
+  transition: transform 0.3s ease;
+}
+
+.sponsors-logos img:hover {
+  transform: scale(1.1);
+}
+
+/* Stats List */
+.stats-list {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.stats-list li {
+  list-style: none;
+  font-size: 1.2rem;
+  background-color: #f5faff;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  min-width: 200px;
+  box-shadow: 0 0 10px rgba(74, 187, 247, 0.15);
+}
+
+/* Popup */
+.popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4abbf7;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+footer {
+  background-color: #4abbf7;
+  color: white;
+  padding: 1rem;
 }

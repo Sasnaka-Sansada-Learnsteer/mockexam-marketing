@@ -1,0 +1,133 @@
+.remaining-seats {
+  padding: 5rem 0;
+  background-color: #f8f9fa;
+}
+
+.remaining-seats .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 3rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 4px;
+  background-color: #4361ee;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.loading {
+  font-size: 1.2rem;
+  color: #666;
+  padding: 2rem;
+}
+
+.seats-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.seat-card {
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+}
+
+.seat-card:hover {
+  transform: translateY(-5px);
+}
+
+.center-name {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.seat-info {
+  margin-bottom: 1.5rem;
+}
+
+.seats-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #4361ee;
+  line-height: 1;
+}
+
+.seats-label {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.progress-container {
+  height: 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #4361ee;
+  transition: width 0.5s ease;
+}
+
+.capacity-label {
+  text-align: right;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.full {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.total-seats {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: inline-block;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.total-seats strong {
+  color: #4361ee;
+  font-size: 1.3rem;
+}
+
+@media (max-width: 768px) {
+  .seat-card {
+    min-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+}

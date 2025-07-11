@@ -1,0 +1,39 @@
+.exam-info {
+  padding: 5rem 0;
+  background-color: #f8f9fa;
+}
+
+.exam-info .container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.exam-info h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.exam-info h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #4361ee;
+}
+
+.exam-info p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
