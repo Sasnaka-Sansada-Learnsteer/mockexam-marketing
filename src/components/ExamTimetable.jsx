@@ -19,21 +19,25 @@ const ExamTimetable = () => {
                                 <h3>{exam.subject}</h3>
                             </div>
                             <div className="exam-card-body">
-                                <div className="exam-detail">
-                                    <span className="detail-label">Date:</span>
-                                    <span className="detail-value">{new Date(exam.date).toLocaleDateString('en-US', {
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric'
-                                    })}</span>
-                                </div>
-                                <div className="exam-detail">
-                                    <span className="detail-label">Time:</span>
-                                    <span className="detail-value">{exam.time}</span>
-                                </div>
-                                <div className="exam-detail">
-                                    <span className="detail-label">Venue:</span>
-                                    <span className="detail-value">{exam.venue}</span>
+                                {/*<div className="exam-detail">*/}
+                                {/*    <span className="detail-label">Date:</span>*/}
+                                {/*    <span className="detail-value">{new Date(exam.date).toLocaleDateString('en-US', {*/}
+                                {/*        year: 'numeric',*/}
+                                {/*        month: 'long',*/}
+                                {/*        day: 'numeric'*/}
+                                {/*    })}</span>*/}
+                                {/*</div>*/}
+                                {/*<div className="exam-detail">*/}
+                                {/*    <span className="detail-label">Time:</span>*/}
+                                {/*    <span className="detail-value">{exam.time}</span>*/}
+                                {/*</div>*/}
+                                {/*<div className="exam-detail">*/}
+                                {/*    <span className="detail-label">Venue:</span>*/}
+                                {/*    <span className="detail-value">{exam.venue}</span>*/}
+                                {/*</div>*/}
+                                <div className="timetable-tile" key={exam.id}>
+                                    <span className="coming-soon-tag">Coming Soon</span>
+                                    <h3 className="tile-title">{exam.title}</h3>
                                 </div>
                             </div>
                         </div>

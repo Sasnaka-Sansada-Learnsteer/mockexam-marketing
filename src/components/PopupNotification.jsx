@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import config from "../config/api";
+import './PopupNotification.css'; // Create this file for the styles
 
 const PopupNotification = () => {
     const [show, setShow] = useState(false);
     const [previousCount, setPreviousCount] = useState(0);
     const [currentCount, setCurrentCount] = useState(0);
+    const [isExiting, setIsExiting] = useState(false);
 
     const fetchCount = async () => {
         try {
@@ -20,13 +22,22 @@ const PopupNotification = () => {
     };
 
     useEffect(() => {
-        // const popupInterval = setInterval(() => {
-        //     setShow(true);
-        //     setTimeout(() => setShow(false), 3000);
-        // }, 30000); // show every 30s
+        // For development/testing purposes
         const popupInterval = setInterval(() => {
-            fetchCount();
-        }, 20000); // every 20 sec
+            setShow(true);
+            setIsExiting(false);
+
+            setTimeout(() => {
+                setIsExiting(true);
+                setTimeout(() => setShow(false), 800);
+            }, 10000); // Show for 10 seconds
+
+        }, 10000); // Show every 30 seconds
+
+        // Uncomment for production
+        // const popupInterval = setInterval(() => {
+        //     fetchCount();
+        // }, 20000); // check for new registrations every 20 seconds
 
 
         return () => clearInterval(popupInterval);
@@ -36,17 +47,39 @@ const PopupNotification = () => {
         const diff = currentCount - previousCount;
         if (diff > 0) {
             setShow(true);
-            setTimeout(() => setShow(false), config.refreshIntervals.popupnotification);
-        }
-    }, [currentCount]);
+            setIsExiting(false);
 
+            const timer = setTimeout(() => {
+                setIsExiting(true);
+                setTimeout(() => {
+                    setShow(false);
+                }, 800); // Wait for exit animation to complete
+            }, 10000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [currentCount, previousCount]);
+
+    const handleClose = () => {
+        setIsExiting(true);
+        setTimeout(() => {
+            setShow(false);
+        }, 800); // Match exit animation duration
+    };
+
+    if (!show) return null;
 
     return (
-        show && (
-            <div className="popup">
-                New candidate registered just now!
+        <div className={`popup-notification ${isExiting ? 'exiting' : ''}`}>
+            <div className="popup-content">
+                <div className="popup-icon">🧑🏻‍🏫</div>
+                <div className="popup-message">
+                    <h4>New Registration!</h4>
+                    <p>Someone just registered for the exam</p>
+                </div>
             </div>
-        )
+            <button className="popup-close" onClick={handleClose}>×</button>
+        </div>
     );
 };
 

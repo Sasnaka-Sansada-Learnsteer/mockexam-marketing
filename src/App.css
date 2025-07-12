@@ -1,9 +1,15 @@
 /* Global Layout */
-body {
+* {
+  font-family: Montserrat, serif;
+}
+
+body, html {
   background-color: #ffffff;
   color: #333;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: Montserrat, serif;
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
 }
 
 .App {

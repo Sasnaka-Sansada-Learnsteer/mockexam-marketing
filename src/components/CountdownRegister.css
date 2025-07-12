@@ -62,6 +62,7 @@
   border-radius: 5px;
   text-decoration: none;
   font-weight: 600;
+  font-family: Montserrat;
   transition: all 0.3s ease;
   display: inline-block;
 }

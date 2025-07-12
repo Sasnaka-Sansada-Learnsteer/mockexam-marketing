@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  font-family: Montserrat, serif;
 }
 
 .hero-overlay {
@@ -49,7 +50,7 @@
 .cta-button {
   padding: 0.8rem 2.5rem;
   font-size: 1.1rem;
-  background-color: #4361eeb;
+  background-color: #4361ee;
   color: white;
   border: none;
   border-radius: 5px;

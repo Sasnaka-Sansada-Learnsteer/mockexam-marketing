@@ -1,0 +1,128 @@
+.popup-notification {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  max-width: 360px;
+  z-index: 1000;
+  border: 1px solid rgba(230, 230, 230, 0.7);
+  font-family: Montserrat, serif;
+  animation: slideIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-origin: bottom right;
+}
+
+.popup-notification.exiting {
+  animation: slideOut 0.8s forwards;
+}
+
+.popup-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.popup-icon {
+  font-size: 28px;
+  animation: bounce 2s ease infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(67, 97, 238, 0.1);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.popup-message {
+  flex: 1;
+}
+
+.popup-message h4 {
+  margin: 0 0 6px 0;
+  color: #4361ee;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.popup-message p {
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.popup-close {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 12px;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+  top: -2px;
+}
+
+.popup-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+  transform: rotate(90deg);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(30px) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(30px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 768px) {
+  .popup-notification {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    max-width: none;
+  }
+}

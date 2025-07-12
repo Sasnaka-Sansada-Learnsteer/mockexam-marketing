@@ -3,7 +3,7 @@ import './Sponsors.css';
 
 const Sponsors = () => {
   const sponsors = [
-    { name: 'APIIT', logo: '/assests/APIIT-Logo.png' },
+    { name: 'APIIT', logo: '/assets/APIIT-Logo.png' },
     { name: 'Sponsor 1', logo: '/images/sponsor1.png' },
   ];
 

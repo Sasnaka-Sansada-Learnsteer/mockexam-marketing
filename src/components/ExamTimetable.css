@@ -3,6 +3,29 @@
   background-color: #fff;
 }
 
+.timetable-tile {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.coming-soon-tag {
+  /*position: absolute;*/
+  top: 12px;
+  right: -30px;
+  background-color: #e40932;
+  color: white;
+  padding: 5px 30px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  /*transform: rotate(45deg);*/
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 .exam-timetable .container {
   max-width: 1200px;
   margin: 0 auto;
