@@ -23,21 +23,21 @@ const PopupNotification = () => {
 
     useEffect(() => {
         // For development/testing purposes
-        const popupInterval = setInterval(() => {
-            setShow(true);
-            setIsExiting(false);
-
-            setTimeout(() => {
-                setIsExiting(true);
-                setTimeout(() => setShow(false), 800);
-            }, 10000); // Show for 10 seconds
-
-        }, 10000); // Show every 30 seconds
+        // const popupInterval = setInterval(() => {
+        //     setShow(true);
+        //     setIsExiting(false);
+        //
+        //     setTimeout(() => {
+        //         setIsExiting(true);
+        //         setTimeout(() => setShow(false), 800);
+        //     }, 10000); // Show for 10 seconds
+        //
+        // }, 10000); // Show every 30 seconds
 
         // Uncomment for production
-        // const popupInterval = setInterval(() => {
-        //     fetchCount();
-        // }, 20000); // check for new registrations every 20 seconds
+        const popupInterval = setInterval(() => {
+            fetchCount();
+        }, 20000); // check for new registrations every 20 seconds
 
 
         return () => clearInterval(popupInterval);

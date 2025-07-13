@@ -7,9 +7,9 @@ const config = {
 
     // Refresh intervals in milliseconds
     refreshIntervals: {
-        liveCount: 150000,  // 15 seconds
-        popupnotification: 300000,
-        remainingseats:600000
+        liveCount: 15000,  // 15 seconds
+        popupnotification: 30000,
+        remainingseats:60000
     }
 };
 

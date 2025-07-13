@@ -10,8 +10,8 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "aos": "^2.3.4",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -39,11 +39,8 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-  },
   "overrides": {
     "nth-check": "2.1.1",
-    "postcss": "8.4.31",
-    "webpack-dev-server": "5.2.1"
+    "postcss": "8.4.31"
   }
 }

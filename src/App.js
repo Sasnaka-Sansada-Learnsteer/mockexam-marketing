@@ -15,6 +15,7 @@ import PopupNotification from './components/PopupNotification';
 import NavBar from "./components/NavBar";
 import CountdownRegister from "./components/CountdownRegister";
 import RemainingSeats from "./components/RemainingSeats";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -39,10 +40,7 @@ function App() {
         </main>
 
         <PopupNotification />
-
-        <footer>
-          <p>© 2025 Sasnaka Sansada. All rights reserved.</p>
-        </footer>
+          <Footer />
       </div>
   );
 }

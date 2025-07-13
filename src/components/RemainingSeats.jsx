@@ -81,7 +81,7 @@ const RemainingSeats = () => {
                                         {remainingSeats === 0 ? (
                                             <span className="full">Fully Booked</span>
                                         ) : (
-                                            <span>{percentage.toFixed(0)}% available</span>
+                                            <span>Almost {percentage.toFixed(0)}% available</span>
                                         )}
                                     </div>
                                 </div>

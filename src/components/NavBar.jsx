@@ -32,7 +32,7 @@ const NavBar = () => {
           {/*<span>Sasnaka Sansada</span>*/}
         </div>
 
-        <RegisterNow className="always-visible" />
+        {/*<RegisterNow className="always-visible" />*/}
 
         <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <i className={isMenuOpen ? 'fas fa-times' : 'fas fa-bars'}></i>

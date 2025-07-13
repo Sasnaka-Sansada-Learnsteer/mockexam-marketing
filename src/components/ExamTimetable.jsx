@@ -36,7 +36,7 @@ const ExamTimetable = () => {
                                 {/*    <span className="detail-value">{exam.venue}</span>*/}
                                 {/*</div>*/}
                                 <div className="timetable-tile" key={exam.id}>
-                                    <span className="coming-soon-tag">Coming Soon</span>
+                                    <span className="coming-soon-tag">Releasing Soon</span>
                                     <h3 className="tile-title">{exam.title}</h3>
                                 </div>
                             </div>

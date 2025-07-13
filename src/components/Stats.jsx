@@ -11,7 +11,7 @@ const Stats = () => (
                     <p className="stat-label">Exam Centers</p>
                 </div>
                 <div className="stat-item">
-                    <span className="stat-number">1200+</span>
+                    <span className="stat-number">1000+</span>
                     <p className="stat-label">Students Served</p>
                 </div>
             </div>
