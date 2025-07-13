@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 
+import { Analytics } from "@vercel/analytics/react"
+
 import CountdownTimer from './components/CountdownTimer';
 import ExamInfo from './components/ExamInfo';
 import HeroSection from "./components/HeroSection";
@@ -22,6 +24,8 @@ function App() {
         </header>
 
         <main>
+            <Analytics />
+            
             <section id="herosection"><HeroSection /></section>
             <section id="examinfo"><ExamInfo /></section>
             <section id="stats"><Stats /></section>
