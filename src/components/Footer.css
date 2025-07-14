@@ -52,7 +52,7 @@
 .footer-section h4:after {
   content: '';
   position: absolute;
-  left: 0;
+  left: 40%;
   bottom: -5px;
   width: 30px;
   height: 2px;
@@ -97,7 +97,7 @@
 .footer-social h4:after {
   content: '';
   position: absolute;
-  left: 0;
+  left: 45%;
   bottom: -5px;
   width: 30px;
   height: 2px;

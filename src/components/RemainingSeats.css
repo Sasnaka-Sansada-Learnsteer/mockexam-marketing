@@ -121,6 +121,15 @@
   font-size: 1.3rem;
 }
 
+.center-location {
+  color: rgba(255, 0, 0, 0.42);
+  font-size: 0.85rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+  opacity: 0.8;
+}
+
 @media (max-width: 768px) {
   .seat-card {
     min-width: 100%;

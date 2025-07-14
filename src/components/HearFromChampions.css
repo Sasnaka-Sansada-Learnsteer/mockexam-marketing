@@ -1,0 +1,127 @@
+.hear-from-champions {
+  padding: 5rem 0;
+  background-color: #fff;
+}
+
+.hear-from-champions .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.champions-scroll-container {
+  position: relative;
+  margin: 2rem 0;
+}
+
+.champions-container {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem 0;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #4361ee #f1f1f1;
+}
+
+.champions-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.champions-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.champions-container::-webkit-scrollbar-thumb {
+  background: #4361ee;
+  border-radius: 10px;
+}
+
+.champion-card {
+  flex: 0 0 auto;
+  width: 280px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.champion-card:hover {
+  transform: translateY(-5px);
+}
+
+.champion-photo-wrapper {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 3px solid #4361ee;
+}
+
+.champion-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.champion-name {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+.champion-position {
+  color: #4361ee;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.champion-thoughts {
+  font-style: italic;
+  color: #555;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.champion-thoughts p {
+  position: relative;
+}
+
+.scroll-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.scroll-arrow {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(5px); }
+  100% { opacity: 0.5; transform: translateX(0); }
+}
+
+@media (max-width: 768px) {
+  .champion-photo-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+}

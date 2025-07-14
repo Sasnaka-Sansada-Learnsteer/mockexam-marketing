@@ -13,7 +13,11 @@ const RemainingSeats = () => {
 
     const TOTAL_SEATS = 1200;
     const SEATS_PER_CENTER = 400;
-    const centers = ['Colombo', 'Galle', 'Kandy'];
+    const centers = [
+        { id: 'Colombo', name: 'Colombo Center', location: '(Venue will be announced soon)' },
+        { id: 'Galle', name: 'Galle Center', location: '(Venue will be announced soon)' },
+        { id: 'Kandy', name: 'Kandy Center', location: '(Venue will be announced soon)' }
+    ];
 
     const fetchData = async () => {
         try {
@@ -61,12 +65,13 @@ const RemainingSeats = () => {
                 ) : (
                     <div className="seats-container">
                         {centers.map(center => {
-                            const remainingSeats = calculateRemainingSeats(center);
+                            const remainingSeats = calculateRemainingSeats(center.id);
                             const percentage = getPercentage(remainingSeats);
 
                             return (
-                                <div className="seat-card" key={center}>
-                                    <h3 className="center-name">{center}</h3>
+                                <div className="seat-card" key={center.id}>
+                                    <h3 className="center-name">{center.name}</h3>
+                                    <p className="center-location">{center.location}</p>
                                     <div className="seat-info">
                                         <div className="seats-number">{remainingSeats}</div>
                                         <div className="seats-label">seats remaining</div>

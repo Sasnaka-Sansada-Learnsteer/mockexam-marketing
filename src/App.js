@@ -16,6 +16,7 @@ import NavBar from "./components/NavBar";
 import CountdownRegister from "./components/CountdownRegister";
 import RemainingSeats from "./components/RemainingSeats";
 import Footer from "./components/Footer";
+import HearFromChampions from "./components/HearFromChampions";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <section id="herosection"><HeroSection /></section>
             <section id="examinfo"><ExamInfo /></section>
             <section id="stats"><Stats /></section>
+            {/*<section id="hearfromchampions"><HearFromChampions /></section>*/}
             {/*<section id="countdowntimer"><CountdownTimer deadline="2025-07-31T23:59:59" /></section>*/}
             <section id="examtimetable"><ExamTimetable /></section>
             {/*<section id="registernow"><RegisterNow /></section>*/}
