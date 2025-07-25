@@ -1,0 +1,140 @@
+.province-table {
+  padding: 5rem 0;
+  background-color: #fff;
+}
+
+.provincetable-tile {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.coming-soon-tag {
+  /*position: absolute;*/
+  top: 12px;
+  right: -30px;
+  background-color: #e40932;
+  color: white;
+  padding: 5px 30px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  /*transform: rotate(45deg);*/
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.province-table .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.province-table h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.province-table h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #4361ee;
+}
+
+.provincetable-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 2rem;
+}
+
+.provincetable-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.provincetable-row.single {
+  display: flex;
+  justify-content: center;
+}
+
+.provincetable-row.single .province-card {
+  width: 100%;
+  max-width: 350px;
+}
+
+.province-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.province-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.province-card-header {
+  background-color: #4361ee;
+  color: white;
+  padding: 1.2rem;
+  text-align: center;
+}
+
+.province-card-header h3 {
+  font-size: 1.4rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.province-card-body {
+  padding: 1.5rem;
+}
+
+.province-detail {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.province-detail:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.detail-value {
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .provincetable-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .province-table h2 {
+    font-size: 2rem;
+  }
+}
