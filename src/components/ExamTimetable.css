@@ -23,7 +23,7 @@
   font-size: 0.8rem;
   font-weight: 600;
   /*transform: rotate(45deg);*/
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .exam-timetable .container {
@@ -56,6 +56,23 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   gap: 2rem;
+}
+
+.timetable-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.timetable-row.single {
+  display: flex;
+  justify-content: center;
+}
+
+.timetable-row.single .exam-card {
+  width: 100%;
+  max-width: 350px;
 }
 
 .exam-card {
