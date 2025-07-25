@@ -1,6 +1,6 @@
 /* Global Layout */
 * {
-  font-family: "Varela Round", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -9,7 +9,7 @@ body,
 html {
   background-color: #ffffff;
   color: #333;
-  font-family: "Varela Round", sans-serif;
+  font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
   margin: 0;
   padding: 0;
