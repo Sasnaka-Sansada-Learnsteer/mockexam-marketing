@@ -4,15 +4,15 @@ import "./ExamCenter.css";
 const ExamCenter = () => {
   const examCenter = [
     {
-      province: "Western Province",
+      province: "Colombo Center",
       venue: "University of Colombo",
     },
     {
-      province: "Southern Province",
+      province: "Galle Center",
       venue: "Hall A",
     },
     {
-      province: "Central Province",
+      province: "Kandy Center",
       venue: "Hall A",
     },
   ];
