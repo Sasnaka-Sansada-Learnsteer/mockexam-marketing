@@ -13,6 +13,13 @@
   overflow: hidden;
 }
 
+.province-map {
+  margin-top: 1rem;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 .coming-soon-tag {
   /*position: absolute;*/
   top: 12px;
@@ -126,6 +133,43 @@
   color: #333;
   font-size: 1.1rem;
   font-weight: 500;
+}
+
+.direction-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.5rem;
+  background: linear-gradient(135deg, #4a90e2, #007bff);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.direction-button::after {
+  content: "";
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  transform: skewX(-25deg);
+  transition: left 0.5s ease;
+}
+
+.direction-button:hover::after {
+  left: 100%;
+}
+
+.direction-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 123, 255, 0.3);
 }
 
 @media (max-width: 768px) {
