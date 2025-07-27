@@ -1,32 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
 .register-button {
-  background-color: #4361ee;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 5px;
-  text-decoration: none;
+  background: linear-gradient(135deg, #4e5fff, #6c75ff);
+  color: #fff;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 12px;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
-  transition: all 0.3s ease;
+  font-size: 14px;
+  cursor: pointer;
   display: inline-block;
-  font-size: 12px;
-  min-width: 80px;
-  max-width: 150px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgb(9, 13, 228);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 8px 20px rgba(78, 95, 255, 0.3);
+  text-align: center;
   z-index: 1;
-}
-
-.register-button:hover {
-  color: white;
-  background-color: #3a56d4;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
-}
-
-.register-button:active {
-  transform: translateY(1px);
+  animation: floatScale 3s ease-in-out infinite;
 }
 
 .register-button::before {
@@ -37,54 +27,61 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    90deg,
+    120deg,
     transparent,
-    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.3),
     transparent
   );
-  transition: 0.5s;
+  animation: shineLoop 2s infinite;
+  z-index: 2;
 }
 
-.register-button:hovering::before {
+.register-button::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: -100%;
+  top: 50%;
+  left: 50%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: 0.5s;
-  z-index: -1;
-  animation: shine 1.5s infinite;
+  border-radius: 12px;
+  transform: translate(-50%, -50%);
+  background: rgba(78, 95, 255, 0.3);
+  filter: blur(15px);
+  opacity: 0;
+  animation: pulseGlow 3s ease-in-out infinite;
+  z-index: 0;
 }
 
-@keyframes pulse {
+@keyframes shineLoop {
   0% {
     left: -100%;
   }
-  50%,
+  50% {
+    left: 100%;
+  }
   100% {
     left: 100%;
   }
 }
 
-.register-button.pulsing {
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
+@keyframes pulseGlow {
   0% {
-    box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.7);
+    opacity: 0;
   }
-  70% {
-    box-shadow: 0 0 0 10px rgba(67, 97, 238, 0);
+  50% {
+    opacity: 0.6;
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(67, 97, 238, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes floatScale {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
   }
 }
