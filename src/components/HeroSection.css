@@ -1,7 +1,7 @@
 .hero-container {
   position: relative;
   height: 500px;
-  background-image: url('./assets/hero_section_image_exam.png');
+  background-image: url("./assets/hero_section_image_exam.png");
   background-size: cover;
   background-position: center;
   color: white;

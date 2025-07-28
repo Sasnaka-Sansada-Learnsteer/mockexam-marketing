@@ -29,6 +29,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  align-items: center;
+  text-align: center;
 }
 
 .countdown-register-container h2 {
@@ -80,7 +82,8 @@
     padding: 2rem;
   }
 
-  .countdown-section, .register-section {
+  .countdown-section,
+  .register-section {
     width: 100%;
   }
 

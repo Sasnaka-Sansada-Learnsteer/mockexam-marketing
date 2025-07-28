@@ -1,12 +1,18 @@
 /* Global Layout */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 * {
-  font-family: Montserrat, serif;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-body, html {
+body,
+html {
   background-color: #ffffff;
   color: #333;
-  font-family: Montserrat, serif;
+  font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
   margin: 0;
   padding: 0;
@@ -22,7 +28,8 @@ header.app-header {
   color: white;
 }
 
-h1, h2 {
+h1,
+h2 {
   color: #333;
 }
 
@@ -93,13 +100,19 @@ button:hover {
   color: #fff;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   animation: slideUp 0.3s ease-out;
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 footer {
