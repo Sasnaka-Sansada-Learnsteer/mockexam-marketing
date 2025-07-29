@@ -18,6 +18,7 @@ import RemainingSeats from "./components/RemainingSeats";
 import Footer from "./components/Footer";
 import HearFromChampions from "./components/HearFromChampions";
 import ExamCenter from "./components/ExamCenter";
+import FloatingWhatsApp from "./components/FloatingWhatsApp";
 
 function App() {
   return (
@@ -59,6 +60,8 @@ function App() {
 
       <PopupNotification />
       <Footer />
+
+      <FloatingWhatsApp phoneNumber="94771234567" />
     </div>
   );
 }
