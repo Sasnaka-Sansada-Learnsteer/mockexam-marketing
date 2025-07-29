@@ -5,22 +5,22 @@ const ExamTimetable = () => {
   const examSchedule = [
     {
       subject: "Physics",
-      date: "2025-08-15",
-      time: "9:00 AM - 12:00 PM",
-    },
-    {
-      subject: "Chemistry",
-      date: "2025-08-16",
-      time: "9:00 AM - 12:00 PM",
-    },
-    {
-      subject: "Biology",
       date: "2025-08-17",
       time: "9:00 AM - 12:00 PM",
     },
     {
-      subject: "Mathematics",
-      date: "2025-08-18",
+      subject: "Chemistry",
+      date: "2025-08-23",
+      time: "9:00 AM - 12:00 PM",
+    },
+    {
+      subject: "Biology",
+      date: "2025-08-16",
+      time: "9:00 AM - 12:00 PM",
+    },
+    {
+      subject: "Combined Mathematics",
+      date: "2025-08-16",
       time: "9:00 AM - 12:00 PM",
     },
   ];
