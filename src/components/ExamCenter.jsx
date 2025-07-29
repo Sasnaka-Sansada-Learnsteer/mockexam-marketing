@@ -13,17 +13,15 @@ const ExamCenter = () => {
     },
     {
       province: "Galle Center",
-      venue: "Hall A",
-      mapUrl: "https://www.google.com/maps/embed?pb=...GalleMapEmbedLink...",
-      directionsUrl:
-        "https://www.google.com/maps/dir/?api=1&destination=Galle+Hall+A",
+      venue: "Pending",
+      mapUrl: null,
+      directionsUrl: null,
     },
     {
       province: "Kandy Center",
-      venue: "Hall A",
-      mapUrl: "https://www.google.com/maps/embed?pb=...KandyMapEmbedLink...",
-      directionsUrl:
-        "https://www.google.com/maps/dir/?api=1&destination=Kandy+Hall+A",
+      venue: "Pending",
+      mapUrl: null,
+      directionsUrl: null,
     },
   ];
 
