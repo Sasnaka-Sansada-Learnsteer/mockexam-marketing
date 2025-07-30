@@ -1,20 +1,22 @@
 import React from 'react';
 import './HeroSection.css';
 import RegisterNow from "./RegisterNow";
+import { useTranslation } from "react-i18next";
 
-const HeroSection = () => (
-  <div className="hero-container">
-    <div className="hero-content">
-      <h1>Prepare for Your Future</h1>
-      <h2>with Sasnaka Sansada A/L Mock Examination 2025</h2>
-      <p>Take the first step towards A/L excellence with our comprehensive mock exams</p>
-        {/*<a href="https://forms.gle/do6jF9UGx9gh4ZmZ9" target="_blank" rel="noreferrer">*/}
-        {/*    <button className="cta-button">Register Now</button>*/}
-        {/*</a>*/}
-        <RegisterNow className="always-visible" />
-    </div>
-    <div className="hero-overlay"></div>
-  </div>
-);
+const HeroSection = () => {
+    const { t } = useTranslation();
+
+    return (
+        <div className="hero-container">
+            <div className="hero-content">
+                <h1>{t("hero.title")}</h1>
+                <h2>{t("hero.subtitle")}</h2>
+                <p>{t("hero.description")}</p>
+                <RegisterNow className="always-visible" />
+            </div>
+            <div className="hero-overlay"></div>
+        </div>
+    );
+};
 
 export default HeroSection;

@@ -1,0 +1,110 @@
+{
+  "hero_title": "Welcome to Our Site",
+  "register": "Register Now",
+  "contact_us": "Contact Us",
+
+  "hero": {
+    "title": "Prepare for Your Future",
+    "subtitle": "with Sasnaka Sansada A/L Mock Examination 2025",
+    "description": "Take the first step towards A/L excellence with our comprehensive mock exams"
+  },
+
+  "examInfo": {
+    "title": "What is Sasnaka Sansada A/L Mock Exam?",
+    "description": "Are you an Advanced Level student? This is your opportunity to prepare for your A/Ls early. The Profiling and Corporate Affairs Pillar of Sasnaka Sansada is organizing a mock examination for you!"
+  },
+
+  "stats": {
+    "stat_title": "Our Journey",
+    "stat_dist": "Districts",
+    "stat_cent": "Exam Centers",
+    "stat_studentServed": "Students Served"
+  },
+
+  "examTimetable": {
+    "title": "Exam Timetable",
+    "date": "Date:",
+    "time": "Time:"
+  },
+
+  "subjects": {
+    "Physics": "Physics",
+    "Chemistry": "Chemistry",
+    "Biology": "Biology",
+    "Combined Mathematics": "Combined Mathematics"
+  },
+
+  "examCenters": {
+    "title": "Exam Centers",
+    "venueLabel": "Venue:",
+    "directionsButton": "Get Directions",
+    "centers": [
+      {
+        "province": "Colombo Center",
+        "venue": "University of Colombo"
+      },
+      {
+        "province": "Galle Center",
+        "venue": "St. Aloysius' College, Galle"
+      },
+      {
+        "province": "Kandy Center",
+        "venue": "Viharamahadevi Girls' College Kandy"
+      }
+    ]
+  },
+
+  "remainingSeats": {
+    "title": "Remaining Seats",
+    "loading": "Loading seat availability...",
+    "seatsRemaining": "seats remaining",
+    "fullyBooked": "Fully Booked",
+    "almostAvailable": "Almost {{percentage}}% available",
+    "totalRemaining": "Total Remaining Seats:",
+    "outOf": "out of",
+    "centers": {
+      "colombo": {
+        "name": "Colombo Center",
+        "location": "(Venue will be announced soon)"
+      },
+      "galle": {
+        "name": "Galle Center",
+        "location": "(Venue will be announced soon)"
+      },
+      "kandy": {
+        "name": "Kandy Center",
+        "location": "(Venue will be announced soon)"
+      }
+    }
+  },
+
+  "countdown": {
+    "registrationClosed": "Registration Closed",
+    "title": "Registration closes in:",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
+
+  "countdownRegister": {
+    "hurryUp": "HURRY UP!",
+    "readyToExcel": "Ready to excel?",
+    "description": "Join our comprehensive A/L mock examination program and prepare yourself for success.",
+    "registerNow": "Register Now"
+  },
+
+  "whatsapp": {
+    "defaultMessage": "Hello! I’d like to know more info about the exam.",
+    "needHelp": "Need Help?"
+  },
+
+  "popupNotification": {
+    "newRegistrationTitle": "New Registration!",
+    "newRegistrationMessage": "Someone just registered for the exam"
+  },
+
+  "registerNowButton": "Register Now"
+
+
+}

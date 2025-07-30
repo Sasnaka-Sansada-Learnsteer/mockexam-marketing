@@ -1,0 +1,105 @@
+{
+  "hero_title": "අපගේ වෙබ් අඩවියට සාදරයෙන් පිළිගනිමු",
+  "register": "ලියාපදිංචි වන්න",
+  "contact_us": "අපව සම්බන්ධ කරන්න",
+
+  "hero": {
+    "title": "ඔබගේ අනාගතයට සූදානම් ද?",
+    "subtitle": "සස්නක සංසද Mock Exam - 2025 සමඟ",
+    "description": "ආදර්ශ විභාගයක් තුළින් A/L විභාගයේ විශිෂ්ට ජයක් සඳහා පියනගන්න"
+  },
+
+  "examInfo": {
+    "title": "මොකද්ද මේ සස්නක සංසද A/L Mock Exam?",
+    "description": "ඔබත් අ.පො.ස. උසස් පෙළ ශිෂ්\u200Dයයෙක් ද? ඔබගේ උසස් පෙළ විභාගයට පෙර සිටම සූදානම් වීමටයි මේ අවස්ථාව! සස්නක සංසද Profiling and Corporate Affairs බලකණුව මඟින් ආදර්ශ විභාගයක් ඔබ හමුවට!"
+  },
+
+  "stats": {
+    "stat_title": "අපගේ ගමන්මග",
+    "stat_dist": "දිස්ත්‍රික්ක",
+    "stat_cent": "විභාග මධ්‍යස්ථාන",
+    "stat_studentServed": "ආසන"
+  },
+
+  "examTimetable": {
+    "title": "විභාග කාලසටහන",
+    "date": "දිනය:",
+    "time": "වේලාව:"
+  },
+
+  "subjects": {
+    "Physics": "භෞතික විද්‍යාව",
+    "Chemistry": "රසායන විද්‍යාව",
+    "Biology": "ජීව විද්‍යාව",
+    "Combined Mathematics": "සං‍යුක්ත ගණිතය"
+  },
+
+  "examCenters": {
+    "title": "විභාග මධ්‍යස්ථාන",
+    "venueLabel": "ස්ථානය:",
+    "directionsButton": "මාර්ගය පෙන්වන්න",
+    "centers": [
+      {
+        "province": "කොළඹ මධ්‍යස්ථානය",
+        "venue": "කොළඹ විශ්වවිද්\u200Dයාලය"
+      },
+      {
+        "province": "ගාල්ල මධ්\u200Dයස්ථානය",
+        "venue": "ශාන්ත ඇලෝෂියස් විද්\u200Dයාලය, ගාල්ල"
+      },
+      {
+        "province": "නුවර මධ්\u200Dයස්ථානය",
+        "venue": "විහාරමහාදේවි බාලිකා විද්\u200Dයාලය, මහනුවර "
+      }
+    ]
+  },
+
+  "remainingSeats": {
+    "title": "වෙන් කිරීමට ඉතිරි ආසන",
+    "loading": "ආසන දත්ත යාවත්කාලීන කරමින්...",
+    "seatsRemaining": "ඉතිරි ආසන සංඛ්‍යාව",
+    "fullyBooked": "පිරී අවසන්",
+    "almostAvailable": "ආසන්න වශයෙන් {{percentage}}% ඉතිරිව ඇත",
+    "totalRemaining": "ඉතිරි මුළු ආසන සංඛ්\u200Dයාව:",
+    "outOf": "out of",
+    "centers": {
+      "colombo": {
+        "name": "කොළඹ මධ්\u200Dයස්ථානය"
+      },
+      "galle": {
+        "name": "ගාල්ල මධ්\u200Dයස්ථානය"
+      },
+      "kandy": {
+        "name": "නුවර මධ්\u200Dයස්ථානය"
+      }
+    }
+  },
+
+  "countdown": {
+    "registrationClosed": "ලියාපදිංචිය අවසන්",
+    "title": "ලියාපදිංචිය අවසන් වීමට:",
+    "days": "දින",
+    "hours": "පැය",
+    "minutes": "මිනිත්තු",
+    "seconds": "තත්පර"
+  },
+
+  "countdownRegister": {
+    "hurryUp": "ඉක්මන් කරන්න!",
+    "readyToExcel": "විශිෂ්ට ගමනකට සූදානම්ද?",
+    "description": "අපගේ ආදර්ශ විභාගය සමඟ එක්වී උසස් පෙළ විභාගයේ සාර්ථකත්වයට සූදානම් වන්න.",
+    "registerNow": "ලියාපදිංචි වන්න"
+  },
+
+  "whatsapp": {
+    "defaultMessage": "Hello! I’d like to know more info about the exam.",
+    "needHelp": "උදව් අවශ්‍යද?"
+  },
+
+  "popupNotification": {
+    "newRegistrationTitle": "නව ලියාපදිංචියක්!",
+    "newRegistrationMessage": "තවත් ශිෂ්‍යයෙක් විභාගය සඳහා ලියාපදිංචි විය"
+  },
+
+  "registerNowButton": "ලියාපදිංචි වන්න"
+}

@@ -1,11 +1,16 @@
 import React from "react";
 import "./FloatingWhatsApp.css";
+import { useTranslation } from "react-i18next";
 
 const FloatingWhatsApp = ({
                               phoneNumber = "94771234567",
-                              message = "Hello! I’d like to know more info about the exam.",
+                              messageKey = "whatsapp.defaultMessage",
                           }) => {
-    const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const { t } = useTranslation(); // Initialize the t function
+
+    const translatedMessage = t(messageKey);
+
+    const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(translatedMessage)}`;
 
     return (
         <a
@@ -19,7 +24,8 @@ const FloatingWhatsApp = ({
                 alt="WhatsApp"
                 className="whatsapp-icon"
             />
-            <span className="whatsapp-text">Need Help?</span>
+            {/* Translate "Need Help?" */}
+            <span className="whatsapp-text">{t("whatsapp.needHelp")}</span>
         </a>
     );
 };
