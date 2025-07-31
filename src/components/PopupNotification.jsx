@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import config from "../config/api";
-import './PopupNotification.css'; // Create this file for the styles
+import './PopupNotification.css';
+import { useTranslation } from 'react-i18next';
 
 const PopupNotification = () => {
+    const { t } = useTranslation();
     const [show, setShow] = useState(false);
     const [previousCount, setPreviousCount] = useState(0);
     const [currentCount, setCurrentCount] = useState(0);
@@ -34,10 +36,10 @@ const PopupNotification = () => {
         //
         // }, 10000); // Show every 30 seconds
 
-        // Uncomment for production
+
         const popupInterval = setInterval(() => {
             fetchCount();
-        }, 20000); // check for new registrations every 20 seconds
+        }, 20000);
 
 
         return () => clearInterval(popupInterval);
@@ -53,7 +55,7 @@ const PopupNotification = () => {
                 setIsExiting(true);
                 setTimeout(() => {
                     setShow(false);
-                }, 800); // Wait for exit animation to complete
+                }, 800);
             }, 10000);
 
             return () => clearTimeout(timer);
@@ -64,7 +66,7 @@ const PopupNotification = () => {
         setIsExiting(true);
         setTimeout(() => {
             setShow(false);
-        }, 800); // Match exit animation duration
+        }, 800);
     };
 
     if (!show) return null;
@@ -74,8 +76,10 @@ const PopupNotification = () => {
             <div className="popup-content">
                 <div className="popup-icon">🧑🏻‍🏫</div>
                 <div className="popup-message">
-                    <h4>New Registration!</h4>
-                    <p>Someone just registered for the exam</p>
+
+                    <h4>{t("popupNotification.newRegistrationTitle")}</h4>
+
+                    <p>{t("popupNotification.newRegistrationMessage")}</p>
                 </div>
             </div>
             <button className="popup-close" onClick={handleClose}>×</button>

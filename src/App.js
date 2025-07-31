@@ -1,8 +1,10 @@
 import React from "react";
 import "./App.css";
+import "./i18n";
 
 import { Analytics } from "@vercel/analytics/react";
 
+import LanguageSwitch from "./components/LanguageSwitch";
 import CountdownTimer from "./components/CountdownTimer";
 import ExamInfo from "./components/ExamInfo";
 import HeroSection from "./components/HeroSection";
@@ -61,7 +63,8 @@ function App() {
       <PopupNotification />
       <Footer />
 
-      <FloatingWhatsApp phoneNumber="94771234567" />
+        <LanguageSwitch/>
+      <FloatingWhatsApp phoneNumber="94774620867" />
     </div>
   );
 }
