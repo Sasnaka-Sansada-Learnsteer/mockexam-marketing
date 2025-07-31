@@ -101,4 +101,30 @@
     width: 100%;
     text-align: center;
   }
+
+  .registration-message {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    color: #222;
+    font-weight: bold;
+    text-shadow: none;
+
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.03);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+  }
 }
+

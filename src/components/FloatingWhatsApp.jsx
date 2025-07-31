@@ -3,7 +3,7 @@ import "./FloatingWhatsApp.css";
 import { useTranslation } from "react-i18next";
 
 const FloatingWhatsApp = ({
-                              phoneNumber = "94771234567",
+                              phoneNumber = "94774620867",
                               messageKey = "whatsapp.defaultMessage",
                           }) => {
     const { t } = useTranslation(); // Initialize the t function

@@ -64,7 +64,7 @@ function App() {
       <Footer />
 
         <LanguageSwitch/>
-      <FloatingWhatsApp phoneNumber="94771234567" />
+      <FloatingWhatsApp phoneNumber="94774620867" />
     </div>
   );
 }

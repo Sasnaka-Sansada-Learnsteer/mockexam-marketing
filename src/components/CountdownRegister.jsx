@@ -13,14 +13,15 @@ const CountdownRegister = () => {
           <div className="countdown-register-wrapper">
             <div className="countdown-section">
               <h2>{t("countdownRegister.hurryUp")}</h2>
-              <CountdownTimer deadline="2025-07-31T23:59:59" />
+              <CountdownTimer deadline="2025-08-01T20:00:00" />
             </div>
 
             <div className="register-section">
               <h2>{t("countdownRegister.readyToExcel")}</h2>
               <p>{t("countdownRegister.description")}</p>
 
-              <RegisterNow />
+              {/*<RegisterNow /> */}
+              <p className="registration-message">Registrations opening soon!</p>
             </div>
           </div>
         </div>
