@@ -11,7 +11,8 @@ const HeroSection = () => (
         {/*<a href="https://forms.gle/do6jF9UGx9gh4ZmZ9" target="_blank" rel="noreferrer">*/}
         {/*    <button className="cta-button">Register Now</button>*/}
         {/*</a>*/}
-        <RegisterNow className="always-visible" />
+        {/*<RegisterNow className="always-visible" />*/}
+        <p className="registration-message">Registrations opening soon!</p>
     </div>
     <div className="hero-overlay"></div>
   </div>
