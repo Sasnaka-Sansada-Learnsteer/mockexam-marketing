@@ -1,6 +1,6 @@
 .popup-notification {
   position: fixed;
-  top: 30px;
+  bottom: 30px;
   right: 30px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -15,7 +15,7 @@
   border: 1px solid rgba(230, 230, 230, 0.7);
   font-family: Montserrat, serif;
   animation: slideIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-  transform-origin: top right;
+  transform-origin: bottom right;
 }
 
 .popup-notification.exiting {
@@ -86,7 +86,7 @@
 
 @keyframes slideIn {
   from {
-    transform: translateY(-30px) scale(0.9);
+    transform: translateY(30px) scale(0.9);
     opacity: 0;
   }
   to {
@@ -101,7 +101,7 @@
     opacity: 1;
   }
   to {
-    transform: translateY(-30px) scale(0.9);
+    transform: translateY(30px) scale(0.9);
     opacity: 0;
   }
 }
@@ -120,7 +120,7 @@
 
 @media (max-width: 768px) {
   .popup-notification {
-    top: 20px;
+    bottom: 20px;
     right: 20px;
     left: 20px;
     max-width: none;
