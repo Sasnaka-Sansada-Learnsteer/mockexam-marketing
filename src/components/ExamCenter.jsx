@@ -32,45 +32,41 @@ const ExamCenter = () => {
 
         <div className="provincetable-row">
           {examCenter.slice(0, 3).map((exam, index) => (
-            <div
-              className="province-card"
-              key={index}
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
-            >
-              <div className="province-card-header">
-                <h3>{exam.province}</h3>
-              </div>
-              <div className="province-card-body">
-                <div className="province-detail">
-                  <span className="detail-label">Venue:</span>
-                  <span className="detail-value">{exam.venue}</span>
+              <div className="province-card" key={index} data-aos="fade-up" data-aos-delay={index * 100}>
+                <div className="province-card-header">
+                  <h3>{exam.province}</h3>
                 </div>
-                <div className="province-map">
-                  <div className="map-frame">
-                    <iframe
-                        src={exam.mapUrl}
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen=""
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title={`Map of ${exam.venue}`}
-                    ></iframe>
+                <div className="province-card-body">
+                  <div className="province-detail">
+                    <span className="detail-label">Venue:</span>
+                    <span className="detail-value">{exam.venue}</span>
                   </div>
 
-                  <a
-                    href={exam.directionsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="direction-button"
-                  >
-                    Get Directions
-                  </a>
+                  <div className="map-area">
+                    <div className="map-frame">
+                      <iframe
+                          src={exam.mapUrl}
+                          width="100%"
+                          height="200"
+                          style={{ border: 0 }}
+                          allowFullScreen=""
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          title={`Map of ${exam.venue}`}
+                      ></iframe>
+                    </div>
+
+                    <a
+                        href={exam.directionsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="direction-button"
+                    >
+                      Get Directions
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
           ))}
         </div>
       </div>
