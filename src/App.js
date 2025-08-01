@@ -53,7 +53,7 @@ function App() {
           <RemainingSeats />
         </section>
         {/*<section id="livecount"><LiveCount /></section>*/}
-        <section id="countdown-register">
+          <section id="countdown-register">
           <CountdownRegister />
         </section>
       </main>
