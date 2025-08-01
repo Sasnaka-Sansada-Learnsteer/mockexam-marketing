@@ -89,6 +89,11 @@
   flex: 1;
   min-width: 270px;
   max-width: 350px;
+  background-color: #fff;
+  border-radius: 15px; 
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .province-card:hover {
