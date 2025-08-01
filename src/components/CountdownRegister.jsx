@@ -8,10 +8,10 @@ const CountdownRegister = () => {
       <div className="countdown-register-container">
         <div className="container">
           <div className="countdown-register-wrapper">
-            {/*<div className="countdown-section">
-              <h2>HURRY UP!</h2>
+            <div className="countdown-section">
+              <h2>GET READY!</h2>
               <CountdownTimer deadline="2025-08-01T20:00:00" />
-            </div>*/}
+            </div>
 
             <div className="register-section">
               <h2>Ready to excel?</h2>
