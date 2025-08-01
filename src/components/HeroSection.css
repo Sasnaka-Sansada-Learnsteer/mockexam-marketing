@@ -91,3 +91,40 @@
     opacity: 0.8;
   }
 }
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero-container {
+    height: 400px;
+  }
+
+  .hero-content {
+    padding: 0 1rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content h2 {
+    font-size: 1rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+    overflow-wrap: break-word;
+  }
+}
