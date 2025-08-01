@@ -21,7 +21,7 @@ const CountdownTimer = ({ deadline }) => {
         return () => clearInterval(timer);
     }, [deadline]);
 
-    if (!timeLeft) return <h2>Registration Closed</h2>;
+    if (!timeLeft) return <h2>Registrations Opening Soon!</h2>;
 
     return (
         <div className="countdown-container">
