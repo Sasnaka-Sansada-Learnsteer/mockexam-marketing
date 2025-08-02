@@ -37,12 +37,12 @@ const RemainingSeats = () => {
       const res = await fetch(config.endpoints.liveCount);
       const data = await res.json();
 
-      if (data.centers) {
-        setCenterData(data.centers);
+      if (data.counts && data.counts.centers) {
+        setCenterData(data.counts.centers);
       }
 
-      if (data.total !== undefined) {
-        setTotalRegistered(data.total);
+      if (data.counts && data.counts.total !== undefined) {
+        setTotalRegistered(data.counts.total);
       }
     } catch (err) {
       console.error("Failed to fetch registration count", err);
