@@ -1,0 +1,68 @@
+.maintenance-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.maintenance-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+}
+
+.maintenance-icon {
+  font-size: 20px;
+}
+
+.maintenance-message {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.maintenance-time {
+  font-weight: 600;
+  margin-top: 3px;
+}
+
+.dismiss-button {
+  background: none;
+  border: none;
+  color: #856404;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  padding: 0 5px;
+  transition: color 0.2s;
+}
+
+.dismiss-button:hover {
+  color: #533f00;
+}
+
+@media (max-width: 768px) {
+  .maintenance-banner {
+    padding: 8px 12px;
+  }
+
+  .maintenance-content {
+    gap: 10px;
+  }
+
+  .maintenance-icon {
+    font-size: 16px;
+  }
+
+  .maintenance-message {
+    font-size: 12px;
+  }
+}
