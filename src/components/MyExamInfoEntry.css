@@ -1,0 +1,90 @@
+/* MyExamInfoEntry.css */
+.my-exam-info-container {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.coming-soon-wrapper {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.coming-soon-wrapper:hover {
+  transform: translateY(-5px);
+}
+
+.portal-icon {
+  font-size: 50px;
+  color: #4a6cf7;
+  margin-bottom: 20px;
+}
+
+.my-exam-portal-text {
+  color: #2d3748;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.divider {
+  width: 60px;
+  height: 4px;
+  background: #4a6cf7;
+  margin: 15px auto 20px;
+  border-radius: 2px;
+}
+
+.coming-soon-text {
+  color: #4a6cf7;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.portal-description {
+  color: #718096;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+.notification-button button {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.notification-button button:hover {
+  background-color: #3a5ce4;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .my-exam-info-container {
+    padding: 40px 15px;
+  }
+
+  .coming-soon-wrapper {
+    padding: 30px 20px;
+  }
+
+  .my-exam-portal-text {
+    font-size: 28px;
+  }
+}

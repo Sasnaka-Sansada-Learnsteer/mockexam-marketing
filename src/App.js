@@ -19,6 +19,7 @@ import Footer from "./components/Footer";
 import HearFromChampions from "./components/HearFromChampions";
 import ExamCenter from "./components/ExamCenter";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
+import MyExamInfoEntry from "./components/MyExamInfoEntry";
 
 function App() {
   return (
@@ -52,6 +53,9 @@ function App() {
         <section id="remainingseats">
           <RemainingSeats />
         </section>
+          <section id="myexaminfo">
+              <MyExamInfoEntry />
+          </section>
         {/*<section id="livecount"><LiveCount /></section>*/}
           <section id="countdown-register">
           <CountdownRegister />
