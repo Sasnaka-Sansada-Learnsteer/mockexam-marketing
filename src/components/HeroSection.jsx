@@ -52,16 +52,19 @@ const HeroSection = () => {
                 <h1>Prepare for Your Future</h1>
                 <h2>with Sasnaka Sansada A/L Mock Exam 2025</h2>
                 <p>Take the first step towards A/L excellence with our comprehensive mock exam series</p>
-                <p className="registration-message">
-                    {typeof timeLeft === 'string' ? (
-                        timeLeft
-                    ) : (
-                        <>
-                            {timeLeft.text}
-                            <span className="countdown-numbers">{timeLeft.time}</span>
-                        </>
-                    )}
-                </p>
+                {/*<p className="registration-message">*/}
+                {/*    {typeof timeLeft === 'string' ? (*/}
+                {/*        timeLeft*/}
+                {/*    ) : (*/}
+                {/*        <>*/}
+                {/*            {timeLeft.text}*/}
+                {/*            <span className="countdown-numbers">{timeLeft.time}</span>*/}
+                {/*        </>*/}
+                {/*    )}*/}
+                {/*</p>*/}
+                <div className="register-button-container">
+                    <RegisterNow className="small-button" />
+                </div>
             </div>
             <div className="hero-overlay"></div>
         </div>
