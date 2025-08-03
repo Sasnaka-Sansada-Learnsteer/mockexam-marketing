@@ -20,6 +20,7 @@ import HearFromChampions from "./components/HearFromChampions";
 import ExamCenter from "./components/ExamCenter";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import MyExamInfoEntry from "./components/MyExamInfoEntry";
+import MaintenanceBanner from "./components/MaintenanceBanner";
 
 function App() {
   return (
@@ -30,8 +31,11 @@ function App() {
 
       <main>
         <Analytics />
-
         <section id="herosection">
+            {/*<MaintenanceBanner*/}
+            {/*    message="Scheduled maintenance in progress. Registration will be unavailable until June 15, 10:00 AM."*/}
+            {/*    maintenanceEndTime="June 15, 10:00 AM"*/}
+            {/*/>*/}
           <HeroSection />
         </section>
         <section id="examinfo">

@@ -2,7 +2,7 @@
 const config = {
     // API endpoints
     endpoints: {
-        liveCount: "https://script.google.com/macros/s/AKfycby8RrjE-MJXUAswx2Zsv31jYYmVIbdrxTzSfWfpazLIo3U4i6vrhAETuqUEUDqIoCXjLw/exec"
+        liveCount: "https://script.google.com/macros/s/AKfycbylf8kXqM8zoVASg20ng6_jmRVrDupvi1GB73BeBoTf6ehgvfL1Lj4ieARQny6WywoW6g/exec"
     },
 
     // Refresh intervals in milliseconds

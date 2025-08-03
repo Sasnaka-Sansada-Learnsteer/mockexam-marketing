@@ -8,12 +8,12 @@ const MyExamInfoEntry = () => {
                 <div className="portal-icon">
                     <i className="fas fa-user-graduate"></i>
                 </div>
-                <h2 className="my-exam-portal-text">SME My Exam Portal</h2>
+                <h2 className="my-exam-portal-text">MySME Exam Portal</h2>
                 <div className="divider"></div>
                 {/*<h4 className="coming-soon-text">Coming Soon</h4>*/}
                 <p className="portal-description">
                     Your personalized exam management space is on its way.
-                    Stay tuned for a seamless exam experience.
+                    Stay tuned for a seamless experience.
                 </p>
                 <div className="notification-button">
                     {/*<button>Get Notified</button>*/}
