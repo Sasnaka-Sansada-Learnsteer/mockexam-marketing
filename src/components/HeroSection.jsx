@@ -11,7 +11,7 @@ const HeroSection = () => {
             const target = new Date();
 
             // Set target to today at 8 PM
-            target.setHours(20, 0, 0, 0);
+            target.setHours(18, 0, 0, 0);
 
             // If it's already past 8 PM, display a different message
             if (now >= target) {
