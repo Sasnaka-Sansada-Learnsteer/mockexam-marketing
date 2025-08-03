@@ -74,7 +74,8 @@ const RemainingSeats = () => {
     <section className="remaining-seats" data-aos="fade-up">
       <div className="container">
         <h2 className="section-title">Remaining Seats</h2>
-        <h3 className="section-subtitle">( Seat counts will be updated once the registrations are confirmed. )</h3>
+        <h3 className="section-subtitle">( Seat counts are based on the real-time registrations.
+          Subject to change after verification of the candidates )</h3>
 
         {loading ? (
           <div className="loading">Loading seat availability...</div>
