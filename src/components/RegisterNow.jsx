@@ -6,7 +6,7 @@ const RegisterNow = ({ className = "", pulsing = true }) => {
 
   return (
     <a
-      href="https://forms.gle/do6jF9UGx9gh4ZmZ9"
+      href="https://forms.gle/XuaSKAaMJ39TFvBN6"
       target="_blank"
       rel="noreferrer"
       className={`register-button ${pulsing ? "pulsing" : ""} ${
