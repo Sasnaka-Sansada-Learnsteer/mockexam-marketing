@@ -61,7 +61,7 @@ function App() {
       <PopupNotification />
       <Footer />
 
-      <FloatingWhatsApp phoneNumber="94774620867" />
+      <FloatingWhatsApp phoneNumber="94703445342" />
     </div>
   );
 }
