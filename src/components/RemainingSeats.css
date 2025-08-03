@@ -29,6 +29,24 @@
   transform: translateX(-50%);
 }
 
+.section-subtitle {
+  font-size: 0.9rem;
+  font-weight: normal;
+  color: #666;
+  font-style: italic;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .section-subtitle {
+    font-size: 0.8rem;
+    margin-top: -8px;
+    margin-bottom: 16px;
+  }
+}
+
 .loading {
   font-size: 1.2rem;
   color: #666;
