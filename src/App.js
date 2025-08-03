@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 
 import { Analytics } from "@vercel/analytics/react";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import CountdownTimer from "./components/CountdownTimer";
 import ExamInfo from "./components/ExamInfo";
@@ -19,6 +20,8 @@ import Footer from "./components/Footer";
 import HearFromChampions from "./components/HearFromChampions";
 import ExamCenter from "./components/ExamCenter";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
+import MyExamPortal from "./components/MyExamPortal";
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
@@ -39,6 +42,9 @@ function App() {
         <section id="stats">
           <Stats />
         </section>
+          <section id="myexamportal">
+              <MyExamPortal />
+          </section>
         {/*<section id="hearfromchampions"><HearFromChampions /></section>*/}
         {/*<section id="countdowntimer"><CountdownTimer deadline="2025-07-31T23:59:59" /></section>*/}
         <section id="examtimetable">

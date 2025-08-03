@@ -1,0 +1,76 @@
+/* src/pages/LoginPage.css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
+}
+
+.login-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(58, 86, 212, 0.15);
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-card h2 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.login-card p {
+  color: #5a6a7a;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.login-button {
+  width: 100%;
+  background: linear-gradient(145deg, #3a56d4, #4b66e4);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background: linear-gradient(145deg, #3350c8, #405ad8);
+}
+
+@media (max-width: 500px) {
+  .login-card {
+    padding: 20px;
+  }
+}
