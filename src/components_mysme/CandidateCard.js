@@ -40,7 +40,7 @@ const CandidateCard = ({ registration }) => {
       <div className="registration-details">
         <div className="detail-row">
           <span className="detail-label">NIC:</span>
-          <span className="detail-value">{registration["NIC "] || 'Not provided'}</span>
+          <span className="detail-value">{registration["NIC"] || registration["NIC "] || 'Not provided'}</span>
         </div>
 
         <div className="detail-row">
