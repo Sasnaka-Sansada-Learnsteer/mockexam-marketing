@@ -3,8 +3,6 @@ import '../styles/CandidateCard.css';
 
 const CandidateCard = ({ registration }) => {
   // Debug: Log the registration data structure
-  console.log('CandidateCard received registration:', registration);
-  console.log('Registration keys:', registration ? Object.keys(registration) : 'No registration data');
 
   // Format the timestamp
   const formatDate = (timestamp) => {
