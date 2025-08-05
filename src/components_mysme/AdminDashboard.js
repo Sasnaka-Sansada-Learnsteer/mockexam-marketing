@@ -91,7 +91,6 @@ const AdminDashboard = () => {
         ) : (
             <div className="candidate-cards">
               {registrations.map((registration, index) => {
-                console.log(`Candidate ${index}:`, registration);
                 return (
                   <CandidateCard
                       key={registration._id || registration.NIC || registration.nic || index}
