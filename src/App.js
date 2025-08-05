@@ -3,26 +3,28 @@ import "./App.css";
 
 import { Analytics } from "@vercel/analytics/react";
 
-import CountdownTimer from "./components/CountdownTimer";
 import ExamInfo from "./components/ExamInfo";
 import HeroSection from "./components/HeroSection";
 import ExamTimetable from "./components/ExamTimetable";
-import RegisterNow from "./components/RegisterNow";
-import Sponsors from "./components/Sponsors";
 import Stats from "./components/Stats";
-import LiveCount from "./components/LiveCount";
 import PopupNotification from "./components/PopupNotification";
 import NavBar from "./components/NavBar";
 import CountdownRegister from "./components/CountdownRegister";
 import RemainingSeats from "./components/RemainingSeats";
 import Footer from "./components/Footer";
-import HearFromChampions from "./components/HearFromChampions";
 import ExamCenter from "./components/ExamCenter";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import MyExamInfoEntry from "./components/MyExamInfoEntry";
-import MaintenanceBanner from "./components/MaintenanceBanner";
 
-function App() {
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './components_mysme/Login';
+import Profile from './components_mysme/Profile';
+import AdminDashboard from "./components_mysme/AdminDashboard";
+import AdminLogin from "./components_mysme/AdminLogin";
+
+
+// Create a component for the main marketing site
+function MarketingSite() {
   return (
     <div className="App">
       <header className="app-header">
@@ -32,10 +34,6 @@ function App() {
       <main>
         <Analytics />
         <section id="herosection">
-            {/*<MaintenanceBanner*/}
-            {/*    message="Scheduled maintenance in progress. Registration will be unavailable until June 15, 10:00 AM."*/}
-            {/*    maintenanceEndTime="June 15, 10:00 AM"*/}
-            {/*/>*/}
           <HeroSection />
         </section>
         <section id="examinfo">
@@ -44,24 +42,19 @@ function App() {
         <section id="stats">
           <Stats />
         </section>
-        {/*<section id="hearfromchampions"><HearFromChampions /></section>*/}
-        {/*<section id="countdowntimer"><CountdownTimer deadline="2025-07-31T23:59:59" /></section>*/}
         <section id="examtimetable">
           <ExamTimetable />
         </section>
         <section id="examcenter">
           <ExamCenter />
         </section>
-        {/*<section id="registernow"><RegisterNow /></section>*/}
-        {/*<section id="sponsors"><Sponsors /></section>*/}
         <section id="remainingseats">
           <RemainingSeats />
         </section>
-          <section id="myexaminfo">
-              <MyExamInfoEntry />
-          </section>
-        {/*<section id="livecount"><LiveCount /></section>*/}
-          <section id="countdown-register">
+        <section id="myexaminfo">
+          <MyExamInfoEntry />
+        </section>
+        <section id="countdown-register">
           <CountdownRegister />
         </section>
       </main>
@@ -71,6 +64,30 @@ function App() {
 
       <FloatingWhatsApp phoneNumber="94703445342" />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <div className="app-container">
+        <Routes>
+          {/* Main marketing site route */}
+          <Route path="/" element={<MarketingSite />} />
+
+          {/* Candidate Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+           {/*Admin redirect */}
+          <Route path="/admin" element={<Navigate to="/admin/login" />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
