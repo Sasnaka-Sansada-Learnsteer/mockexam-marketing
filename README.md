@@ -1,73 +1,234 @@
-# Getting Started with Create React App
+# AL Mock Exam Marketing Site
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive React-based marketing website for AL Mock Examinations with integrated candidate management and admin panel features.
 
-## Available Scripts
+## 🚀 Project Overview
 
-In the project directory, you can run:
+This is a full-featured marketing site built with React that includes:
+- **Marketing Landing Page** - Exam information, statistics, timetables, and registration
+- **Candidate Portal** - Student login and profile management
+- **Admin Dashboard** - Administrative panel for exam management with candidate assignment features
 
-### `npm start`
+## 🛠️ Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend**: React 18.2.0
+- **Routing**: React Router DOM v6
+- **Styling**: CSS3 with component-specific stylesheets
+- **Analytics**: Vercel Analytics & Speed Insights
+- **HTTP Client**: Axios
+- **Build Tool**: CRACO (Create React App Configuration Override)
+- **Backend API**: Node.js/Express (Heroku hosted)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📁 Project Structure
 
-### `npm test`
+```
+src/
+├── App.js                 # Main app with routing configuration
+├── App.css               # Global app styles
+├── components/           # Marketing site components
+│   ├── HeroSection.jsx   # Main hero section with CTA
+│   ├── ExamInfo.jsx      # Exam details and information
+│   ├── ExamTimetable.jsx # Exam schedule display
+│   ├── Stats.jsx         # Live statistics
+│   ├── ExamCenter.jsx    # Exam center information
+│   ├── RemainingSeats.jsx # Available seats counter
+│   ├── CountdownRegister.jsx # Registration countdown
+│   ├── MyExamInfoEntry.jsx # Candidate info entry
+│   ├── NavBar.jsx        # Navigation component
+│   ├── Footer.jsx        # Site footer
+│   ├── PopupNotification.jsx # System notifications
+│   └── FloatingWhatsApp.jsx # WhatsApp integration
+├── components_mysme/     # User management components
+│   ├── Login.js          # Candidate login system
+│   ├── Profile.js        # Candidate profile management
+│   ├── AdminLogin.js     # Admin authentication
+│   ├── AdminDashboard.js # Admin panel with candidate management
+│   └── CandidateCard.js  # Candidate information display
+├── config/
+│   └── api.js           # API configuration and endpoints
+└── styles/
+    ├── admin.css        # Admin panel styles
+    └── CandidateCard.css # Candidate card styling
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🔗 Routes
 
-### `npm run build`
+### Public Routes
+- `/` - Main marketing landing page
+- `/login` - Candidate login portal
+- `/profile` - Candidate profile (protected)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Admin Routes
+- `/admin` - Redirects to admin login
+- `/admin/login` - Admin authentication
+- `/admin/dashboard` - Admin panel with candidate management
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn package manager
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd almockexam-marketing-site
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **Start development server**
+   ```bash
+   npm start
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. **Build for production**
+   ```bash
+   npm run build
+   ```
 
-## Learn More
+## 🔧 Configuration
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Environment Variables
+Create a `.env` file in the root directory:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```env
+REACT_APP_API_BASE_URL=https://sme-api-04db435264b2.herokuapp.com
+REACT_APP_WHATSAPP_NUMBER=94703445342
+```
 
-### Code Splitting
+### API Configuration
+The app connects to a backend API hosted on Heroku. Key endpoints:
+- `POST /api/admin/login` - Admin authentication
+- `GET /api/admin/dashboard` - Admin dashboard data
+- `POST /api/candidates/login` - Candidate authentication
+- `GET /api/candidates/profile` - Candidate profile data
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🎨 Features
 
-### Analyzing the Bundle Size
+### Marketing Site
+- **Responsive Design** - Mobile-first approach
+- **Live Statistics** - Real-time exam registration counts
+- **Countdown Timer** - Registration deadline tracking
+- **Exam Information** - Comprehensive exam details
+- **Center Locations** - Interactive exam center display
+- **WhatsApp Integration** - Direct communication channel
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Admin Panel
+- **Secure Authentication** - Panel ID-based login system
+- **Candidate Management** - View assigned candidates
+- **Real-time Data** - Live candidate information updates
+- **Responsive Dashboard** - Mobile-friendly admin interface
 
-### Making a Progressive Web App
+### Candidate Portal
+- **Profile Management** - Personal information updates
+- **Exam Details** - Personalized exam information
+- **Secure Access** - Authentication-protected areas
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🛠️ Technical Details
 
-### Advanced Configuration
+### Webpack 5 Compatibility
+The project uses CRACO to handle Node.js polyfills required for webpack 5:
+- Buffer, crypto, stream, path, and other Node.js modules
+- Proper fallback configuration for browser compatibility
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### State Management
+- React Hooks (useState, useEffect)
+- Local storage for authentication tokens
+- Context-free architecture for simplicity
 
-### Deployment
+### Styling Architecture
+- Component-scoped CSS files
+- Responsive design patterns
+- CSS Grid and Flexbox layouts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🔍 Troubleshooting
 
-### `npm run build` fails to minify
+### Common Issues
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. **Webpack Module Resolution Errors**
+   - Ensure CRACO is properly configured
+   - Check that all polyfill packages are installed
+   - Verify craco.config.js settings
 
+2. **API Connection Issues**
+   - Check backend server status
+   - Verify API endpoints in network tab
+   - Ensure CORS is properly configured
 
-test
+3. **Authentication Problems**
+   - Clear browser local storage
+   - Check token expiration
+   - Verify API responses in console
+
+### Build Issues
+If you encounter build problems:
+```bash
+# Clear cache and reinstall
+rm -rf node_modules package-lock.json
+npm install
+
+# Try building with verbose output
+npm run build --verbose
+```
+
+## 📱 Browser Support
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## 🚀 Deployment
+
+### Vercel Deployment
+The site is configured for Vercel deployment with:
+- Automatic builds from main branch
+- Environment variable configuration
+- Analytics integration
+
+### Manual Deployment
+```bash
+npm run build
+# Deploy build/ directory to your hosting service
+```
+
+## 📝 API Integration
+
+### Admin Dashboard Data Flow
+1. Admin logs in with Panel ID
+2. Token stored in localStorage
+3. Dashboard fetches assigned candidates
+4. Real-time updates via API calls
+
+### Error Handling
+- Network error recovery
+- Token refresh mechanisms
+- User-friendly error messages
+- Console logging for debugging
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 📞 Support
+
+For technical support or questions:
+- WhatsApp: +94 70 344 5342
+- Email: Contact through the website
+
+---
+
+**Last Updated**: August 2025
