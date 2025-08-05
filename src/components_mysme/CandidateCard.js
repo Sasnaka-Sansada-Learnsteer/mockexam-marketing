@@ -5,23 +5,6 @@ const CandidateCard = ({ registration }) => {
   // Debug: Log the registration data structure
 
   // Format the timestamp
-  // const formatDate = (timestamp) => {
-  //   if (!timestamp) return 'N/A';
-  //   try {
-  //     const date = new Date(timestamp);
-  //     if (isNaN(date.getTime())) return 'Invalid Date';
-  //     return date.toLocaleString('en-US', {
-  //       year: 'numeric',
-  //       month: 'short',
-  //       day: 'numeric',
-  //       hour: '2-digit',
-  //       minute: '2-digit'
-  //     });
-  //   } catch (error) {
-  //     console.error('Date formatting error:', error);
-  //     return 'N/A';
-  //   }
-  // };
 
   // Handle missing registration data
   if (!registration) {
