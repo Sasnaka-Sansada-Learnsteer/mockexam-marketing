@@ -33,7 +33,7 @@ const CandidateCard = ({ registration }) => {
   return (
     <div className="registration-card" data-nic={registration.nic || registration.NIC || 'unknown'}>
       <div className="registration-card-header">
-        <h3>{registration["Full Name"] || 'Unnamed Registrant'}</h3>
+        <h3>{registration.fullName || registration["Full Name"] || 'Unnamed Registrant'}</h3>
         {/*<span className="timestamp">{formatDate(registration["Timestamp"])}</span>*/}
       </div>
 
