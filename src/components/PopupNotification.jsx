@@ -1,70 +1,88 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import config from "../config/api";
 import './PopupNotification.css'; // Create this file for the styles
 
 const PopupNotification = () => {
     const [show, setShow] = useState(false);
-    const [previousCount, setPreviousCount] = useState(0);
-    const [currentCount, setCurrentCount] = useState(0);
+    const [district, setDistrict] = useState('');
     const [isExiting, setIsExiting] = useState(false);
+    const socketRef = useRef(null);
+    const reconnectTimeoutRef = useRef(null);
 
-    const fetchCount = async () => {
-        try {
-            const res = await fetch(config.endpoints.liveCount);
-            const data = await res.json();
-            if (data.total) {
-                setPreviousCount(currentCount);
-                setCurrentCount(data.total);
+    useEffect(() => {
+        const connectWebSocket = () => {
+            // Connect to WebSocket server
+            const wsUrl = config.endpoints.websocket;
+            console.log('Connecting to WebSocket:', wsUrl);
+
+            socketRef.current = new WebSocket(wsUrl);
+
+            // WebSocket event handlers
+            socketRef.current.onopen = () => {
+                console.log('WebSocket connection established');
+            };
+
+            socketRef.current.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    console.log('WebSocket message received:', data);
+
+                    if (data.type === 'new_registration') {
+                        if(data.district){
+                            // Set district data
+                            setDistrict(data.district);
+                        }
+
+                        // Show popup
+                        setShow(true);
+                        setIsExiting(false);
+
+                        // Auto-hide after timeout
+                        const timer = setTimeout(() => {
+                            setIsExiting(true);
+                            setTimeout(() => setShow(false), 800);
+                        }, 10000);
+
+                        return () => clearTimeout(timer);
+                    }
+                } catch (err) {
+                    console.error('Error processing WebSocket message:', err);
+                }
+            };
+        }
+
+
+        socketRef.current.onerror = (error) => {
+            console.error('WebSocket error:', error);
+        };
+
+        socketRef.current.onclose = () => {
+            console.log('WebSocket connection closed');
+            // Attempt to reconnect after a delay
+            reconnectTimeoutRef.current = setTimeout(() => {
+                console.log('Attempting to reconnect WebSocket...');
+                connectWebSocket();
+            }, 5000);
+        };
+
+        connectWebSocket();
+
+        // Clean up on unmount
+        return () => {
+            if (socketRef.current) {
+                socketRef.current.close();
             }
-        } catch (err) {
-            console.error("Popup fetch error", err);
-        }
-    };
-
-    useEffect(() => {
-        // For development/testing purposes
-        // const popupInterval = setInterval(() => {
-        //     setShow(true);
-        //     setIsExiting(false);
-        //
-        //     setTimeout(() => {
-        //         setIsExiting(true);
-        //         setTimeout(() => setShow(false), 800);
-        //     }, 10000); // Show for 10 seconds
-        //
-        // }, 10000); // Show every 30 seconds
-
-        // Uncomment for production
-        const popupInterval = setInterval(() => {
-            fetchCount();
-        }, 20000); // check for new registrations every 20 seconds
-
-
-        return () => clearInterval(popupInterval);
+            if (reconnectTimeoutRef.current) {
+                clearTimeout(reconnectTimeoutRef.current);
+            }
+        };
     }, []);
-
-    useEffect(() => {
-        const diff = currentCount - previousCount;
-        if (diff > 0) {
-            setShow(true);
-            setIsExiting(false);
-
-            const timer = setTimeout(() => {
-                setIsExiting(true);
-                setTimeout(() => {
-                    setShow(false);
-                }, 800); // Wait for exit animation to complete
-            }, 10000);
-
-            return () => clearTimeout(timer);
-        }
-    }, [currentCount, previousCount]);
 
     const handleClose = () => {
         setIsExiting(true);
         setTimeout(() => {
             setShow(false);
-        }, 800); // Match exit animation duration
+        }, 800);
     };
 
     if (!show) return null;
@@ -75,7 +93,7 @@ const PopupNotification = () => {
                 <div className="popup-icon">🧑🏻‍🏫</div>
                 <div className="popup-message">
                     <h4>New Registration!</h4>
-                    <p>Someone just registered for the exam</p>
+                    <p>Someone from {district} just registered for the exam</p>
                 </div>
             </div>
             <button className="popup-close" onClick={handleClose}>×</button>
