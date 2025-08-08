@@ -59,7 +59,7 @@ function MarketingSite() {
         </section>
       </main>
 
-      <PopupNotification />
+      {/*<PopupNotification />*/}
       <Footer />
 
       <FloatingWhatsApp phoneNumber="94703445342" />
