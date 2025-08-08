@@ -77,8 +77,8 @@ const AdminDashboard = () => {
       <div className="dashboard-header">
         <h2>Admin Panel Dashboard</h2>
         <div className="panel-info">
-          <p>Panel ID: {panelMember?.panelId}</p>
-          <p>Name: {panelMember?.name || 'N/A'}</p>
+          <p>admin ID: {panelMember?.panelId}</p>
+          <p>Name: {panelMember?.Name || 'N/A'}</p>
           <button onClick={handleLogout} className="btn-logout">Logout</button>
         </div>
       </div>

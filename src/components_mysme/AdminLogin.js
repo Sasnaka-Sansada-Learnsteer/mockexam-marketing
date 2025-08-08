@@ -50,13 +50,13 @@ const AdminLogin = () => {
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="panelId">Panel ID</label>
+          <label htmlFor="panelId">admin ID</label>
           <input
             type="text"
             id="panelId"
             value={panelId}
             onChange={(e) => setPanelId(e.target.value)}
-            placeholder="Enter your 7-digit panel ID"
+            placeholder="Enter your 7-digit admin ID"
             maxLength={7}
             required
           />
