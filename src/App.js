@@ -7,7 +7,7 @@ import ExamInfo from "./components/ExamInfo";
 import HeroSection from "./components/HeroSection";
 import ExamTimetable from "./components/ExamTimetable";
 import Stats from "./components/Stats";
-import PopupNotification from "./components/PopupNotification";
+// import PopupNotification from "./components/PopupNotification";
 import NavBar from "./components/NavBar";
 import CountdownRegister from "./components/CountdownRegister";
 import RemainingSeats from "./components/RemainingSeats";
