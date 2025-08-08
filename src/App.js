@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import ExamCenter from "./components/ExamCenter";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import MyExamInfoEntry from "./components/MyExamInfoEntry";
+import PopupCard from "./components/PopupCard";
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components_mysme/Login';
@@ -27,6 +28,7 @@ import AdminLogin from "./components_mysme/AdminLogin";
 function MarketingSite() {
   return (
     <div className="App">
+      <PopupCard />
       <header className="app-header">
         <NavBar />
       </header>

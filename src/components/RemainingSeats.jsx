@@ -12,7 +12,11 @@ const RemainingSeats = () => {
   const [loading, setLoading] = useState(true);
 
   const TOTAL_SEATS = 1200;
-  const SEATS_PER_CENTER = 400;
+  const SEATS_CONFIG = {
+    Colombo: 350,
+    Galle: 400,
+    Kandy: 400,
+  };
   const centers = [
     {
       id: "Colombo",
@@ -63,12 +67,15 @@ const RemainingSeats = () => {
   // Calculate remaining seats
   const calculateRemainingSeats = (center) => {
     const booked = centerData[center] || 0;
-    return Math.max(0, SEATS_PER_CENTER - booked);
+    const total = SEATS_CONFIG[center] || 400;
+    return Math.max(0, total - booked);
   };
 
-  const getPercentage = (remaining) => {
-    return (remaining / SEATS_PER_CENTER) * 100;
+  const getPercentage = (remaining, center) => {
+    const total = SEATS_CONFIG[center] || 400;
+    return (remaining / total) * 100;
   };
+
 
   return (
     <section className="remaining-seats" data-aos="fade-up">
@@ -83,7 +90,7 @@ const RemainingSeats = () => {
           <div className="seats-container">
             {centers.map((center) => {
               const remainingSeats = calculateRemainingSeats(center.id);
-              const percentage = getPercentage(remainingSeats);
+              const percentage = getPercentage(remainingSeats, center.id);
 
               return (
                 <div className="seat-card" key={center.id}>
