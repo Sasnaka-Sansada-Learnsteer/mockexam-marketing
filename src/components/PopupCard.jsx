@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PopupCard.css";
 import RegisterNow from "./RegisterNow";
 
 const PopupCard = () => {
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false); // hidden at start
     const [closing, setClosing] = useState(false);
+
+    useEffect(() => {
+        const hasSeenPopup = sessionStorage.getItem("hasSeenPopup");
+
+        if (!hasSeenPopup) {
+            const timer = setTimeout(() => {
+                setVisible(true); // show after 2 seconds
+                sessionStorage.setItem("hasSeenPopup", "true");
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, []);
 
     const handleClose = () => {
         setClosing(true);
-        setTimeout(() => setVisible(false), 300); // Match duration with CSS
+        setTimeout(() => setVisible(false), 300); // match animation duration
     };
 
     return visible ? (

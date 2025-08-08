@@ -95,22 +95,26 @@
 /* From Top*/
 @keyframes bounceInTop {
     0% {
+        transform: translateY(-200px);
         opacity: 0;
-        transform: translateY(-120%) scale(0.95);
+        animation-timing-function: ease-in;
     }
-    50% {
+    60% {
+        transform: translateY(20px);
         opacity: 1;
-        transform: translateY(0%) scale(1.02);
+        animation-timing-function: ease-out;
     }
-    70% {
-        transform: translateY(-6px) scale(0.99);
-    }
-    85% {
-        transform: translateY(3px) scale(1.01);
+    80% {
+        transform: translateY(-10px);
+        animation-timing-function: ease-in-out;
     }
     100% {
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
     }
+}
+
+.bounce-in-top {
+    animation: bounceInTop 0.8s both;
 }
 
 /* Exiting Anim*/
