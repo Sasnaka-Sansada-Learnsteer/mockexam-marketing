@@ -25,8 +25,8 @@ const Footer = () => {
           <div className="footer-section">
             <h4>Contact Us</h4>
             <ul>
-              <li><a href="mailto:almockexam.sasnaka@gmail.com">
-                almockexam.sasnaka@gmail.com</a></li>
+              <li><a href="mailto:sme@sasnaka.org">
+                sme@sasnaka.org</a></li>
               {/*<li><a href="tel:+94112234645">+94 112 234 645</a></li>*/}
             </ul>
           </div>
