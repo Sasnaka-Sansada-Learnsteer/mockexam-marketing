@@ -1,0 +1,101 @@
+.exam-tags-container {
+    margin: 20px 0;
+    padding: 16px;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.section-title::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background-color: #3b82f6;
+    margin-right: 8px;
+    border-radius: 2px;
+}
+
+.exam-tags-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.exam-tag {
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.exam-tag:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+}
+
+.exam-tag.selected {
+    background-color: #ebf5ff;
+    border-color: #93c5fd;
+}
+
+.exam-tag.read-only {
+    cursor: default;
+}
+
+.exam-tag-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.exam-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #475569;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.exam-tag.selected .exam-name {
+    color: #1e40af;
+    font-weight: 600;
+}
+
+.exam-tag-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+.exam-tag.selected .exam-tag-icon {
+    color: #2563eb;
+}
+
+.selected-count {
+    font-size: 0.85rem;
+    color: #64748b;
+    text-align: right;
+    margin-top: 8px;
+    font-style: italic;
+}
