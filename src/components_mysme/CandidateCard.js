@@ -19,7 +19,7 @@ const InfoCard = ({ label, value }) => (
 );
 
 const CandidateCard = ({ candidate, token, exams }) => {
-    const [setIsEditing] = useState(false);
+    const [isEditing,setIsEditing] = useState(false);
     const [name, setName] = useState('');
     const [emailAddress, setEmailAddress] = useState( '');
     const [whatsappNumber, setWhatsappNumber] = useState('');
@@ -64,7 +64,7 @@ const CandidateCard = ({ candidate, token, exams }) => {
                 }
             });
 
-            if (response.ok) {
+            if (response.status >= 200 && response.status < 300) {
                 setIsEditing(false);
             }
         } catch (error) {
@@ -114,7 +114,7 @@ const CandidateCard = ({ candidate, token, exams }) => {
                     checked={joinedChannelsConfirmed}
                     onChange={(e) => setJoinedChannelsConfirmed(e.target.checked)}
                     className="checkbox-input"
-                    id="examCenter"
+                    id="joinedChannels"
                 />
                 <label htmlFor="examCenter" className="checkbox-label">
                     Confirmed
