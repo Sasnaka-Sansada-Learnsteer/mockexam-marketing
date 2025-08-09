@@ -22,7 +22,7 @@ import Login from './components_mysme/Login';
 import Profile from './components_mysme/Profile';
 import AdminDashboard from "./components_mysme/AdminDashboard";
 import AdminLogin from "./components_mysme/AdminLogin";
-
+import PrivateRoute from './components_mysme/PrivateRoute';
 
 // Create a component for the main marketing site
 function MarketingSite() {
@@ -83,7 +83,11 @@ function App() {
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/dashboard" element={
+              <PrivateRoute>
+              <AdminDashboard />
+              </PrivateRoute> }
+          />
 
            {/*Admin redirect */}
           <Route path="/admin" element={<Navigate to="/admin/login" />} />

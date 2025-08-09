@@ -4,40 +4,40 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/admin.css';
 import CandidateCard from "./CandidateCard";
+import PropTypes from 'prop-types';
 
-const AdminDashboard = () => {
+const AdminDashboard = ({candidate, token}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const [registrations, setCandidates] = useState([]);
+  const [candidates, setCandidates] = useState([]);
   const [panelMember, setPanelMember] = useState(null);
+  const [exams, setExams] = useState([]);
 
-  useEffect(() => {
+    useEffect(() => {
+        const token = localStorage.getItem('adminToken');
+
+        if (!token) {
+            navigate('/admin/login');
+            return;
+        }
     const fetchDashboard = async () => {
-      const token = localStorage.getItem('adminToken');
-
-      if (!token) {
-        navigate('/admin/login');
-        return;
-      }
-
-      try {
-        console.log('Fetching dashboard data with token:', token);
+      console.log('Fetching dashboard data with token:', token);
 
         // Use full URL instead of relative path to avoid proxy issues
-        const res = await axios.get('https://sme-api-04db435264b2.herokuapp.com/api/admin/dashboard', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+        const response = await axios.get('https://sme-api-04db435264b2.herokuapp.com/api/admin/dashboard', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
         });
 
-        console.log('Dashboard response:', res.data);
+        console.log('Dashboard response:', response.data);
 
-        setPanelMember(res.data.panelMember);
-
+      try {
+        setPanelMember(response.data.panelMember);
         // Ensure we handle different response structures
-        const candidateData = res.data.assignedCandidates || res.data.candidates || [];
+        const candidateData = response.data.assignedCandidates || response.data.candidates || [];
         console.log('Candidate data:', candidateData);
         setCandidates(Array.isArray(candidateData) ? candidateData : []);
 
@@ -60,8 +60,15 @@ const AdminDashboard = () => {
       }
     };
 
-    fetchDashboard();
-  }, [navigate]);
+    const fetchExams = async () => {
+        const response = await axios.get(
+                'https://sme-api-04db435264b2.herokuapp.com/api/admin/api/exams',
+                { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setExams(response.data.exams || []);
+    };
+    Promise.all([fetchDashboard(), fetchExams()]).then(() => setLoading(false));
+  }, [navigate, token]);
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
@@ -86,15 +93,17 @@ const AdminDashboard = () => {
       <div className="dashboard-content">
         <h2>Your Assigned Candidates</h2>
 
-        {registrations.length === 0 ? (
+        {candidates.length === 0 ? (
             <p className="no-candidates">No candidates assigned yet.</p>
         ) : (
             <div className="candidate-cards">
-              {registrations.map((registration, index) => {
+              {candidates.map((candidate, index) => {
                 return (
                   <CandidateCard
-                      key={registration._id || registration.NIC || registration.nic || index}
-                      registration={registration}
+                      key={candidate.NIC}
+                      candidate={candidate}
+                      token={token}
+                      exams={exams}
                   />
                 );
               })}
@@ -103,6 +112,19 @@ const AdminDashboard = () => {
       </div>
     </div>
   );
+};
+
+// PropTypes for type checking
+CandidateCard.propTypes = {
+    candidate: PropTypes.shape({
+        NIC: PropTypes.string,
+        'Email Address': PropTypes.string,
+        'Whatsapp Number': PropTypes.string,
+        'Subject Stream': PropTypes.string,
+        Preferred_Exam_Center_Confirmed: PropTypes.bool,
+        confirmed_papers: PropTypes.arrayOf(PropTypes.string)
+    }),
+    token: PropTypes.string.isRequired
 };
 
 export default AdminDashboard;
