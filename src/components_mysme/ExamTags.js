@@ -13,7 +13,7 @@ const ExamTags = ({
             <div className="exam-tags-grid">
                 {availableExams.map((exam)=> {
                     // Extract exam_name from the exam object
-                    const examName = exam.exam_name;
+                    const examName = exam;
 
                     // Check if this exam is selected by comparing exam_name
                     const isSelected = selectedExams.includes(examName);

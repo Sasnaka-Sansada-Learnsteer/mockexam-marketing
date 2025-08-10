@@ -1,5 +1,5 @@
 // src/components/AdminDashboard.js
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/admin.css';
@@ -14,7 +14,7 @@ const AdminDashboard = ({candidate, token}) => {
   const [panelMember, setPanelMember] = useState(null);
   const [exams, setExams] = useState([]);
 
-    useEffect(() => {
+  useEffect(() => {
         const token = localStorage.getItem('adminToken');
 
         if (!token) {
@@ -65,10 +65,37 @@ const AdminDashboard = ({candidate, token}) => {
                 'https://sme-api-04db435264b2.herokuapp.com/api/admin/api/exams',
                 { headers: { Authorization: `Bearer ${token}` } }
         );
-        setExams(response.data.exams || []);
+        const examsArray = Array.isArray(response.data) ? response.data : response.data.exams;
+        const examNames = examsArray.map(exam => exam.exam_name);
+        setExams(examNames);
     };
+
     Promise.all([fetchDashboard(), fetchExams()]).then(() => setLoading(false));
   }, [navigate, token]);
+
+    useEffect(() => {
+        const Autologout = () => {
+              // Clear auth tokens/session here
+              localStorage.removeItem('adminToken');
+              navigate('/admin/login');
+        };
+
+          const timer = setTimeout(Autologout, 600000); // 10 minutes
+
+          // Optional: Reset timer on user activity
+          const resetTimer = () => {
+              clearTimeout(timer);
+              setTimeout(Autologout, 1200000);
+          };
+          window.addEventListener('mousemove', resetTimer);
+          window.addEventListener('keydown', resetTimer);
+
+          return () => {
+              clearTimeout(timer);
+              window.removeEventListener('mousemove', resetTimer);
+              window.removeEventListener('keydown', resetTimer);
+          };
+    }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');

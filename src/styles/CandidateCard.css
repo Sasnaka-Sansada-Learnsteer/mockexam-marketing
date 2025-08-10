@@ -207,7 +207,7 @@
 .name-display {
     display: flex;
     align-items: center;
-    background: linear-gradient(to right, #f8f9fa, #ffffff);
+    background: linear-gradient(to right, rgba(52, 108, 255, 0.45), rgba(52, 108, 255, 0.23));
     padding: 12px 18px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -229,9 +229,41 @@
     min-width: 60px;
     text-transform: uppercase;
     font-size: 0.85rem;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .name-value {
-    color: #555;
+    font-size: 16px;
+    color: #333333;
+    font-weight: 500;
+    word-break: break-word;
 }
+
+.info-card {
+    background-color: rgba(0, 178, 255, 0.12);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.info-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666666;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 14px;
+    color: #000000;
+    word-break: break-word;
+}
+

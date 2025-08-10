@@ -28,6 +28,8 @@ const CandidateCard = ({ candidate, token, exams }) => {
     const [joinedChannelsConfirmed, setJoinedChannelsConfirmed] = useState([]);
     const [selectedExams, setSelectedExams] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [filteredExams, setFilteredExams] = useState(exams);
+
 
     // Initialize state when candidate prop changes
     useEffect(() => {
@@ -87,6 +89,25 @@ const CandidateCard = ({ candidate, token, exams }) => {
         });
     };
 
+    const handleStreamChange = (e) => {
+        const stream = e.target.value;
+        setSubjectStream(stream);
+
+        if (stream === '') {
+            setFilteredExams([]);
+        } else if (stream === 'Bio Science') {
+            setFilteredExams(exams.filter(
+                exam => exam !== 'Combined Maths I' && exam !== 'Combined Maths II'
+            ));
+        } else if (stream === 'Physical Science') {
+            setFilteredExams(exams.filter(
+                exam => exam !== 'Biology I' && exam !== 'Biology II'
+            ));
+        } else {
+            setFilteredExams(exams);
+        }
+    };
+
     if (!candidate) {
         return <div>No candidate data available</div>;
     }
@@ -144,7 +165,7 @@ const CandidateCard = ({ candidate, token, exams }) => {
                 <label className="field-label">Subject Stream</label>
                 <select
                     value={subjectStream}
-                    onChange={(e) => setSubjectStream(e.target.value)}
+                    onChange={handleStreamChange}
                     className="field-select"
                 >
                     <option value="">Select Stream</option>
@@ -156,11 +177,17 @@ const CandidateCard = ({ candidate, token, exams }) => {
             {/* Exam Selection */}
             <div className="card-section">
                 <h3 className="section-header">Confirmed Papers</h3>
+                {subjectStream === '' && (
+                    <div style={{ color: 'gray', marginTop: '10px' }}>
+                        Select Subject Stream to get papers
+                    </div>
+                )}
                 <ExamTags
-                    availableExams={exams}
+                    availableExams={filteredExams}
                     selectedExams={selectedExams}
                     onExamToggle={handleExamToggle}
                     isEditable={true}
+
                 />
             </div>
 
