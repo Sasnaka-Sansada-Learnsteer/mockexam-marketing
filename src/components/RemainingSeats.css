@@ -10,7 +10,7 @@
   text-align: center;
 }
 
-.section-title {
+.section-title-seats {
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 3rem;
@@ -18,7 +18,7 @@
   display: inline-block;
 }
 
-.section-title::after {
+.section-title-seats::after {
   content: "";
   position: absolute;
   width: 60px;
@@ -154,7 +154,7 @@
     margin-bottom: 1.5rem;
   }
 
-  .section-title {
+  .section-title-seats {
     font-size: 2rem;
   }
 }
