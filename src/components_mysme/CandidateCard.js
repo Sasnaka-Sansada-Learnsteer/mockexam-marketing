@@ -44,10 +44,10 @@ const CandidateCard = ({ candidate, token, exams }) => {
     }, [candidate]);
 
     const handleUpdate = async () => {
-        if (!candidate?.NIC) {
-            console.error('No NIC provided');
-            return;
-        }
+        // if (!candidate?.NIC) {
+        //     console.error('No NIC provided');
+        //     return;
+        // }
 
         setLoading(true);
 
