@@ -21,11 +21,11 @@ const InfoCard = ({ label, value }) => (
 const CandidateCard = ({ candidate, token, exams }) => {
     const [isEditing,setIsEditing] = useState(false);
     const [name, setName] = useState('');
-    const [emailAddress, setEmailAddress] = useState( '');
+    const [emailAddress, setEmailAddress] = useState('');
     const [whatsappNumber, setWhatsappNumber] = useState('');
     const [subjectStream, setSubjectStream] = useState('');
     const [preferredExamCenterConfirmed, setPreferredExamCenterConfirmed] = useState(false);
-    const [joinedChannelsConfirmed, setJoinedChannelsConfirmed] = useState([]);
+    const [joinedChannelsConfirmed, setJoinedChannelsConfirmed] = useState(false);
     const [selectedExams, setSelectedExams] = useState([]);
     const [loading, setLoading] = useState(false);
     const [filteredExams, setFilteredExams] = useState(exams);
@@ -39,8 +39,9 @@ const CandidateCard = ({ candidate, token, exams }) => {
             setEmailAddress(candidate['Email Address'] || '');
             setWhatsappNumber(candidate['Whatsapp Number'] || '');
             setSubjectStream(candidate['Subject Stream'] || '');
-            setPreferredExamCenterConfirmed(candidate.Preferred_Exam_Center_Confirmed || false);
+            setPreferredExamCenterConfirmed(candidate['Preferred_Exam_Center_Confirmed'] || false);
             setSelectedExams(candidate.confirmed_papers || []);
+            setJoinedChannelsConfirmed(candidate['joined_channels_confirmed'] || false);
         }
         if (endMessage) {
             const timer = setTimeout(() => setEndMessage(''), 3000);
@@ -65,7 +66,7 @@ const CandidateCard = ({ candidate, token, exams }) => {
                 SubjectStream: subjectStream,
                 Preferred_Exam_Center_Confirmed: preferredExamCenterConfirmed,
                 confirmed_papers: selectedExams,
-                headers: {
+            },{headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
@@ -74,6 +75,11 @@ const CandidateCard = ({ candidate, token, exams }) => {
 
             if (response.status >= 200 && response.status < 300) {
                 setIsEditing(false);
+
+                // Show success message for a brief period before reloading
+                setTimeout(() => {
+                    window.location.reload(); // Reload the entire page
+                }, 1000);
             }
         } catch (error) {
             console.error('Update failed:', error);
@@ -201,19 +207,37 @@ const CandidateCard = ({ candidate, token, exams }) => {
             {/* Update Button */}
             <div className="divider"></div>
             {endMessage && (
-                <div className="end-message">
+                <div className="end-message" style={{
+                    padding: "8px 12px",
+                    marginBottom: "10px",
+                    borderRadius: "4px",
+                    backgroundColor: endMessage.includes('fail') || endMessage.includes('error') ? "#ffebee" : "#e8f5e9",
+                    color: endMessage.includes('fail') || endMessage.includes('error') ? "#c62828" : "#2e7d32",
+                    textAlign: "center",
+                    fontWeight: "500"
+                }}>
                     {endMessage}
-                </div> )}
+                </div>
+            )}
             <button
                 onClick={handleUpdate}
                 disabled={loading}
                 className="button button-primary button-full"
             >
                 {loading ? (
-                    <span>
-            <span className="spinner"></span>
-            Updating...
-          </span>
+                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <span className="spinner" style={{
+                            display: "inline-block",
+                            width: "16px",
+                            height: "16px",
+                            border: "2px solid rgba(255,255,255,0.3)",
+                            borderRadius: "50%",
+                            borderTopColor: "#fff",
+                            animation: "spin 1s linear infinite",
+                            marginRight: "8px"
+                        }}></span>
+                        Updating...
+                    </span>
                 ) : 'Update'}
             </button>
         </div>
