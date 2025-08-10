@@ -29,6 +29,7 @@ const CandidateCard = ({ candidate, token, exams }) => {
     const [selectedExams, setSelectedExams] = useState([]);
     const [loading, setLoading] = useState(false);
     const [filteredExams, setFilteredExams] = useState(exams);
+    const [endMessage, setEndMessage] = useState('');
 
 
     // Initialize state when candidate prop changes
@@ -41,13 +42,17 @@ const CandidateCard = ({ candidate, token, exams }) => {
             setPreferredExamCenterConfirmed(candidate.Preferred_Exam_Center_Confirmed || false);
             setSelectedExams(candidate.confirmed_papers || []);
         }
-    }, [candidate]);
+        if (endMessage) {
+            const timer = setTimeout(() => setEndMessage(''), 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [candidate, endMessage]);
 
     const handleUpdate = async () => {
-        // if (!candidate?.NIC) {
-        //     console.error('No NIC provided');
-        //     return;
-        // }
+        if (!candidate?.NIC) {
+            console.error('No NIC provided');
+            return;
+        }
 
         setLoading(true);
 
@@ -65,12 +70,14 @@ const CandidateCard = ({ candidate, token, exams }) => {
                     'Authorization': `Bearer ${token}`
                 }
             });
+            setEndMessage(response.data.message);
 
             if (response.status >= 200 && response.status < 300) {
                 setIsEditing(false);
             }
         } catch (error) {
             console.error('Update failed:', error);
+            setEndMessage(error.response?.data?.message || 'Update failed');
         } finally {
             setLoading(false);
         }
@@ -193,6 +200,10 @@ const CandidateCard = ({ candidate, token, exams }) => {
 
             {/* Update Button */}
             <div className="divider"></div>
+            {endMessage && (
+                <div className="end-message">
+                    {endMessage}
+                </div> )}
             <button
                 onClick={handleUpdate}
                 disabled={loading}
