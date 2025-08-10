@@ -9,7 +9,7 @@ const ExamTags = ({
 }) => {
     return (
         <div className="exam-tags-container">
-            <h3 className="section-title">Selected Papers</h3>
+            <h3 className="section-title-selected-papers">Selected Papers</h3>
             <div className="exam-tags-grid">
                 {availableExams.map((exam)=> {
                     // Extract exam_name from the exam object
