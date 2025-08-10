@@ -13,7 +13,7 @@ const RemainingSeats = () => {
 
   const TOTAL_SEATS = 1200;
   const SEATS_CONFIG = {
-    Colombo: 350,
+    Colombo: 400,
     Galle: 400,
     Kandy: 400,
   };
@@ -80,7 +80,7 @@ const RemainingSeats = () => {
   return (
     <section className="remaining-seats" data-aos="fade-up">
       <div className="container">
-        <h2 className="section-title">Remaining Seats</h2>
+        <h2 className="section-title-seats">Remaining Seats</h2>
         <h3 className="section-subtitle">( Seat counts are based on the real-time registrations.
           Subject to change after verification of the candidates )</h3>
 
