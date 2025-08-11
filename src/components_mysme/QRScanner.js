@@ -58,7 +58,7 @@ const QRScanner = () => {
             const examIndexNumber = decodedText;
 
             // Call backend to verify the QR code
-            const response = await axios.get(`http://localhost:3001/api/qrcode/verify-qr/${examIndexNumber}`);
+            const response = await axios.get(`https://sme-api-04db435264b2.herokuapp.com/api/qrcode/verify-qr/${examIndexNumber}`);
 
             if (response.data.verified) {
                 setScanResult({
