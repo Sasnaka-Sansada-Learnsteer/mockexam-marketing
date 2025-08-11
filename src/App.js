@@ -23,6 +23,7 @@ import Profile from './components_mysme/Profile';
 import AdminDashboard from "./components_mysme/AdminDashboard";
 import AdminLogin from "./components_mysme/AdminLogin";
 import PrivateRoute from './components_mysme/PrivateRoute';
+import QRScannerDashboard from './components_mysme/QRScannerDashboard';
 
 // Create a component for the main marketing site
 function MarketingSite() {
@@ -91,6 +92,7 @@ function App() {
 
            {/*Admin redirect */}
           <Route path="/admin" element={<Navigate to="/admin/login" />} />
+            <Route path="/qr-scanner-dashboard" element={<QRScannerDashboard />} />
         </Routes>
       </div>
     </Router>
