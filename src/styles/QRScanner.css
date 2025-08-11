@@ -1,0 +1,60 @@
+/* src/components_mysme/QRScanner.css */
+.qr-scanner-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.scanner-frame {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #3498db;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.scanner-active p {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.scanner-loading, .scanner-error {
+    text-align: center;
+    padding: 20px;
+}
+
+.scan-result {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.scan-result.success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.scan-result.error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #2980b9;
+}

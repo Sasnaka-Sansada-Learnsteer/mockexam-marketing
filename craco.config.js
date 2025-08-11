@@ -26,6 +26,13 @@ module.exports = {
                 }),
             ];
 
+            webpackConfig.ignoreWarnings = [
+                {
+                    module: /html5-qrcode/,
+                    message: /Failed to parse source map/,
+                },
+            ];
+
             return webpackConfig;
         },
     },
