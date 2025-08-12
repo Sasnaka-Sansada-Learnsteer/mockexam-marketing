@@ -280,3 +280,37 @@
     transition: opacity 0.3s;
 }
 
+.participation-highlight {
+    background-color: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.2);
+    position: relative;
+}
+
+.participation-highlight::before {
+    content: "⚠️";
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ffc107;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.participation-select {
+    border: 2px solid #ffc107 !important;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+}
+
+.participation-select:focus {
+    border-color: #ff9800 !important;
+    box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.3) !important;
+}
