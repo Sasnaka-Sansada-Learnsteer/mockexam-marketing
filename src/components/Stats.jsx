@@ -7,7 +7,7 @@ const Stats = () => (
             <h2 className="stats-title">Our Journey</h2>
             <div className="stats-container">
                 <div className="stat-item">
-                    <span className="stat-number">9</span>
+                    <span className="stat-number">11</span>
                     <p className="stat-label">Districts</p>
                 </div>
                 <div className="stat-item">
