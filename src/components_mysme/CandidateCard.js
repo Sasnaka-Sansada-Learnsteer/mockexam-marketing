@@ -24,7 +24,7 @@ const CandidateCard = ({ candidate, token, exams }) => {
     const [emailAddress, setEmailAddress] = useState('');
     const [whatsappNumber, setWhatsappNumber] = useState('');
     const [subjectStream, setSubjectStream] = useState('');
-    const [participateConfirmation, setParticipateConfirmation] = useState(false);
+    const [participateStatus, setParticipateStatus] = useState('');
     const [preferredExamCenterConfirmed, setPreferredExamCenterConfirmed] = useState(false);
     const [joinedChannelsConfirmed, setJoinedChannelsConfirmed] = useState(false);
     const [selectedExams, setSelectedExams] = useState([]);
@@ -43,7 +43,7 @@ const CandidateCard = ({ candidate, token, exams }) => {
             setPreferredExamCenterConfirmed(candidate['Preferred_Exam_Center_Confirmed'] || false);
             setSelectedExams(candidate.confirmed_papers || []);
             setJoinedChannelsConfirmed(candidate['joined_channels_confirmed'] || false);
-            setParticipateConfirmation(candidate['participation_confirmed'] || '')
+            setParticipateStatus(candidate['participation_status'] || '')
         }
         if (endMessage) {
             const timer = setTimeout(() => setEndMessage(''), 3000);
@@ -68,7 +68,7 @@ const CandidateCard = ({ candidate, token, exams }) => {
                 SubjectStream: subjectStream,
                 Preferred_Exam_Center_Confirmed: preferredExamCenterConfirmed,
                 confirmed_papers: selectedExams,
-                participation_confirmed: participateConfirmation,
+                participation_status: participateStatus,
             },{headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
@@ -125,9 +125,9 @@ const CandidateCard = ({ candidate, token, exams }) => {
     };
 
     const handleParticipateConfirmation = (e) => {
-        // const participateConfirmation = e.target.value;
-        // setParticipateConfirmation(participateConfirmation);
-        setParticipateConfirmation(e.target.value === "confirmed");
+        const participateStatus = e.target.value;
+        setParticipateStatus(participateStatus);
+        // setParticipateConfirmation(e.target.value === "confirmed");
     };
 
     if (!candidate) {
@@ -186,12 +186,14 @@ const CandidateCard = ({ candidate, token, exams }) => {
             <div className="card-section participation-highlight">
                 <label className="field-label">Participation for the Exam: </label>
                 <select
-                    value={participateConfirmation ? "confirmed" : "rejected"}
+                    value={participateStatus}
                     onChange={handleParticipateConfirmation}
                     className="field-select participation-select"
                 >
+                    <option value="">Select Status</option>
                     <option value="confirmed">Confirmed</option>
                     <option value="rejected">Rejected</option>
+                    <option value="not_reachable">Not reachable</option>
                 </select>
             </div>
 
