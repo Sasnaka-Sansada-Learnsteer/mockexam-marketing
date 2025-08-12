@@ -6,22 +6,22 @@ const ExamTimetable = () => {
     {
       subject: "Physics",
       date: "2025-08-24",
-      time: "8:00 AM - 2:10 PM",
+      time: "8:30 AM - 2:40 PM",
     },
     {
       subject: "Chemistry",
       date: "2025-08-17",
-      time: "8:00 AM - 2:10 PM",
+      time: "8:30 AM - 2:40 PM",
     },
     {
       subject: "Biology",
       date: "2025-08-16",
-      time: "8:00 AM - 2:10 PM",
+      time: "8:30 AM - 2:40 PM",
     },
     {
       subject: "Combined Mathematics",
       date: "2025-08-16",
-      time: "8:00 AM - 3:20 PM",
+      time: "8:30 AM - 3:50 PM",
     },
   ];
   return (
