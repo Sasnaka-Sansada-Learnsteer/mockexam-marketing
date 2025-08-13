@@ -10,7 +10,7 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
@@ -32,7 +32,11 @@ const AdminLogin = () => {
         localStorage.setItem('adminToken', res.data.token);
         localStorage.setItem('userRole', 'admin');
         console.log('Login successful, navigating to dashboard');
-        navigate('/admin/dashboard');
+          if (panelId === '9935095') { // Replace with your specific panelId
+              navigate('/mysme/dashboard/overview');
+          } else {
+              navigate('/admin/dashboard');
+          }
       }
     } catch (err) {
       console.error('Login error:', err);

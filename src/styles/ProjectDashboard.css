@@ -1,0 +1,160 @@
+.dashboard-container {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.dashboard-header h1 {
+    color: #333;
+    margin: 0;
+}
+
+.connection-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.status-indicator {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+.status-indicator.connected {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-indicator.disconnected {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.last-updated {
+    font-size: 12px;
+    color: #666;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 20px 0;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-item.total {
+    background-color: #e3f2fd;
+    border: 2px solid #2196f3;
+}
+
+.stat-item.confirmed {
+    background-color: #e8f5e9;
+    border: 2px solid #4caf50;
+}
+
+.stat-item.rejected {
+    background-color: #ffebee;
+    border: 2px solid #f44336;
+}
+
+.stat-item.not-reachable {
+    background-color: #fff3e0;
+    border: 2px solid #ff9800;
+}
+
+.stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+.stat-item.total .stat-value {
+    color: #1976d2;
+}
+
+.stat-item.confirmed .stat-value {
+    color: #388e3c;
+}
+
+.stat-item.rejected .stat-value {
+    color: #d32f2f;
+}
+
+.stat-item.not-reachable .stat-value {
+    color: #f57c00;
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .stat-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -48,7 +48,6 @@
     "nth-check": "2.1.1",
     "postcss": "8.4.31"
   },
-  "proxy": "https://sme-api-04db435264b2.herokuapp.com/",
   "devDependencies": {
     "@craco/craco": "^7.1.0",
     "browserify-zlib": "^0.2.0",

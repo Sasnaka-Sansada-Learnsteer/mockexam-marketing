@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 
 import { Analytics } from "@vercel/analytics/react";
@@ -24,6 +24,7 @@ import AdminDashboard from "./components_mysme/AdminDashboard";
 import AdminLogin from "./components_mysme/AdminLogin";
 import PrivateRoute from './components_mysme/PrivateRoute';
 import QRScannerDashboard from './components_mysme/QRScannerDashboard';
+import ProjectDashboard from "./components_mysme/ProjectDashboard";
 
 // Create a component for the main marketing site
 function MarketingSite() {
@@ -71,6 +72,16 @@ function MarketingSite() {
 }
 
 function App() {
+    const [token, setToken] = useState(null);
+
+    // Check for stored token on app load
+    useEffect(() => {
+        const storedToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+        if (storedToken) {
+            setToken(storedToken);
+        }
+    }, []);
+
   return (
     <Router>
       <div className="app-container">
@@ -92,7 +103,15 @@ function App() {
 
            {/*Admin redirect */}
           <Route path="/admin" element={<Navigate to="/admin/login" />} />
+
             <Route path="/qr-scanner-dashboard" element={<QRScannerDashboard />} />
+            <Route path="/mysme/dashboard/overview" element={
+                <PrivateRoute >
+                    <ProjectDashboard />
+                </PrivateRoute>
+            } />
+
+
         </Routes>
       </div>
     </Router>
