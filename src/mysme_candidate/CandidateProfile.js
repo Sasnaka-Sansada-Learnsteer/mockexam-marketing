@@ -209,14 +209,14 @@ const CandidateProfile = () => {
           </div>
           <div className="qr-code-container">
             <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" className="qr-code" />
-            {/*<button onClick={downloadQRCode} className="btn-download">*/}
-            {/*  Download QR Code*/}
-            {/*</button>*/}
-            {/*  {downloadSuccess &&*/}
-            {/*      <div className="success-message">QR Code downloaded successfully!</div>*/}
-            {/*  }*/}
-              <span className="label-qr">Stay tighter.. ! Your QR code is still processing.
-                  It'll be available for you to download after 6 am on 15th Aug 2025. </span>
+            <button onClick={downloadQRCode} className="btn-download">
+              Download QR Code
+            </button>
+              {downloadSuccess &&
+                  <div className="success-message">QR Code downloaded successfully!</div>
+              }
+              {/*<span className="label-qr">Stay tighter.. ! Your QR code is still processing.*/}
+              {/*    It'll be available for you to download after 6 am on 15th Aug 2025. </span>*/}
               <span className="value-qr">You need to bring this QR code on the exam day to mark your attendance.</span>
           </div>
                 </>
