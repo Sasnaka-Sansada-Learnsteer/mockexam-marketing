@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/candidate.css';
+import FloatingWhatsApp from "../components/FloatingWhatsApp";
 
 const CandidateProfile = () => {
   const [candidateData, setCandidateData] = useState(null);
@@ -222,6 +223,7 @@ const CandidateProfile = () => {
             )}
         </div>
       </div>
+        <FloatingWhatsApp phoneNumber="94703445342" />
     </div>
   );
 };

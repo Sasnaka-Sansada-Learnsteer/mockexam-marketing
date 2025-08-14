@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/candidate.css';
+import FloatingWhatsApp from "../components/FloatingWhatsApp";
 
 const CandidateLogin = () => {
   const [NIC, setNIC] = useState('');
@@ -203,6 +204,7 @@ const CandidateLogin = () => {
       {step === 'checkNic' && renderNicForm()}
       {step === 'login' && renderLoginForm()}
       {step === 'signup' && renderSignupForm()}
+        <FloatingWhatsApp phoneNumber="94703445342" />
     </div>
   );
 };
