@@ -1,4 +1,4 @@
-// src/components_mysme/QRScannerDashboard.js
+// src/mysme_admin/QRScannerDashboard.js
 import React from 'react';
 import QRScanner from './QRScanner';
 import '../styles/QRScannerDashboard.css';

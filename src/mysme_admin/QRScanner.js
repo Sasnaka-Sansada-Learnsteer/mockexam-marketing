@@ -1,4 +1,4 @@
-// src/components_mysme/QRScanner.js
+// src/mysme_admin/QRScanner.js
 import React, {useEffect, useState} from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import axios from 'axios';
