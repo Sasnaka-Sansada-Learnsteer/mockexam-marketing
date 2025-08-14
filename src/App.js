@@ -18,13 +18,14 @@ import MyExamInfoEntry from "./components/MyExamInfoEntry";
 import PopupCard from "./components/PopupCard";
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './components_mysme/Login';
-import Profile from './components_mysme/Profile';
-import AdminDashboard from "./components_mysme/AdminDashboard";
-import AdminLogin from "./components_mysme/AdminLogin";
-import PrivateRoute from './components_mysme/PrivateRoute';
-import QRScannerDashboard from './components_mysme/QRScannerDashboard';
-import ProjectDashboard from "./components_mysme/ProjectDashboard";
+import Login from './mysme_admin/Login';
+import AdminDashboard from "./mysme_admin/AdminDashboard";
+import AdminLogin from "./mysme_admin/AdminLogin";
+import PrivateRoute from './mysme_admin/PrivateRoute';
+import QRScannerDashboard from './mysme_admin/QRScannerDashboard';
+import ProjectDashboard from "./mysme_admin/ProjectDashboard";
+import CandidateLogin from "./mysme_candidate/CandidateLogin";
+import CandidateProfile from "./mysme_candidate/CandidateProfile";
 
 // Create a component for the main marketing site
 function MarketingSite() {
@@ -40,6 +41,9 @@ function MarketingSite() {
         <section id="herosection">
           <HeroSection />
         </section>
+          <section id="myexaminfo">
+              <MyExamInfoEntry />
+          </section>
         <section id="examinfo">
           <ExamInfo />
         </section>
@@ -55,9 +59,7 @@ function MarketingSite() {
         <section id="remainingseats">
           <RemainingSeats />
         </section>
-        <section id="myexaminfo">
-          <MyExamInfoEntry />
-        </section>
+
         <section id="countdown-register">
           <CountdownRegister />
         </section>
@@ -90,8 +92,8 @@ function App() {
           <Route path="/" element={<MarketingSite />} />
 
           {/* Candidate Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
+            <Route path="/mysme/login" element={<CandidateLogin />} />
+            <Route path="/mysme/profile" element={<CandidateProfile />} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />

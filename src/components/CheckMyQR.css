@@ -1,0 +1,90 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.register-button {
+    font-family: "Poppins", sans-serif !important;
+    font-weight: 600;
+    font-size: 14px;
+
+    /* keep your other styles here */
+    background: linear-gradient(135deg, #4e5fff, #6c75ff);
+    color: #fff;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(78, 95, 255, 0.3);
+    text-align: center;
+    z-index: 1;
+    animation: floatScale 3s ease-in-out infinite;
+}
+
+.register-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent
+    );
+    animation: shineLoop 2s infinite;
+    z-index: 2;
+}
+
+.register-button::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    transform: translate(-50%, -50%);
+    background: rgba(78, 95, 255, 0.3);
+    filter: blur(15px);
+    opacity: 0;
+    animation: pulseGlow 3s ease-in-out infinite;
+    z-index: 0;
+}
+
+@keyframes shineLoop {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes floatScale {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+}

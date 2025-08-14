@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import CandidateCard from '../components_mysme/CandidateCard';
+import CandidateCard from './/CandidateCard';
 
 describe('CandidateCard', () => {
   // Mock data
