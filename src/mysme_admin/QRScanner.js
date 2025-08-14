@@ -45,6 +45,24 @@ const QRScanner = () => {
         };
     }, []);
 
+    const extractExamIndexNumber = (text) => {
+        // Check if text is a URL
+        try {
+            // If it's a URL containing code parameter, extract it
+            if (text.includes('?code=')) {
+                const url = new URL(text);
+                const examIndexNumber = url.searchParams.get('code');
+                return examIndexNumber;
+            }
+
+            // If not a URL or doesn't have code parameter, return as is
+            return text;
+        } catch (e) {
+            // If URL parsing fails, return the original text
+            return text;
+        }
+    };
+
     const onScanSuccess = async (decodedText) => {
         // Stop scanning
         if (scanner) {
@@ -54,8 +72,17 @@ const QRScanner = () => {
         setLoading(true);
 
         try {
-            // The QR contains the examIndexNumber
-            const examIndexNumber = decodedText;
+            // Extract the examIndexNumber from the QR code content
+            const examIndexNumber = extractExamIndexNumber(decodedText);
+
+            // If no exam index number found, show error
+            if (!examIndexNumber) {
+                setScanResult({
+                    success: false,
+                    message: 'Could not extract a valid exam index number'
+                });
+                return;
+            }
 
             // Call backend to verify the QR code
             const response = await axios.get(`https://sme-api-04db435264b2.herokuapp.com/api/qrcode/verify-qr/${examIndexNumber}`);
