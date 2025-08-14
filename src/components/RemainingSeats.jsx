@@ -13,7 +13,7 @@ const RemainingSeats = () => {
 
   const TOTAL_SEATS = 1200;
   const SEATS_CONFIG = {
-    Colombo: 400,
+    Colombo: 500,
     Galle: 400,
     Kandy: 400,
   };
