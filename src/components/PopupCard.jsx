@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./PopupCard.css";
 import RegisterNow from "./RegisterNow";
+import CheckMyQR from "./CheckMyQR";
 
 const PopupCard = () => {
     const [visible, setVisible] = useState(false); // hidden at start
@@ -36,8 +37,8 @@ const PopupCard = () => {
                     </div>
                     <h2 className="my-exam-portal-text">MySME Exam Portal</h2>
                     <div className="divider"></div>
-                    <p className="popup-message">is on its way!</p>
-                    <RegisterNow />
+                    <p className="popup-message">Login to get your Index Number & QR Code</p>
+                    <CheckMyQR />
                 </div>
             </div>
         </div>
