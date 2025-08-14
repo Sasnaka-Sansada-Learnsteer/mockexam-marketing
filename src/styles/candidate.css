@@ -1,13 +1,23 @@
 /* src/styles/candidate.css */
-.candidate-login-container,
-.candidate-profile-container {
+.candidate-login-container {
     max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background: linear-gradient(145deg, #ffffff, #f5f7fa);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.6s ease-out;
+}
+
+.candidate-profile-container {
+    max-width: 1500px;
     margin: 40px 40px;
     padding: 30px;
     background: linear-gradient(145deg, #ffffff, #f5f7fa);
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.6s ease-out;
+    align-content: center;
 }
 
 @keyframes fadeIn {
@@ -268,6 +278,14 @@ h3 {
     color: #7f8c8d;
     min-width: 100px;
     font-size: 15px;
+}
+
+.label-qr {
+    font-weight: 600;
+    color: #7f8c8d;
+    min-width: 100px;
+    font-size: 15px;
+    align-items: center;
 }
 
 .highlight {

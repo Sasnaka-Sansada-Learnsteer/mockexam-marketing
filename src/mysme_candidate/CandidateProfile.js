@@ -95,18 +95,44 @@ const CandidateProfile = () => {
           ctx.fillText(`${candidateData.candidate.examIndexNumber}`, img.width / 2, img.height + 20);
 
           // Convert to data URL with maximum quality and trigger download
-          const dataURL = canvas.toDataURL('image/png', 1.0);
+          const imageData = canvas.toDataURL('image/png', 1.0);
 
-          const link = document.createElement('a');
-          link.href = dataURL;
-          link.download = `${candidateData.candidate.examIndexNumber}_MySME25_QRCode.png`;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
+          // Create PDF
+          import('jspdf').then((jsPDFModule) => {
+              const { default: jsPDF } = jsPDFModule;
+              const pdf = new jsPDF({
+                  orientation: 'portrait',
+                  unit: 'mm',
+                  format: 'a4'
+              });
 
-          // Show success message
-          setDownloadSuccess(true);
-          setTimeout(() => setDownloadSuccess(false), 3000);
+              // Add title
+              pdf.setFontSize(16);
+              pdf.text('MySME25 QR Code', 105, 20, { align: 'center' });
+
+              // Add candidate info
+              pdf.setFontSize(12);
+              pdf.text(`Candidate: ${candidateData.candidate["Full Name"]}`, 105, 30, { align: 'center' });
+              pdf.text(`Exam Index: ${candidateData.candidate.examIndexNumber}`, 105, 40, { align: 'center' });
+
+              // Calculate dimensions to fit QR code properly on the page
+              const imgWidth = 100; // mm
+              const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+              // Add QR code image
+              pdf.addImage(imageData, 'PNG', (210 - imgWidth) / 2, 50, imgWidth, imgHeight);
+
+              // Add footer note
+              pdf.setFontSize(10);
+              pdf.text('Please bring this QR code to the examination center to mark your attendance', 105, 50 + imgHeight + 10, { align: 'center' });
+
+              // Save PDF
+              pdf.save(`${candidateData.candidate.examIndexNumber}_MySME25_QRCode.pdf`);
+
+              // Show success message
+              setDownloadSuccess(true);
+              setTimeout(() => setDownloadSuccess(false), 3000);
+          });
       };
       img.src = candidateData.candidate['qrCode'];
   };
@@ -182,12 +208,15 @@ const CandidateProfile = () => {
           </div>
           <div className="qr-code-container">
             <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" className="qr-code" />
-            <button onClick={downloadQRCode} className="btn-download">
-              Download QR Code
-            </button>
-              {downloadSuccess &&
-                  <div className="success-message">QR Code downloaded successfully!</div>
-              }
+            {/*<button onClick={downloadQRCode} className="btn-download">*/}
+            {/*  Download QR Code*/}
+            {/*</button>*/}
+            {/*  {downloadSuccess &&*/}
+            {/*      <div className="success-message">QR Code downloaded successfully!</div>*/}
+            {/*  }*/}
+              <span className="label-qr">Your QR code is still processing.
+                  You can download it after tomorrow 6 am. </span>
+              <span className="value-qr">You need to bring this QR code on the exam day to mark your attendance.</span>
           </div>
                 </>
             )}
