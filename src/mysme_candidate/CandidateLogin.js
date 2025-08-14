@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import '../styles/candidate.css';
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
 
@@ -14,6 +14,15 @@ const CandidateLogin = () => {
   const [candidateExists, setCandidateExists] = useState(false);
   const [hasMySmeAccount, setHasMySmeAccount] = useState(false);
   const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        // Check if URL contains a code parameter and redirect if it does
+        const queryParams = new URLSearchParams(location.search);
+        if (queryParams.has('code')) {
+            navigate('/mysme/login', { replace: true });
+        }
+    }, [location, navigate]);
 
   const checkNicExists = async () => {
     setError('');
