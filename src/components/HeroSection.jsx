@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './HeroSection.css';
 import RegisterNow from "./RegisterNow";
+import smeCropped from "./assets/SME_cropped.png";
 
 const HeroSection = () => {
     const [timeLeft, setTimeLeft] = useState('');
@@ -49,8 +50,13 @@ const HeroSection = () => {
     return (
         <div className="hero-container">
             <div className="hero-content">
-                <h1>Prepare for Your Future</h1>
-                <h2>with Sasnaka Sansada A/L Mock Exam 2025</h2>
+                <img
+                    src={smeCropped}
+                    alt="Sasnaka Sansada A/L Mock Exam 2025"
+                    className="hero-title-image"
+                />
+                {/*<h1>Prepare for Your Future</h1>*/}
+                {/*<h2>with Sasnaka Sansada A/L Mock Exam 2025</h2>*/}
                 <p>Take the first step towards A/L excellence with our comprehensive mock exam series</p>
                 {/*<p className="registration-message">*/}
                 {/*    {typeof timeLeft === 'string' ? (*/}
