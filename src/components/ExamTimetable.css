@@ -95,10 +95,13 @@
   text-align: center;
 }
 
+
+
 .exam-card-header h3 {
   font-size: 1.4rem;
   margin: 0;
   font-weight: 600;
+  color: inherit;
 }
 
 .exam-card-body {

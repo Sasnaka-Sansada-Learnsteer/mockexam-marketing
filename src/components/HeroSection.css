@@ -12,6 +12,13 @@
   font-family: Montserrat, serif;
 }
 
+.hero-title-image {
+  display: block;
+  margin: 8px auto;
+  max-width: 80%;
+  height: auto;
+}
+
 .hero-overlay {
   position: absolute;
   top: 0;
@@ -27,6 +34,13 @@
   z-index: 2;
   padding: 0 2rem;
   max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  justify-content: center;
+  min-height: 500px;
 }
 
 .hero-content h1 {
@@ -44,159 +58,33 @@
 
 .hero-content p {
   font-size: 1.25rem;
-  margin-bottom: 0.0rem;
   line-height: 1.6;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
-.cta-button {
-  padding: 0.8rem 2.5rem;
-  font-size: 1.1rem;
-  background-color: #4361ee;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-}
-
-.cta-button:hover {
-  background-color: #3a56d4;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-}
-
-.registration-message {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #3a56d4;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(245, 247, 255, 0.95));
-  padding: 14px 28px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(58, 86, 212, 0.2);
-  margin: 24px 0;
-  text-align: center;
-  transition: all 0.5s ease;
-  border-left: 4px solid #3a56d4;
-  letter-spacing: 0.5px;
-  animation: subtle-glow 4s infinite alternate;
-  display: inline-block;
-}
-
-.countdown-numbers {
-  display: block;
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin-top: 8px;
-  color: #3a56d4;
-}
-
-
-/*register now button*/
-
-.register-button-container {
-  margin-top: 15px;
-}
-
-.small-button {
-  transform: scale(0.85);
-  padding: 8px 16px;
-  font-size: 0.9rem;
-}
-
-@media (max-width: 400px) {
-  .small-button {
-    transform: scale(0.8);
-    padding: 6px 12px;
-    font-size: 0.85rem;
-  }
-}
-
-@keyframes subtle-glow {
-  0% {
-    box-shadow: 0 4px 12px rgba(58, 86, 212, 0.2);
-  }
-  100% {
-    box-shadow: 0 4px 20px rgba(58, 86, 212, 0.4);
-  }
-}
-
-.registration-message:hover {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 1), rgba(245, 247, 255, 1));
-  transform: scale(1.02);
-  box-shadow: 0 8px 20px rgba(58, 86, 212, 0.3);
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.03);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 2.5rem;
-  }
-
-  .hero-content h2 {
-    font-size: 1.2rem;
-  }
-
-  .hero-content p {
-    font-size: 1rem;
-  }
-
-  .registration-message {
-    animation: none;
-    font-size: 1rem;
-    padding: 10px 20px;
-    transition: none;
-  }
-
-  .countdown-numbers {
-    font-size: 1.8rem;
-  }
-}
 
 @media (max-width: 500px) {
-  .hero-container {
-    height: 400px;
-  }
-
+  .hero-container,
   .hero-content {
+    height: 500px;
+    min-height: 500px;
     padding: 0 1rem;
   }
 
+  .hero-title-image {
+    max-width: 80%;
+  }
+
   .hero-content h1 {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 
   .hero-content h2 {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   .hero-content p {
-    font-size: 0.9rem;
-    overflow-wrap: break-word;
-  }
-
-  .registration-message {
-    animation: none;
-    font-size: 1rem;
-    padding: 10px 20px;
-    transition: none;
-  }
-
-  .countdown-numbers {
-    font-size: 1.8rem;
+    font-size: 1.25rem;
   }
 }
