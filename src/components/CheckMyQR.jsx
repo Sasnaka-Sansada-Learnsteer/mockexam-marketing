@@ -6,7 +6,7 @@ const CheckMyQR = ({ className = "", pulsing = true }) => {
 
     return (
         <a
-            href="https://sme.sasnaka.org/mysme/profile"
+            href="https://sme.sasnaka.org/mysme/login"
             target="_blank"
             rel="noreferrer"
             className={`register-button ${pulsing ? "pulsing" : ""} ${
