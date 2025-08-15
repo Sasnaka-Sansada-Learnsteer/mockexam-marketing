@@ -10,7 +10,7 @@ const QRScannerDashboard = () => {
             <img
                 src={smeCropped}
                 alt="Sasnaka Sansada A/L Mock Exam 2025"
-                className="hero-title-image"
+                className="hero-title-image-qr"
             />
             <div className="dashboard-header">
                 <h1>Verify MyQR</h1>
