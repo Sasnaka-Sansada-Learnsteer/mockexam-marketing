@@ -81,7 +81,7 @@ const QRScanner = () => {
             } else {
                 setScanResult({
                     success: false,
-                    message: 'Invalid QR code'
+                    message: response.data.message,
                 });
             }
         } catch (err) {
@@ -253,12 +253,12 @@ const QRScanner = () => {
                 <div className={`scan-result ${scanResult.success ? 'success' : 'error'}`}>
                     {scanResult.success ? (
                         <>
-                            <h3>QR Code Verified!</h3>
+                            <h3>✔️ Marked Attendance </h3>
                             <p><strong>Exam Index Number:</strong> {scanResult.examIndexNumber}</p>
                         </>
                     ) : (
                         <>
-                            <h3>Verification Failed</h3>
+                            <h3>Already Verified</h3>
                             <p>{scanResult.message}</p>
                         </>
                     )}
