@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/admin.css';
 import CandidateCard from "./CandidateCard";
 import PropTypes from 'prop-types';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const AdminDashboard = ({candidate, token}) => {
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ const AdminDashboard = ({candidate, token}) => {
       console.log('Fetching dashboard data with token:', token);
 
         // Use full URL instead of relative path to avoid proxy issues
-        const response = await axios.get('https://sme-api-04db435264b2.herokuapp.com/api/admin/dashboard', {
+        const response = await axios.get(   `${API_BASE_URL}/api/admin/dashboard`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -62,7 +63,7 @@ const AdminDashboard = ({candidate, token}) => {
 
     const fetchExams = async () => {
         const response = await axios.get(
-                'https://sme-api-04db435264b2.herokuapp.com/api/admin/api/exams',
+                `${API_BASE_URL}/api/admin/api/exams`,
                 { headers: { Authorization: `Bearer ${token}` } }
         );
         const examsArray = Array.isArray(response.data) ? response.data : response.data.exams;
@@ -97,10 +98,26 @@ const AdminDashboard = ({candidate, token}) => {
           };
     }, [navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('userRole');
-    navigate('/admin/login');
+  const handleLogout = async () => {
+      try {
+          const token = localStorage.getItem('adminToken');
+          await axios.post(`${API_BASE_URL}/api/admin/logout`, {}, {
+              headers: {
+                  Authorization: `Bearer ${token}`
+              }
+          });
+      } catch (err) {
+          console.error('Logout error:', err);
+      } finally {
+          // Clear local storage
+          localStorage.removeItem('adminToken');
+          localStorage.removeItem('userRole');
+          localStorage.removeItem('panelId');
+          // Don't remove deviceId as it's used for device tracking
+
+          // Redirect to login
+          navigate('/admin/login');
+      }
   };
 
   if (loading) return <div className="loading">Loading dashboard...</div>;

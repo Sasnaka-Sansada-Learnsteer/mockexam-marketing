@@ -3,6 +3,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import axios from 'axios';
 import '../styles/QRScanner.css';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const QRScanner = () => {
     const [scanResult, setScanResult] = useState(null);
@@ -70,7 +71,7 @@ const QRScanner = () => {
 
             // Call backend to verify the QR code
             console.log("Calling verify-qr API endpoint");
-            const response = await axios.get(`https://sme-api-04db435264b2.herokuapp.com/api/qrcode/verify-qr/${examIndexNumber}`);
+            const response = await axios.get(`${API_BASE_URL}/api/qrcode/verify-qr/${examIndexNumber}`);
             console.log("API response:", response.data);
 
             if (response.data.verified) {

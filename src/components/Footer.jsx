@@ -57,6 +57,7 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} Sasnaka Sansada. All rights reserved.</p>
+          <h5>Developed & maintained by Learn Steer Team.</h5>
       </div>
     </footer>
   );

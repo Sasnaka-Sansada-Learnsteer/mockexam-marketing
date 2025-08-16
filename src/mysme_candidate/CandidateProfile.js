@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/candidate.css';
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const CandidateProfile = () => {
   const [candidateData, setCandidateData] = useState(null);
@@ -22,7 +23,7 @@ const CandidateProfile = () => {
 
       try {
         const response = await axios.get(
-          'https://sme-api-04db435264b2.herokuapp.com/api/candidate/profile',
+          `${API_BASE_URL}/api/candidate/profile`,
           {
             headers: {
               Authorization: `Bearer ${token}`

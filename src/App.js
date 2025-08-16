@@ -100,13 +100,19 @@ function App() {
           <Route path="/admin/dashboard" element={
               <PrivateRoute>
               <AdminDashboard />
-              </PrivateRoute> }
+              </PrivateRoute>
+          }
           />
+            <Route path="/admin/qr-scanner-dashboard" element={
+                <PrivateRoute>
+                    <QRScannerDashboard/>
+                </PrivateRoute>
+                }
+            />
 
-           {/*Admin redirect */}
+
+            {/*Admin redirect */}
           <Route path="/admin" element={<Navigate to="/admin/login" />} />
-
-            {/*<Route path="/qr-scanner-dashboard" element={<QRScannerDashboard />} />*/}
             <Route path="/mysme/dashboard/overview" element={
                 <PrivateRoute >
                     <ProjectDashboard />
