@@ -106,7 +106,7 @@ function App() {
            {/*Admin redirect */}
           <Route path="/admin" element={<Navigate to="/admin/login" />} />
 
-            <Route path="/qr-scanner-dashboard" element={<QRScannerDashboard />} />
+            {/*<Route path="/qr-scanner-dashboard" element={<QRScannerDashboard />} />*/}
             <Route path="/mysme/dashboard/overview" element={
                 <PrivateRoute >
                     <ProjectDashboard />
