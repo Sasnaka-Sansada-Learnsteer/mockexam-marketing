@@ -3,6 +3,7 @@ import axios from 'axios';
 import {useLocation, useNavigate} from 'react-router-dom';
 import '../styles/candidate.css';
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const CandidateLogin = () => {
   const [NIC, setNIC] = useState('');
@@ -35,7 +36,7 @@ const CandidateLogin = () => {
     }
 
     try {
-      const response = await axios.post('https://sme-api-04db435264b2.herokuapp.com/api/candidate/check-nic', { NIC });
+      const response = await axios.post(`${API_BASE_URL}/api/candidate/check-nic`, { NIC });
 
       setCandidateExists(response.data.exists);
       setHasMySmeAccount(response.data.hasMySmeAccount);
@@ -63,7 +64,7 @@ const CandidateLogin = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('https://sme-api-04db435264b2.herokuapp.com/api/candidate/login', {
+      const response = await axios.post(`${API_BASE_URL}/api/candidate/login`, {
         NIC,
         password
       });
@@ -97,7 +98,7 @@ const CandidateLogin = () => {
     }
 
     try {
-      const response = await axios.post('https://sme-api-04db435264b2.herokuapp.com/api/candidate/signup', {
+      const response = await axios.post(`${API_BASE_URL}/api/candidate/signup`, {
         NIC,
         password
       });

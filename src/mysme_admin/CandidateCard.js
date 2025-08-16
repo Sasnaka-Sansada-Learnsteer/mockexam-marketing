@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/CandidateCard.css';
 import ExamTags from './ExamTags';
 import axios from "axios";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 // NameDisplay component
 const NameDisplay = ({ name }) => (
@@ -60,7 +61,7 @@ const CandidateCard = ({ candidate, token, exams }) => {
         setLoading(true);
 
         try {
-            const response = await axios.post('https://sme-api-04db435264b2.herokuapp.com/api/admin/candidate-update-by-admin', {
+            const response = await axios.post(`${API_BASE_URL}/api/admin/candidate-update-by-admin`, {
                 NIC: candidate.NIC,
                 EmailAddress: emailAddress,
                 WhatsappNumber: whatsappNumber,

@@ -1,8 +1,9 @@
 // src/components/AdminLogin.js
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/admin.css';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const AdminLogin = () => {
   const [panelId, setPanelId] = useState('');
@@ -10,7 +11,21 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    // Check if user is already logged in
+    useEffect(() => {
+        const token = localStorage.getItem('adminToken');
+        const role = localStorage.getItem('userRole');
+
+        if (token) {
+            if (role === 'admin') {
+                navigate('/admin/dashboard');
+            } else if (role === 'scanner') {
+                navigate('/admin/qr-scanner-dashboard');
+            }
+        }
+    }, [navigate]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
@@ -23,25 +38,50 @@ const AdminLogin = () => {
 
     try {
       console.log('Attempting login with panel ID:', panelId);
-      // Update API endpoint to point to backend server
-      const res = await axios.post('https://sme-api-04db435264b2.herokuapp.com/api/admin/login', { panelId });
+
+        // Update API endpoint to include device fingerprint
+        const deviceInfo = {
+            userAgent: navigator.userAgent,
+            screenResolution: `${window.screen.width}x${window.screen.height}`,
+            deviceId: localStorage.getItem('deviceId') || Math.random().toString(36).substring(2, 15)
+        };
+
+        // Store device ID if not already set
+        if (!localStorage.getItem('deviceId')) {
+            localStorage.setItem('deviceId', deviceInfo.deviceId);
+        }
+
+      const res = await axios.post(`${API_BASE_URL}/api/admin/login`, {
+          panelId,
+          deviceInfo
+      });
       console.log('Login response:', res.data);
 
       if (res.data.token) {
-        // Store token and role in localStorage
-        localStorage.setItem('adminToken', res.data.token);
-        localStorage.setItem('userRole', 'admin');
-        console.log('Login successful, navigating to dashboard');
-          if (panelId === '9935095') { // Replace with your specific panelId
-              navigate('/mysme/dashboard/overview');
+          // Store token and user information
+          localStorage.setItem('adminToken', res.data.token);
+          localStorage.setItem('panelId', panelId);
+
+          // Check if this is a scanner panel ID
+          if (res.data.role === 'scanner') {
+              localStorage.setItem('userRole', 'scanner');
+              navigate('/admin/qr-scanner-dashboard');
           } else {
-              navigate('/admin/dashboard');
+              localStorage.setItem('userRole', 'admin');
+              if (panelId === '9935095') { // Special admin case
+                  navigate('/mysme/dashboard/overview');
+              } else {
+                  navigate('/admin/dashboard');
+              }
           }
       }
     } catch (err) {
       console.error('Login error:', err);
-      console.error('Error response:', err.response?.data);
-      setError(err.response?.data?.message || 'Login failed. Please check your panel ID.');
+        if (err.response?.status === 403 && err.response?.data?.message?.includes('already logged in')) {
+            setError('This panel ID is already in use on another device. Please log out from that device first.');
+        } else {
+            setError(err.response?.data?.message || 'Login failed. Please check your panel ID.');
+        }
     } finally {
       setLoading(false);
     }
