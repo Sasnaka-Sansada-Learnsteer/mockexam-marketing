@@ -31,13 +31,13 @@ const AdminLogin = () => {
     setLoading(true);
 
     if (!panelId || !/^\d{7}$/.test(panelId)) {
-      setError('Please enter a valid 7-digit panel ID');
+      setError('Please enter a valid 7-digit admin ID');
       setLoading(false);
       return;
     }
 
     try {
-      console.log('Attempting login with panel ID:', panelId);
+      console.log('Attempting login with admin ID:', panelId);
 
         // Update API endpoint to include device fingerprint
         const deviceInfo = {
@@ -78,9 +78,9 @@ const AdminLogin = () => {
     } catch (err) {
       console.error('Login error:', err);
         if (err.response?.status === 403 && err.response?.data?.message?.includes('already logged in')) {
-            setError('This panel ID is already in use on another device. Please log out from that device first.');
+            setError('This admin ID is already in use on another device. Please log out from that device first.');
         } else {
-            setError(err.response?.data?.message || 'Login failed. Please check your panel ID.');
+            setError(err.response?.data?.message || 'Login failed. Please check your admin ID.');
         }
     } finally {
       setLoading(false);
