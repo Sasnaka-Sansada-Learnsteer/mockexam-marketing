@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/candidate.css';
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
+import CandidatePopup from "./CandidatePopup";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const CandidateProfile = () => {
@@ -152,6 +153,7 @@ const CandidateProfile = () => {
   }
 
   return (
+
     <div className="candidate-profile-container">
       <div className="profile-header">
         <h2>MySME Profile</h2>
@@ -208,7 +210,22 @@ const CandidateProfile = () => {
             <span className="label">Exam Index Number:</span>
             <span className="value">{candidateData.candidate.examIndexNumber}</span>
           </div>
-          <div className="qr-code-container">
+                    <button
+                        className={`check-results-btn ${loading ? 'loading' : ''}`}
+                        onClick={CandidatePopup}
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <>
+                                <i className="fas fa-spinner fa-spin"></i> Loading...
+                            </>
+                        ) : (
+                            <>
+                                <i className="fas fa-chart-line"></i> Check My Results
+                            </>
+                        )}
+                    </button>
+          {/*<div className="qr-code-container">
             <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" className="qr-code" />
             <button onClick={downloadQRCode} className="btn-download">
               Download QR Code
@@ -218,12 +235,13 @@ const CandidateProfile = () => {
               }
               {/*<span className="label-qr">Stay tighter.. ! Your QR code is still processing.*/}
               {/*    It'll be available for you to download after 6 am on 15th Aug 2025. </span>*/}
-              <span className="value-qr">You need to bring this QR code on the exam day to mark your attendance.</span>
-          </div>
+                    {/*<span className="value-qr">You need to bring this QR code on the exam day to mark your attendance.</span>
+          </div>*/}
                 </>
             )}
         </div>
       </div>
+        <CandidatePopup/>
         <FloatingWhatsApp phoneNumber="94703445342" />
     </div>
   );

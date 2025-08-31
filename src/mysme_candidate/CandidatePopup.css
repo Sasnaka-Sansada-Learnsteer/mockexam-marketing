@@ -1,0 +1,316 @@
+/* Popup Overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Exam Results Popup - Wider version */
+.exam-results-popup {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 500px;
+    max-width: 90%;
+    position: relative;
+    overflow: hidden;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Close Button */
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    z-index: 10;
+    transition: color 0.3s;
+}
+
+.close-button:hover {
+    color: #ff5252;
+}
+
+/* Results Content */
+.results-content {
+    padding: 40px 30px 30px;
+    text-align: center;
+}
+
+.portal-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.portal-icon i {
+    font-size: 36px;
+    color: white;
+}
+
+.results-title {
+    color: #333;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.divider {
+    height: 3px;
+    width: 60px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    margin: 0 auto 20px;
+    border-radius: 3px;
+}
+
+.popup-message {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+/* Check Results Button */
+.check-results-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+    border: none;
+    margin-top: 10px;
+}
+
+.check-results-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
+}
+
+.check-results-btn:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+.check-results-btn.loading {
+    background: linear-gradient(135deg, #9b59b6, #3498db);
+}
+
+/* Results Display */
+.results-display {
+    text-align: left;
+}
+
+.results-summary {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+.summary-item {
+    text-align: center;
+}
+
+.summary-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.summary-value {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.summary-value.rank {
+    color: #2575fc;
+}
+
+.summary-value.zscore {
+    color: #2575fc;
+}
+
+.summary-subtext {
+    font-size: 12px;
+    color: #888;
+}
+
+.subjects-header {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.subjects-list {
+    margin-bottom: 25px;
+}
+
+.subject-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.subject-name {
+    flex: 1;
+    font-weight: 500;
+    color: #333;
+}
+
+.subject-score {
+    width: 60px;
+    text-align: right;
+    font-weight: 600;
+    color: #444;
+}
+
+.subject-grade {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+/* Results Actions */
+.results-actions {
+    text-align: center;
+}
+
+.download-btn {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.download-btn:hover {
+    background: #219653;
+    transform: translateY(-2px);
+}
+
+/* Animation */
+@keyframes bounce-in-top {
+    0% {
+        transform: translateY(-500px);
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+    38% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+        opacity: 1;
+    }
+    55% {
+        transform: translateY(-65px);
+        animation-timing-function: ease-in;
+    }
+    72% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    81% {
+        transform: translateY(-28px);
+        animation-timing-function: ease-in;
+    }
+    90% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    95% {
+        transform: translateY(-8px);
+        animation-timing-function: ease-in;
+    }
+    100% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+}
+
+@keyframes bounce-out-top {
+    0% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    5% {
+        transform: translateY(-30px);
+        animation-timing-function: ease-in;
+    }
+    15% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    25% {
+        transform: translateY(-38px);
+        animation-timing-function: ease-in;
+    }
+    38% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    52% {
+        transform: translateY(-75px);
+        animation-timing-function: ease-in;
+    }
+    70% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-500px);
+        opacity: 0;
+    }
+}
+
+.bounce-in-top {
+    animation: bounce-in-top 1.1s both;
+}
+
+.bounce-out-top {
+    animation: bounce-out-top 1.1s both;
+}
