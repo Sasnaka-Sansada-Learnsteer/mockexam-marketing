@@ -29,48 +29,49 @@ import CandidateProfile from "./mysme_candidate/CandidateProfile";
 
 // Create a component for the main marketing site
 function MarketingSite() {
-  return (
-    <div className="App">
-      <PopupCard />
-      <header className="app-header">
-        <NavBar />
-      </header>
+    return (
+        <div className="App">
+            <PopupCard />
+            <header className="app-header">
+                <NavBar />
+            </header>
 
-      <main>
-        <Analytics />
-        <section id="herosection">
-          <HeroSection />
-        </section>
-          <section id="myexaminfo">
-              <MyExamInfoEntry />
-          </section>
-        <section id="examinfo">
-          <ExamInfo />
-        </section>
-        <section id="stats">
-          <Stats />
-        </section>
-        <section id="examtimetable">
-          <ExamTimetable />
-        </section>
-        <section id="examcenter">
-          <ExamCenter />
-        </section>
-        <section id="remainingseats">
-          <RemainingSeats />
-        </section>
+            <main>
+                <Analytics />
+                <section id="herosection">
+                    <HeroSection />
+                </section>
+                <section id="myexaminfo">
+                    <MyExamInfoEntry />
+                </section>
+                <section id="examinfo">
+                    <ExamInfo />
+                </section>
+                <section id="stats">
+                    <Stats />
+                </section>
+                <section id="examtimetable">
+                    <ExamTimetable />
+                </section>
+                <section id="examcenter">
+                    <ExamCenter />
+                </section>
+                {/*<section id="remainingseats">
+         <RemainingSeats />
+       </section>*/}
 
-        <section id="countdown-register">
-          <CountdownRegister />
-        </section>
-      </main>
 
-      {/*<PopupNotification />*/}
-      <Footer />
+                <section id="countdown-register">
+                    <CountdownRegister />
+                </section>
+            </main>
 
-      <FloatingWhatsApp phoneNumber="94703445342" />
-    </div>
-  );
+            {/*<PopupNotification />*/}
+            <Footer />
+
+            <FloatingWhatsApp phoneNumber="94703445342" />
+        </div>
+    );
 }
 
 function App() {
@@ -84,46 +85,46 @@ function App() {
         }
     }, []);
 
-  return (
-    <Router>
-      <div className="app-container">
-        <Routes>
-          {/* Main marketing site route */}
-          <Route path="/" element={<MarketingSite />} />
+    return (
+        <Router>
+            <div className="app-container">
+                <Routes>
+                    {/* Main marketing site route */}
+                    <Route path="/" element={<MarketingSite />} />
 
-          {/* Candidate Routes */}
-            <Route path="/mysme/login" element={<CandidateLogin />} />
-            <Route path="/mysme/profile" element={<CandidateProfile />} />
+                    {/* Candidate Routes */}
+                    <Route path="/mysme/login" element={<CandidateLogin />} />
+                    <Route path="/mysme/profile" element={<CandidateProfile />} />
 
-          {/* Admin Routes */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/dashboard" element={
-              <PrivateRoute>
-              <AdminDashboard />
-              </PrivateRoute>
-          }
-          />
-            <Route path="/admin/qr-scanner-dashboard" element={
-                <PrivateRoute>
-                    <QRScannerDashboard/>
-                </PrivateRoute>
-                }
-            />
-
-
-            {/*Admin redirect */}
-          <Route path="/admin" element={<Navigate to="/admin/login" />} />
-            <Route path="/mysme/dashboard/overview" element={
-                <PrivateRoute >
-                    <ProjectDashboard />
-                </PrivateRoute>
-            } />
+                    {/* Admin Routes */}
+                    <Route path="/admin/login" element={<AdminLogin />} />
+                    <Route path="/admin/dashboard" element={
+                        <PrivateRoute>
+                            <AdminDashboard />
+                        </PrivateRoute>
+                    }
+                    />
+                    <Route path="/admin/qr-scanner-dashboard" element={
+                        <PrivateRoute>
+                            <QRScannerDashboard/>
+                        </PrivateRoute>
+                    }
+                    />
 
 
-        </Routes>
-      </div>
-    </Router>
-  );
+                    {/*Admin redirect */}
+                    <Route path="/admin" element={<Navigate to="/admin/login" />} />
+                    <Route path="/mysme/dashboard/overview" element={
+                        <PrivateRoute >
+                            <ProjectDashboard />
+                        </PrivateRoute>
+                    } />
+
+
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
