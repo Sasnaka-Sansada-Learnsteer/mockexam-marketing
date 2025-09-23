@@ -1,143 +1,284 @@
 .exam-timetable {
-  padding: 5rem 0;
-  background-color: #fff;
+    padding: 5rem 0;
+    background-color: #f7f9fc;
 }
 
-.timetable-tile {
-  position: relative;
-  background-color: white;
-  border-radius: 10px;
-  padding: 2rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease;
-  overflow: hidden;
-}
-
-.coming-soon-tag {
-  /*position: absolute;*/
-  top: 12px;
-  right: -30px;
-  background-color: #e40932;
-  color: white;
-  padding: 5px 30px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  /*transform: rotate(45deg);*/
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 .exam-timetable .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }
+
 
 .exam-timetable h2 {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 2.5rem;
-  text-align: center;
-  position: relative;
-  padding-bottom: 1rem;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
 }
+
 
 .exam-timetable h2::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background-color: #4361ee;
-}
-
-.timetable-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 2rem;
-}
-
-.timetable-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.timetable-row.single {
-  display: flex;
-  justify-content: center;
-}
-
-.timetable-row.single .exam-card {
-  width: 100%;
-  max-width: 350px;
-}
-
-.exam-card {
-  background-color: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.exam-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
-}
-
-.exam-card-header {
-  background-color: #4361ee;
-  color: white;
-  padding: 1.2rem;
-  text-align: center;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #4361ee;
 }
 
 
-
-.exam-card-header h3 {
-  font-size: 1.4rem;
-  margin: 0;
-  font-weight: 600;
-  color: inherit;
+.district-card-container {
+    display: flex;
+    justify-content: center;
 }
 
-.exam-card-body {
-  padding: 1.5rem;
+
+.district-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+
+.district-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+
+.district-card-header {
+    background-color: #4361ee;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+
+.district-card-header h3 {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 600;
+    color: white;
+}
+
+
+.district-card-body {
+    padding: 1.5rem;
+}
+
+
+.subject-item {
+    border: 1px solid #e0e0e0;
+    align-items: flex-start;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #fafafa;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.subject-item:last-child {
+    margin-bottom: 0;
+}
+
+
+.subject-header {
+    flex: 1;
+    text-align: left;
+}
+
+
+.subject-header h4 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #333;
+    font-weight: 600;
+}
+
+
+.subject-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: right;
+}
+
 
 .exam-detail {
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
 }
 
-.exam-detail:last-child {
-  margin-bottom: 0;
-}
 
 .detail-label {
-  color: #666;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 0.3rem;
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 60px;
+    text-align: left;
+    white-space: nowrap;
+    margin-right: 0.3rem;
 }
+
 
 .detail-value {
-  color: #333;
-  font-size: 1.1rem;
-  font-weight: 500;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-left: 0.5rem;
+    white-space: nowrap;
 }
 
-@media (max-width: 768px) {
-  .timetable-grid {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1.5rem;
-  }
 
-  .exam-timetable h2 {
-    font-size: 2rem;
-  }
+/* FIXED MOBILE STYLES WITH CENTERED CONTENT */
+@media (max-width: 576px) {
+    .exam-timetable {
+        padding: 2rem 0;
+    }
+
+
+    .exam-timetable h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+
+    .district-card-header {
+        padding: 1rem;
+    }
+
+
+    .district-card-header h3 {
+        font-size: 1.5rem;
+    }
+
+
+    .district-card-body {
+        padding: 1rem;
+    }
+
+
+    .subject-item {
+        flex-direction: column;
+        align-items: center; /* Center the entire subject item */
+        gap: 1.2rem;
+        padding: 1.2rem;
+        text-align: center; /* Center text within the item */
+    }
+
+
+    .subject-header {
+        width: 100%;
+        margin-bottom: 0;
+        text-align: center; /* Center subject name */
+    }
+
+
+    .subject-header h4 {
+        font-size: 1.2rem;
+    }
+
+
+    .subject-details {
+        width: 100%;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center; /* Center date/time content */
+        align-items: center; /* Center the details container */
+    }
+
+
+    .exam-detail {
+        width: 100%;
+        display: flex;
+        flex-direction: column; /* Stack label and value vertically */
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+
+    .detail-label {
+        min-width: auto;
+        width: 100%;
+        text-align: center;
+        white-space: nowrap;
+        margin-right: 0;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #555;
+    }
+
+
+    .detail-value {
+        text-align: center;
+        white-space: normal;
+        word-break: keep-all;
+        margin-left: 0;
+        font-size: 1.1rem;
+        width: 100%;
+        font-weight: 600;
+        color: #333;
+    }
+
+
+    /* Specific styling for time values */
+    .exam-detail .detail-value {
+        white-space: nowrap;
+        font-size: 1.2rem;
+    }
+
+
+    /* Add some visual separation */
+    .subject-details {
+        border-top: 1px dashed #e0e0e0;
+        padding-top: 1rem;
+        margin-top: 0.5rem;
+    }
 }
+
+
+/* Extra small device optimization */
+@media (max-width: 400px) {
+    .subject-item {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+
+    .subject-header h4 {
+        font-size: 1.1rem;
+    }
+
+
+    .detail-label {
+        font-size: 0.9rem;
+    }
+
+
+    .detail-value {
+        font-size: 1rem;
+    }
+
+
+    .exam-detail .detail-value {
+        font-size: 1.1rem;
+    }
+}
+
