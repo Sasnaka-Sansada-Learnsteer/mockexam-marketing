@@ -176,10 +176,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 15px;
-    background: #f8f9fa;
+    padding: 15px;
+    background-color: #f7f9fc; /* This is the light background */
     border-radius: 8px;
     margin-bottom: 10px;
+    font-weight: 500;
 }
 
 .subject-name {
@@ -196,15 +197,13 @@
 }
 
 .subject-grade {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
+    color: #2575fc; /* Ensures the letter inside is white */
+    padding: 4px 12px; /* Gives the shape some size */
+    border-radius: 12px; /* Makes it rounded */
+    min-width: 30px; /* Ensures a consistent minimum width */
+    text-align: center; /* Centers the grade letter */
     font-weight: bold;
-    margin-left: 15px;
+    font-size: 18px;
 }
 
 /* Results Actions */
