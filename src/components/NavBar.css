@@ -14,7 +14,7 @@
   right: 0;
   z-index: 1000;
   transition: all 0.4s ease;
-  padding: 0.7rem 0;
+  padding: 0.5rem 0;
   border-bottom: 1px solid rgba(230, 230, 230, 0.5);
     margin-top: 48px;
 }
@@ -123,7 +123,7 @@
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 1px;
-    animation: marquee 20s linear infinite;
+    animation: marquee 40s linear infinite;
     display: inline-block;
     white-space: nowrap;
     will-change: transform;

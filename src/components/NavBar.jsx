@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './NavBar.css';
-import RegisterNow from './RegisterNow';
 import logo from './assets/sasnakanlearnsteer.png';
 
 const NavBar = () => {
