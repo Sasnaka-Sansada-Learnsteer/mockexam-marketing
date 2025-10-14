@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './NavBar.css';
-import RegisterNow from './RegisterNow';
 import logo from './assets/sasnakanlearnsteer.png';
 
 const NavBar = () => {
@@ -27,7 +26,8 @@ const NavBar = () => {
   return (
       <>
       <div className="navbar-banner">
-          <span className="floating-banner-text">News : SME 25 - Phase I results will be released soon...</span>
+          <span className="floating-banner-text">News : SME 25 - Phase I results will be released soon
+              (Exam Centers : COLOMBO | KANDY | GALLE) </span>
       </div>
     <nav className={`navbar ${scrolled ? 'navbar-sticky' : ''}`}>
       <div className="navbar-container">

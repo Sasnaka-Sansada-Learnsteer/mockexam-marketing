@@ -89,8 +89,8 @@
 
 /* Check Results Button */
 .check-results-btn {
-    display: inline-block;
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    display: block;
+    background: linear-gradient(135deg, #11a9cb 0%, #2575fc 100%);
     color: white;
     padding: 14px 35px;
     border-radius: 50px;
@@ -100,7 +100,10 @@
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
     border: none;
-    margin-top: 10px;
+    margin: 20px auto ;
+    align-content: center;
+    width: auto;
+
 }
 
 .check-results-btn:hover:not(:disabled) {
@@ -117,6 +120,38 @@
     background: linear-gradient(135deg, #9b59b6, #3498db);
 }
 
+.check-results-btn-container .check-results-btn {
+    display: block;
+    margin: 0 auto;
+}
+
+.check-results-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1500px;
+    margin: 10px 0;
+    padding: 15px;
+    background: linear-gradient(145deg, #ffffff, #f5f7fa);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.6s ease-out;
+    align-content: center;
+    transition: all 0.3s ease;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 60%;
+}
+
+.check-results-btn-container.expanded {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
 /* Results Display */
 .results-display {
     text-align: left;
@@ -129,6 +164,11 @@
     padding: 15px;
     background: #f8f9fa;
     border-radius: 12px;
+}
+
+.results-content {
+    width: 100%;
+    margin-top: 10px;
 }
 
 .summary-item {

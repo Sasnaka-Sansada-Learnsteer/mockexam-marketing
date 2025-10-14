@@ -434,3 +434,86 @@ h3 {
         margin: 20px 15px;
     }
 }
+
+.loading-results-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 200px;
+}
+
+.water-bubble {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.2);
+    margin-bottom: 20px;
+}
+
+.water-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(135deg, #11a9cb 0%, #2575fc 100%);
+    animation: fillWater 30s ease-in-out infinite;
+}
+
+.water-fill::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -50%;
+    width: 200%;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: wave 5s linear infinite;
+}
+
+@keyframes fillWater {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 100%;
+    }
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateX(25%) rotate(180deg);
+    }
+    100% {
+        transform: translateX(0) rotate(360deg);
+    }
+}
+
+.result-message-text {
+    font-size: 18px;
+    color: #2575fc;
+    font-weight: 600;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

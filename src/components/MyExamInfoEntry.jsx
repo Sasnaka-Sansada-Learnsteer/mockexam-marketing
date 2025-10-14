@@ -13,9 +13,7 @@ const MyExamInfoEntry = () => {
                 <div className="divider"></div>
                 {/*<h4 className="coming-soon-text">Coming Soon</h4>*/}
                 <p className="portal-description">
-                    {/*Your personalized exam management space is on its way.*/}
-                    {/*Stay tuned for a seamless experience.*/}
-                    Your personalized exam management space is finally here. Login to get your Index Number & QR code for the exam.
+                    Your personalized exam management space. Easy Login using your NIC.
                 </p>
                 <div className="register-button-container">
                     <CheckMyQR className="small-button" />
