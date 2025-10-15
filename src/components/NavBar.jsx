@@ -26,7 +26,7 @@ const NavBar = () => {
   return (
       <>
       <div className="navbar-banner">
-          <span className="floating-banner-text"> Awa </span>
+          <span className="floating-banner-text"> Await for Exam Results . .  </span>
       </div>
     <nav className={`navbar ${scrolled ? 'navbar-sticky' : ''}`}>
       <div className="navbar-container">
