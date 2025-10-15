@@ -31,7 +31,7 @@ import CandidateProfile from "./mysme_candidate/CandidateProfile";
 function MarketingSite() {
     return (
         <div className="App">
-            <PopupCard />
+            {/*<PopupCard />*/}
             <header className="app-header">
                 <NavBar />
             </header>

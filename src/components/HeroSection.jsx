@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './HeroSection.css';
 import RegisterNow from "./RegisterNow";
 import smeCropped from "./assets/SME_cropped.png";
+import CheckMyQR from "./CheckMyQR";
 
 const HeroSection = () => {
     const [timeLeft, setTimeLeft] = useState('');
@@ -69,8 +70,12 @@ const HeroSection = () => {
                 {/*    )}*/}
                 {/*</p>*/}
                 <div className="register-button-container">
-                    <RegisterNow className="small-button" />
+                    {/*<RegisterNow className="small-button" />*/}
+                    <div className="register-button-container">
+                        <CheckMyQR className="small-button" />
+                    </div>
                 </div>
+                <h6>Exam results are released for Western, Southern, Central Provinces exams and Amapara, Matara Mini exams. </h6>
             </div>
             <div className="hero-overlay"></div>
         </div>
