@@ -119,15 +119,15 @@
 }
 
 .floating-banner-text {
-    color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
-    letter-spacing: 1px;
-    animation: marquee 40s linear infinite;
-    display: inline-block;
-    white-space: nowrap;
-    will-change: transform;
-    padding-left: 100%;
+    color: white;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    animation: pulse 2s infinite;
 }
 
 .navbar-banner:hover .floating-banner-text {
@@ -141,6 +141,11 @@
     100% {
         transform: translateX(-200%);
     }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
 }
 
 /* Adjust navbar position to account for the banner */
@@ -264,4 +269,16 @@
     font-size: 14px;
     padding: 10px 16px;
   }
+}
+
+/* For subtle emphasis */
+@media (prefers-reduced-motion: no-preference) {
+    .floating-banner-text {
+        animation: alertPulse 3s infinite;
+    }
+
+    @keyframes alertPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.03); }
+    }
 }

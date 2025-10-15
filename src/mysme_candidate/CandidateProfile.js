@@ -24,6 +24,7 @@ const CandidateProfile = () => {
     const [showingResultMessages, setShowingResultMessages] = useState(false);
     const [resultMessage, setResultMessage] = useState('');
     const [surveyCompleted, setSurveyCompleted] = useState(false);
+    const [checkResultsClickCount, setCheckResultsClickCount] = useState(0);
 
     useEffect(() => {
         const fetchCandidateData = async () => {
@@ -46,6 +47,7 @@ const CandidateProfile = () => {
                 }
 
                 setCandidateData(response.data);
+                setCheckResultsClickCount(response.data.candidate.check_results_button_clicks_count || 0);
             } catch (err) {
                 console.error('Error fetching candidate data:', err);
                 setError('Failed to load profile data. Please try again later.');
@@ -124,48 +126,45 @@ const CandidateProfile = () => {
     const handleShowResultsClick = () => {
         setResultsExpanded(!resultsExpanded);
         if (!resultsExpanded && !resultsData) {
-            fetchResults();
+            checkAndFetchResults();
         }
     };
 
-    const fetchResults = async () => {
+    const checkAndFetchResults = async () => {
         const token = localStorage.getItem('candidateToken');
         if (!token) return;
 
         setResultsLoading(true);
         try {
-            // const response = await axios.get(
-            //     `${API_BASE_URL}/api/candidate/results`,
-            //     { headers: { Authorization: `Bearer ${token}` } }
-            // );
+            // Check if this is the first time checking results
+            if (checkResultsClickCount === 0 && !surveyCompleted) {
+                // First time - show survey
+                setSurveyVisible(true);
+                startProgressBar();
+                setResultsLoading(false);
+            } else {
+                // Not first time - show results directly
+                const response = await axios.get(
+                    `${API_BASE_URL}/api/candidate/results`,
+                    {
+                        headers: { Authorization: `Bearer ${token}` },
+                        timeout: 10000
+                    }
+                );
 
-            // if (response.data.success === false) {
-            //     setResultsError('Failed to load results');
-            //     return;
-            // }
-            //
-            // setResultsData(response.data)
-            setTimeout(() => {
-                const mockResponse = {...mockResultsResponse};
-                // Check if this is first time (check_results_clicks_count = 1)
-                mockResponse.check_results_clicks_count = 1; // Mock for first click
-
-                if (mockResponse.check_results_clicks_count === 1 && !surveyCompleted) {
-                    setSurveyVisible(true);
-                    startProgressBar();
-                    setResultsLoading(false);
-                } else {
-                    setResultsData(mockResponse);
-                    setResultsLoading(false);
+                if (response.data.success === false) {
+                    throw new Error('Failed to load results');
                 }
-            }, 800);
+                setResultsData(response.data);
+                setResultsLoading(false);
+            }
         } catch (err) {
             console.error('Error fetching results:', err);
             setResultsError('Failed to load results data');
-        } finally {
             setResultsLoading(false);
         }
     };
+
 
     const startProgressBar = () => {
         const interval = setInterval(() => {
@@ -201,13 +200,16 @@ const CandidateProfile = () => {
         let index = 0;
         setResultMessage(messages[0]);
 
+        // Start fetching results immediately with retry mechanism
+        fetchActualResultsWithRetry();
+
         const messageInterval = setInterval(() => {
             index++;
             if (index >= messages.length) {
                 clearInterval(messageInterval);
                 setTimeout(() => {
                     setShowingResultMessages(false);
-                    setResultsData(mockResultsResponse);
+                    setResultsLoading(false);
                 }, 1000);
             } else {
                 setResultMessage(messages[index]);
@@ -215,72 +217,92 @@ const CandidateProfile = () => {
         }, 3000); // Change message every 3 seconds
     };
 
+    const fetchActualResultsWithRetry = async (retryCount = 0, maxRetries = 5) => {
+        const token = localStorage.getItem('candidateToken');
+        if (!token) return;
+
+        try {
+            const response = await axios.get(
+                `${API_BASE_URL}/api/candidate/results`,
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                    timeout: 10000 // 10 second timeout
+                }
+            );
+
+            if (response.data.success === false) {
+                throw new Error('Failed to load results');
+            }
+
+            setResultsData(response.data);
+            setResultsError('');
+        } catch (err) {
+            console.error(`Error fetching results (attempt ${retryCount + 1}):`, err);
+            if (retryCount < maxRetries) {
+                // Exponential backoff: 1s, 2s, 4s, 8s, 16s
+                const backoffDelay = Math.min(1000 * Math.pow(2, retryCount), 16000);
+                console.log(`Retrying in ${backoffDelay}ms...`);
+
+                setTimeout(() => {
+                    fetchActualResultsWithRetry(retryCount + 1, maxRetries);
+                }, backoffDelay);
+            } else {
+                setResultsError('Failed to load results data after multiple attempts');
+                setResultsLoading(false);
+            }
+        }
+    };
+
     const CandidateResults = ({ data, loading, error }) => {
-        if (loading) return <div className="results-loading">Loading results...</div>;
         if (error) return <div className="results-error">{error}</div>;
-        if (!data) return <div className="results-message"></div>;
+        if (!data || !data.results) return null;
+
+        const { results } = data;
 
         return (
             <div className="results-content">
                 <h3>My Exam Results</h3>
-                {/* Render results data here based on your API response structure */}
-                {data.results?.map((result, index) => (
-                    <div className="result-item" key={index}>
-                        <div className="result-subject">{result.subject}</div>
-                        <div className="result-grade">{result.grade}</div>
+                {/* Rankings Section */}
+                <div className="results-summary">
+                    <div className="summary-item">
+                        <span className="label">District Rank:</span>
+                        <span className="value">{results.district_rank}</span>
                     </div>
-                ))}
+                    <div className="summary-item">
+                        <span className="label">Island Rank:</span>
+                        <span className="value">{results.island_rank}</span>
+                    </div>
+                    <div className="summary-item">
+                        <span className="label">Z-Score:</span>
+                        <span className="value">{results.final_zscore}</span>
+                    </div>
+                </div>
+
+                {/* Grades Section */}
+                <div className="results-grades">
+                    {results.bio_grade ? (
+                        <div className="grade-item">
+                            <span className="subject-label">BIOLOGY:</span>
+                            <span className="grade-value">{results.bio_grade}</span>
+                        </div>
+                    ) : results.maths_grade ? (
+                        <div className="grade-item">
+                            <span className="subject-label">COMBINED MATHS:</span>
+                            <span className="grade-value">{results.maths_grade}</span>
+                        </div>
+                    ) : null}
+                    <div className="grade-item">
+                        <span className="subject-label">PHYSICS:</span>
+                        <span className="grade-value">{results.physics_grade}</span>
+                    </div>
+                    <div className="grade-item">
+                        <span className="subject-label">CHEMISTRY:</span>
+                        <span className="grade-value">{results.chemistry_grade}</span>
+                    </div>
+                </div>
             </div>
         );
     };
-
-    const mockResultsResponse = {
-        "success": true,
-        "candidateInfo": {
-            "id": "C12345",
-            "name": "John Smith",
-            "examDate": "2023-06-15"
-        },
-        "summary": {
-            "rank": 42,
-            "totalCandidates": 1250,
-            "zScore": 1.8,
-            "percentile": "96.5%",
-            "overallGrade": "A"
-        },
-        "results": [
-            {
-                "subjectId": "MATH101",
-                "subject": "Mathematics",
-                "score": 87,
-                "grade": "A",
-                "maxScore": 100
-            },
-            {
-                "subjectId": "PHYS101",
-                "subject": "Physics",
-                "score": 92,
-                "grade": "A",
-                "maxScore": 100
-            },
-            {
-                "subjectId": "CHEM101",
-                "subject": "Chemistry",
-                "score": 78,
-                "grade": "B",
-                "maxScore": 100
-            },
-            {
-                "subjectId": "BIO101",
-                "subject": "Biology",
-                "score": 81,
-                "grade": "A",
-                "maxScore": 100
-            }
-        ],
-        "certificateId": "CERT-2023-12345",
-        "issuedDate": "2023-06-30"
-    }
 
     if (loading) {
         return <div className="loading">Loading profile data...</div>;
@@ -326,7 +348,7 @@ const CandidateProfile = () => {
                         </div>
                     )}
 
-                    {resultsExpanded && (
+                    {resultsExpanded && !showingResultMessages && (
                         <CandidateResults
                             data={resultsData}
                             loading={resultsLoading}
