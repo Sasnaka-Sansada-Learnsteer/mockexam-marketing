@@ -185,16 +185,7 @@ const CandidateProfile = () => {
         setResultsExpanded(true);
 
         const messages = [
-            "Hang tight . .",
-            "requesting grades . . .",
-            "Hang tight . .",
-            "Calculating your Ranks . . .",
-            "Calculating your z score . . . ",
-            "Hang tight . .",
-            "Putting all together . . .",
-            "Hang tight . .",
-            "Your results are almost ready . .",
-            "Results will be displayed in few seconds . ."
+            "Loading results. . ."
         ];
 
         let index = 0;

@@ -19,7 +19,7 @@
     "react-icons": "^5.5.0",
     "react-router-dom": "^6.26.1",
     "react-scripts": "^5.0.1",
-    "vercel": "^45.0.9",
+    "vercel": "^48.2.9",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
