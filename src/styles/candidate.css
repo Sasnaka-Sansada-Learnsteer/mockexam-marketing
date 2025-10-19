@@ -477,6 +477,206 @@ h3 {
     animation: wave 5s linear infinite;
 }
 
+.check-results-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    font-weight: 600;
+    transition: all 0.3s;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+}
+
+.check-results-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(52, 152, 219, 0.3);
+}
+
+/* Style the container when 'expanded' */
+.check-results-btn-container.expanded {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid #e0e0e0; /* Added border like the image */
+}
+
+/* Style the "Hide Results" button */
+.check-results-btn-container.expanded .check-results-btn {
+    background-color: #f1f3f5;
+    color: #495057;
+    box-shadow: none;
+}
+
+.check-results-btn-container.expanded .check-results-btn:hover {
+    background-color: #e9ecef;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Main two-column layout for results */
+.results-content {
+    display: grid;
+    grid-template-columns: 1fr; /* Default to 1 column */
+    gap: 20px 40px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Media query to create two columns on wider screens */
+@media (min-width: 768px) {
+    .results-content {
+        grid-template-columns: 1fr 1fr; /* Two columns */
+    }
+}
+
+/* Style the "My Exam Results" heading */
+.results-content h3 {
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e7eaf3;
+    padding-bottom: 15px;
+    grid-column: 1 / -1; /* Make heading span both columns */
+    text-align: center;
+}
+
+/* Left Column: Container for Ranks and Z-Score */
+.results-summary {
+    padding: 0;
+    margin: 0;
+}
+
+/* Individual item (e.g., "District Rank") */
+.summary-item {
+    display: grid;
+    grid-template-columns: 140px auto; /* Label column and Value column */
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 15px;
+    /* Remove old circular styles */
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    padding: 0;
+    border: none;
+    text-align: left;
+}
+
+/* Style the label (e.g., "District Rank:") */
+.summary-item .label {
+    font-weight: 600;
+    color: #34495e;
+    min-width: 0; /* Override old style */
+    text-transform: none; /* Override old style */
+    margin-bottom: 0; /* Override old style */
+    font-size: 15px;
+}
+
+/* Style the value (e.g., "10/100") */
+.summary-item .value {
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 15px; /* Override old large blue style */
+    line-height: 1.2;
+}
+
+/* Right Column: Container for Subject Grades */
+.results-grades {
+    padding-top: 0;
+}
+
+/* Individual grade (e.g., "Maths: A") */
+.grade-item {
+    display: grid;
+    grid-template-columns: auto 40px; /* Subject name and Grade box */
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    width: 100%;
+    /* Remove all old circular styles */
+    height: auto;
+    border-radius: 0;
+    border: none;
+    background-color: transparent;
+    transition: none;
+    margin-bottom: 5px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.grade-item:hover {
+    /* Remove old hover */
+    border-color: transparent;
+    transform: none;
+    box-shadow: none;
+    background-color: #f8f9fa; /* Add a slight hover for rows */
+}
+
+.grade-item:last-child {
+    border-bottom: none;
+}
+
+/* Style the subject label (e.g., "COMBINED MATHS:") */
+.grade-item .subject-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c3e50;
+    text-transform: uppercase;
+    position: relative;
+    padding-left: 20px; /* Space for the '>' */
+    margin-bottom: 0;
+}
+
+/* Add the '>' icon */
+.grade-item .subject-label::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #3498db;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* Style the grade letter (e.g., "A") */
+.grade-item .grade-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1;
+    /* Create the grey box */
+    background-color: #f1f3f5;
+    border-radius: 4px;
+    padding: 6px 0; /* Vertical padding */
+    width: 36px; /* Fixed width */
+    text-align: center;
+    justify-self: end; /* Align box to the right */
+}
+
+/* Error message styling */
+.results-error {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #e74c3c;
+    background-color: #ffebee;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #e74c3c;
+    margin: 10px 0;
+    grid-column: 1 / -1; /* Make error span both columns */
+}
+
 @keyframes fillWater {
     0% {
         height: 0;
