@@ -32,7 +32,7 @@ function MarketingSite() {
     return (
         <div className="App">
             {/*<PopupCard />*/}
-            <header className="app-header">
+            <header>
                 <NavBar />
             </header>
 
