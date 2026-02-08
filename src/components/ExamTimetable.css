@@ -7,7 +7,7 @@
 .exam-timetable .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0;
 }
 
 
@@ -18,6 +18,7 @@
     text-align: center;
     position: relative;
     padding-bottom: 1rem;
+    display : inline-block;
 }
 
 
