@@ -31,6 +31,7 @@ const ExamTimetable = () => {
         },
     ];
 
+    return null;
 
     return (
         <section className="exam-timetable">

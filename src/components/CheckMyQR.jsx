@@ -15,7 +15,7 @@ const CheckMyQR = ({ className = "", pulsing = true }) => {
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
         >
-            Check Results
+            Login to MySME
         </a>
     );
 };

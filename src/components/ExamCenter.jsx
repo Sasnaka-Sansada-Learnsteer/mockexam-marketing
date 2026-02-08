@@ -24,7 +24,8 @@ const ExamCenter = () => {
       directionsUrl: "https://maps.google.com/maps/dir//Viharamahadevi+Balika+Vidyalaya+333+Peradeniya+Rd+Kandy+20000/@7.2871851,80.6269938,16z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3ae36884a80ad257:0xeb3b08feb9c52601",
     },
   ];
-
+  
+  return null;
   return (
     <section className="province-table">
       <div className="container">
