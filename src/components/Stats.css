@@ -1,6 +1,10 @@
 .stats-section {
-  padding: 5rem 0;
-  background-color: #f8f9fa;
+  padding: clamp(4rem, 8vw, 8rem) 0;
+  /* Use variables so background flips to black */
+  background-color: var(--bg-color);
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
 }
 
 .stats-section .container {
@@ -8,72 +12,92 @@
   margin: 0 auto;
   padding: 0 2rem;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .stats-title {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 3rem;
-  position: relative;
-  display: inline-block;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--text-color); /* Swapped for variable */
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
-.stats-title::after {
-  content: "";
-  position: absolute;
-  width: 60px;
-  height: 4px;
-  background-color: #4361ee;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
+/* 1. THE SINGLE LINE FIX */
 .stats-container {
   display: flex;
   justify-content: center;
-  gap: 5rem;
-  flex-wrap: wrap;
+  gap: clamp(1rem, 3vw, 3rem); /* Slightly tighter gap to stay on one line */
+  flex-wrap: nowrap; /* Forces items to stay side-by-side */
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .stat-item {
-  flex: 0 1 220px;
-  background-color: white;
-  border-radius: 10px;
-  padding: 2rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1; /* Makes all three boxes take equal width */
+  min-width: 0; /* Prevents overflow content from pushing the box wider */
+  background: var(--card-bg); /* Flips color in dark mode */
+  border-radius: 24px;
+  padding: clamp(1.5rem, 3vw, 3rem) 1rem;
+  
+  /* Layered shadow for dark mode depth */
+  box-shadow: 
+    0 10px 30px -5px rgba(0, 0, 0, 0.3), 
+    0 4px 6px -1px rgba(67, 97, 238, 0.1); 
+  
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--section-border);
 }
 
 .stat-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-12px);
+  /* Brighter glow for dark mode hover */
+  box-shadow: 0 20px 40px -10px rgba(76, 201, 240, 0.3);
+  border-color: var(--accent-color);
 }
 
 .stat-number {
   display: block;
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: #4361ee;
+  font-size: clamp(1.8rem, 4vw, 3.5rem); /* Scaled down slightly for 3-in-a-row */
+  font-weight: 900;
+  background: linear-gradient(135deg, #4361ee 0%, #4cc9f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
+  line-height: 1;
 }
 
 .stat-label {
-  font-size: 1.2rem;
-  color: #666;
+  font-size: clamp(0.7rem, 1vw, 0.9rem); /* Responsive label size */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-color);
+  opacity: 0.7; /* Soften the slate grey in dark mode */
   margin: 0;
 }
 
-@media (max-width: 768px) {
+/* Subtle background accent - Adjusted for Dark Mode */
+.stats-section::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(76, 201, 240, 0.05) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+/* 2. RESPONSIVE FIX: Only wrap on small mobile */
+@media (max-width: 640px) {
   .stats-container {
-    gap: 2rem;
+    flex-wrap: wrap; /* Allow wrapping only on tiny screens */
   }
-
   .stat-item {
-    flex: 0 1 180px;
-  }
-
-  .stat-number {
-    font-size: 2.8rem;
+    flex: 1 1 100%;
+    max-width: 100%;
   }
 }

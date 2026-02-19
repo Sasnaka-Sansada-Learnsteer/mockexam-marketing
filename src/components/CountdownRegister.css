@@ -1,6 +1,8 @@
 .countdown-register-container {
-  background-color: #f8f9fa;
+  /* Swapped #f8f9fa for variable */
+  background-color: var(--bg-color);
   padding: 5rem 0;
+  transition: background-color 0.3s ease;
 }
 
 .countdown-register-container .container {
@@ -14,10 +16,14 @@
   flex-direction: row;
   align-items: center;
   gap: 4rem;
-  background-color: white;
+  /* Swapped white for card-bg (charcoal in dark mode) */
+  background-color: var(--card-bg);
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  /* Stronger shadow for depth in dark mode */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   padding: 3rem;
+  border: 1px solid var(--section-border);
+  transition: all 0.3s ease;
 }
 
 .countdown-section {
@@ -28,51 +34,62 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* Centering the items horizontally */
   align-items: center;
   text-align: center;
 }
 
 .countdown-register-container h2 {
   font-size: 2rem;
-  color: #333;
+  /* Swapped #333 for text-color */
+  color: var(--text-color);
   margin-bottom: 1.5rem;
   position: relative;
 }
 
+/* Fixed underline to be more visible in dark mode */
 .countdown-section h2::after {
   content: "";
   position: absolute;
   bottom: -10px;
-  left: 43%;
+  left: 50%; /* Changed to 50% for better centering */
+  transform: translateX(-50%);
   width: 60px;
   height: 4px;
-  background-color: #4361ee;
+  background-color: var(--accent-color);
+  box-shadow: 0 0 10px rgba(67, 97, 238, 0.4);
 }
 
 .register-section p {
-  color: #666;
+  /* Swapped #666 for variable with opacity */
+  color: var(--text-color);
+  opacity: 0.8;
   font-size: 1.1rem;
   line-height: 1.6;
   margin-bottom: 2rem;
 }
 
 .register-button {
-  background-color: #4361ee;
+  background-color: var(--accent-color);
   color: white;
   padding: 1rem 2rem;
   border-radius: 5px;
-  text-decoration: none;
   font-weight: 600;
-  font-family: Montserrat;
+  font-family: 'Poppins', sans-serif; /* Matched your global font */
   transition: all 0.3s ease;
   display: inline-block;
 }
 
 .register-button:hover {
   background-color: #3a56d4;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+  transform: translateY(-3px);
+  /* Neon glow effect on hover */
+  box-shadow: 0 5px 20px rgba(67, 97, 238, 0.5);
+}
+
+/* Pulse animation color for dark mode */
+.registration-message {
+  color: var(--text-color);
+  font-weight: bold;
 }
 
 @media (max-width: 960px) {
@@ -85,45 +102,5 @@
   .countdown-section,
   .register-section {
     width: 100%;
-  }
-
-  .register-section {
-    align-items: center;
-    text-align: center;
-  }
-
-  .countdown-section h2::after {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .register-button {
-    width: 100%;
-    text-align: center;
-  }
-
-  .registration-message {
-    font-size: 1.5rem;
-    margin-top: 2rem;
-    color: #222;
-    font-weight: bold;
-    text-shadow: none;
-
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-      opacity: 0.8;
-    }
-    50% {
-      transform: scale(1.03);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 0.8;
-    }
   }
 }

@@ -1,92 +1,108 @@
-/* MyExamInfoEntry.css */
 .my-exam-info-container {
-  padding: 60px 20px;
-  /*background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);*/
-  background-image: url("./assets/MyExamInfoEntryBackground3.png");
+  /* Use a viewport-based padding so it breathes on large screens */
+  padding: clamp(40px, 8vw, 100px) 20px;
+  
+  /* Modern Background: Overlay the image with a dark gradient for depth */
+  background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
+              url("./assets/MyExamInfoEntryBackground3.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Parallax effect: image stays still while scrolling */
+  
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 400px;
 }
 
 .coming-soon-wrapper {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  padding: 40px;
+  /* GLASSMORPHISM EFFECT */
+  background: rgba(255, 255, 255, 0.03); /* Nearly transparent */
+  backdrop-filter: blur(16px); /* Frosted glass blur */
+  -webkit-backdrop-filter: blur(16px);
+  
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Thin "light" border */
+  border-radius: 24px; /* Smoother, larger corners */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  
+  padding: clamp(30px, 5vw, 60px);
   text-align: center;
-  max-width: 600px;
+  max-width: 650px;
   width: 100%;
-  transition: transform 0.3s ease;
-  opacity: 0.95;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .coming-soon-wrapper:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(74, 108, 247, 0.4); /* Glow on hover */
 }
 
+/* ICON GLOW */
 .portal-icon {
-  font-size: 50px;
+  font-size: clamp(40px, 5vw, 60px);
   color: #4a6cf7;
   margin-bottom: 20px;
+  filter: drop-shadow(0 0 15px rgba(74, 108, 247, 0.5));
 }
 
 .my-exam-portal-text {
-  color: #2d3748;
-  font-size: 32px;
-  font-weight: 700;
+  color: #ffffff; /* Changed to white for dark mode look */
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
   margin-bottom: 10px;
 }
 
+/* REPLACING DIVIDER WITH A GRADIENT LINE */
 .divider {
-  width: 60px;
+  width: 80px;
   height: 4px;
-  background: #4a6cf7;
-  margin: 15px auto 20px;
-  border-radius: 2px;
+  background: linear-gradient(90deg, #4a6cf7, #00d2ff);
+  margin: 15px auto 25px;
+  border-radius: 10px;
 }
 
 .coming-soon-text {
-  color: #4a6cf7;
-  font-size: 24px;
-  font-weight: 600;
+  background: linear-gradient(90deg, #4a6cf7, #00d2ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Gradient text */
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
   margin-bottom: 15px;
-  letter-spacing: 1px;
 }
 
 .portal-description {
-  color: #718096;
-  line-height: 1.6;
-  margin-bottom: 25px;
-  font-size: 16px;
+  color: #cbd5e0; /* Softer light gray for readability */
+  line-height: 1.8;
+  margin-bottom: 30px;
+  font-size: clamp(14px, 1.2vw, 17px);
 }
 
+/* MODERN BUTTON STYLE */
 .notification-button button {
-  background-color: #4a6cf7;
+  background: linear-gradient(135deg, #4a6cf7 0%, #3a5ce4 100%);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
+  padding: 16px 36px;
+  border-radius: 12px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 10px 20px rgba(74, 108, 247, 0.3);
   transition: all 0.3s ease;
 }
 
 .notification-button button:hover {
-  background-color: #3a5ce4;
-  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(74, 108, 247, 0.5);
+  transform: translateY(-2px) scale(1.02);
 }
 
 @media (max-width: 768px) {
-  .my-exam-info-container {
-    padding: 40px 15px;
-  }
-
   .coming-soon-wrapper {
+    margin: 0 15px;
     padding: 30px 20px;
-  }
-
-  .my-exam-portal-text {
-    font-size: 28px;
   }
 }
