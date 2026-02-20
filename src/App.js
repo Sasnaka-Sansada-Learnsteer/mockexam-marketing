@@ -109,9 +109,39 @@ function App() {
                         <>🌙 <span className="button-text">Dark Mode</span></>
                     )}
                 </button>
+
                 <Routes>
+                    {/* Main marketing site route */}
                     <Route path="/" element={<MarketingSite isDarkMode={isDarkMode} />} />
-                    {/* ... your other routes */}
+
+                    {/* Candidate Routes */}
+                    <Route path="/mysme/login" element={<CandidateLogin />} />
+                    <Route path="/mysme/profile" element={<CandidateProfile />} />
+
+                    {/* Admin Routes */}
+                    <Route path="/admin/login" element={<AdminLogin />} />
+                    <Route path="/admin/dashboard" element={
+                        <PrivateRoute>
+                            <AdminDashboard />
+                        </PrivateRoute>
+                    }
+                    />
+                    <Route path="/admin/qr-scanner-dashboard" element={
+                        <PrivateRoute>
+                            <QRScannerDashboard/>
+                        </PrivateRoute>
+                    }
+                    />
+
+                    {/*Admin redirect */}
+                    <Route path="/admin" element={<Navigate to="/admin/login" />} />
+                    
+                    {/* Project Dashboard */}
+                    <Route path="/mysme/dashboard/overview" element={
+                        <PrivateRoute >
+                            <ProjectDashboard />
+                        </PrivateRoute>
+                    } />
                 </Routes>
             </div>
         </Router>
