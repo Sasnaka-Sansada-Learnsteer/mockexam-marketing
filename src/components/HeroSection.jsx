@@ -56,30 +56,13 @@ const HeroSection = () => {
                     alt="Sasnaka Sansada A/L Mock Exam 2025"
                     className="hero-title-image"
                 />
-                {/*<h1>Prepare for Your Future</h1>*/}
-                {/*<h2>with Sasnaka Sansada A/L Mock Exam 2025</h2>*/}
-                <p>Wishing you clarity, confidence, and the very best of luck on 2025 A/L exams. May your dedication and experience you brought from our mock exam series lead to outstanding success! - SME Team</p>
-                {/*<p className="registration-message">*/}
-                {/*    {typeof timeLeft === 'string' ? (*/}
-                {/*        timeLeft*/}
-                {/*    ) : (*/}
-                {/*        <>*/}
-                {/*            {timeLeft.text}*/}
-                {/*            <span className="countdown-numbers">{timeLeft.time}</span>*/}
-                {/*        </>*/}
-                {/*    )}*/}
-                {/*</p>*/}
-                {/*<div className="register-button-container">*/}
-                {/*    /!*<RegisterNow className="small-button" />*!/*/}
-                {/*    <div className="register-button-container">*/}
-                {/*        <CheckMyQR className="small-button" />*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<h6>Exam results are released for Western, Southern, Central Provinces exams and Amapara, Matara Mini exams. </h6>*/}
-            </div>
-            <div className="hero-overlay"></div>
         </div>
-    );
-};
+        <div className="hero-overlay"></div>
+    </div>
+    
+    
+    )
+    };
 
 export default HeroSection;
+

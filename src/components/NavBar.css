@@ -53,7 +53,6 @@
   height: 100px;
   width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   font-family: Montserrat, serif;
   position: fixed;
@@ -75,29 +74,68 @@
   margin-top: 0;
 }
 
+/* --- DARK MODE NAVBAR GRADIENT --- */
+
+/* Target the navbar when the parent container has .dark-mode */
+.dark-mode .navbar {
+  /* Subtle deep charcoal to pure black gradient */
+  background: linear-gradient(180deg, #1f1f1f 0%, #121212 100%);
+  
+  /* A dark "rim light" border to separate it from the background */
+  border-bottom: 1px solid #333333;
+  
+  /* Reset backdrop blur for a cleaner dark look, or keep it if you like the glass effect */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+/* Ensure the sticky state matches the dark aesthetic */
+.dark-mode .navbar-sticky {
+  background: #121212;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Text and Link adjustments for Dark Mode visibility */
+.dark-mode .nav-link {
+  color: #e0e0e0;
+}
+
+.dark-mode .nav-link:hover {
+  color: #4895ef; /* Lighter blue for better contrast on dark */
+}
+
+/* Mobile menu background for Dark Mode */
+@media screen and (max-width: 960px) {
+  .dark-mode .nav-menu {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+}
+
 .navbar-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: center; /* This centers the logo and menu vertically */
   width: 100%;
   max-width: 1300px;
   padding: 0 2rem;
+  height: 100%; /* Ensures container takes full navbar height */
 }
 
 .navbar-logo {
   display: flex;
-  align-items: center;
-  color: #333;
+  align-items: center; 
+  height: 100%; /* Important for vertical alignment */
   text-decoration: none;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-right: 0.75rem;
 }
 
 .navbar-logo img {
-  height: 42px;
+  height: 50px; /* Adjusted size for a cleaner look */
+  width: auto;
+  display: block; /* Removes baseline spacing */
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-  transition: all 0.3s ease;
+  transition: all 0.3s ease;  
+  margin-left: 50px;
 }
 
 .navbar-logo img:hover {
@@ -109,7 +147,6 @@
   display: flex;
   align-items: center;
   list-style: none;
-  margin: 0;
   padding: 0;
   gap: 1rem;
 }
@@ -187,12 +224,12 @@
   border: none;
   width: 44px;
   height: 44px;
-  display: flex;
   align-items: center;
-  justify-content: center;
   border-radius: 50%;
   transition: all 0.3s ease;
-  margin-left: auto;
+  margin-right: 50px;
+  margin : 0 15px;
+  display: none;
 }
 
 .menu-icon:hover {
@@ -216,16 +253,6 @@
 
   .floating-banner-text {
     font-size: 14px;
-  }
-
-  .navbar-container {
-    justify-content: space-between;
-  }
-
-  .menu-icon {
-    display: flex;
-    margin-left: auto;
-    order: 3;
   }
 
   .nav-menu {
@@ -328,3 +355,30 @@
         50% { transform: scale(1.03); }
     }
 }
+
+@media screen and (max-width: 700px) {
+  .navbar-logo img {
+    height: 40px;
+    margin-left: -10px !important;
+  }
+  .dark-mode-toggle {
+    right: 20px !important;
+  }
+  .button-text {
+    display : none;
+  }
+}
+@media screen and (max-width: 460px) {
+  .navbar-logo img {
+    height: 40px;
+    margin-left: -10px !important;
+  }
+  .button-text {
+    display : none;
+  }
+  .dark-mode-toggle {
+    right: 20px !important;
+  }
+}
+
+

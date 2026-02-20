@@ -28,12 +28,12 @@ import CandidateLogin from "./mysme_candidate/CandidateLogin";
 import CandidateProfile from "./mysme_candidate/CandidateProfile";
 
 // Create a component for the main marketing site
-function MarketingSite() {
+function MarketingSite({isDarkMode}) {
     return (
         <div className="App">
             {/*<PopupCard />*/}
             <header>
-                <NavBar />
+                <NavBar isDarkMode={isDarkMode} />
             </header>
 
             <main>
@@ -72,12 +72,14 @@ function MarketingSite() {
             <FloatingWhatsApp phoneNumber="94703445342" />
         </div>
     );
+    
 }
 
 function App() {
     const [token, setToken] = useState(null);
+    // 1. Add state for Dark Mode
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
-    // Check for stored token on app load
     useEffect(() => {
         const storedToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
         if (storedToken) {
@@ -85,42 +87,31 @@ function App() {
         }
     }, []);
 
+    // 2. Function to toggle the state
+    const toggleDarkMode = () => {
+        setIsDarkMode(!isDarkMode);
+    };
+
     return (
         <Router>
-            <div className="app-container">
+            {/* 3. Apply the class conditionally based on state */}
+            <div className={`app-container ${isDarkMode ? 'dark-mode' : ''}`}>
+                
+                {/* 4. The Toggle Button (You can place this anywhere, e.g., in NavBar) */}
+                <button 
+                    onClick={toggleDarkMode} 
+                    style={{ position: 'fixed', top: '12px', right: '100px', zIndex: 9999 }}
+                    className="dark-mode-toggle"
+                >
+                    {isDarkMode ? (
+                        <>🔆 <span className="button-text">Light Mode</span></>
+                    ) : (
+                        <>🌙 <span className="button-text">Dark Mode</span></>
+                    )}
+                </button>
                 <Routes>
-                    {/* Main marketing site route */}
-                    <Route path="/" element={<MarketingSite />} />
-
-                    {/* Candidate Routes */}
-                    <Route path="/mysme/login" element={<CandidateLogin />} />
-                    <Route path="/mysme/profile" element={<CandidateProfile />} />
-
-                    {/* Admin Routes */}
-                    <Route path="/admin/login" element={<AdminLogin />} />
-                    <Route path="/admin/dashboard" element={
-                        <PrivateRoute>
-                            <AdminDashboard />
-                        </PrivateRoute>
-                    }
-                    />
-                    <Route path="/admin/qr-scanner-dashboard" element={
-                        <PrivateRoute>
-                            <QRScannerDashboard/>
-                        </PrivateRoute>
-                    }
-                    />
-
-
-                    {/*Admin redirect */}
-                    <Route path="/admin" element={<Navigate to="/admin/login" />} />
-                    <Route path="/mysme/dashboard/overview" element={
-                        <PrivateRoute >
-                            <ProjectDashboard />
-                        </PrivateRoute>
-                    } />
-
-
+                    <Route path="/" element={<MarketingSite isDarkMode={isDarkMode} />} />
+                    {/* ... your other routes */}
                 </Routes>
             </div>
         </Router>

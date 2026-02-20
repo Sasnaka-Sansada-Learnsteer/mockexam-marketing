@@ -1,39 +1,145 @@
 .exam-info {
-  padding: 5rem 0;
-  background-color: #f8f9fa;
-}
-
-.exam-info .container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+    padding: clamp(4rem, 10vw, 8rem) 0;
+    /* Uses variables for a dark-to-black gradient in dark mode */
+    background: radial-gradient(circle at top left, var(--bg-color), var(--card-bg));
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    transition: background 0.3s ease;
 }
 
 .exam-info h2 {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  position: relative;
-  padding-bottom: 1rem;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--text-color); /* Swapped #1a1a1a */
+    margin-bottom: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
 }
 
-.exam-info h2::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background-color: #4361ee;
+.description-text {
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    line-height: 1.8;
+    color: var(--text-color); /* Swapped #4a5568 */
+    opacity: 0.8; /* Slightly dimmed for better reading in the dark */
+    max-width: 750px;
+    margin: 0 auto 2.5rem;
 }
 
-.exam-info p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #555;
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
+/* THE MODERN HIGHLIGHT BOX */
+.announcement-badge {
+    display: inline-block;
+    /* Uses card-bg to look like a dark glass tile in dark mode */
+    background: var(--card-bg); 
+    color: #4cc9f0; /* Keeping the bright blue accent */
+    padding: 1.5rem 2.5rem;
+    border-radius: 20px;
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    font-weight: 700;
+    border: 1px dashed rgba(76, 201, 240, 0.4);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* -----------------Styling For Success Stories------------------- */
+
+/* 1. THE GRID & PERSPECTIVE */
+.hear-from-successors .success-gallery-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  padding: 50px 20px;
+  perspective: 2000px; /* Deep 3D space */
+}
+
+/* 2. THE IMAGE FRAME PHYSICS */
+.hear-from-successors img {
+  background: white;
+  padding: 12px;
+  margin : 15px;
+  border-radius: 30px !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  
+  /* Modern "Deep" Shadow */
+  box-shadow: 
+    0 10px 20px rgba(0, 0, 0, 0.05),
+    0 30px 60px rgba(67, 97, 238, 0.12) !important;
+
+  /* Use a 'Back' transition for a springy snap */
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  
+  /* APPLY THE CONSTANT FLOATING ANIMATION */
+  animation: floatyOrbit 6s ease-in-out infinite;
+}
+
+/* 3. STAGGER THE FLOATING START TIMES */
+/* This makes them move independently like they are in water */
+.hear-from-successors img:nth-child(2) { animation-delay: -2s; }
+.hear-from-successors img:nth-child(3) { animation-delay: -4s; }
+
+/* 4. THE 3D ENTRANCE (Triggered by AOS always) */
+.hear-from-successors [data-aos].aos-animate {
+  animation: tumbleIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* 5. KEYFRAMES: THE "TUMBLE" ENTRANCE */
+@keyframes tumbleIn {
+  0% {
+    opacity: 0;
+    transform: rotateY(-30deg) rotateX(15deg) translateY(100px) scale(0.8);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(0) rotateX(0) translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* 6. KEYFRAMES: THE "ZERO-G" FLOAT */
+@keyframes floatyOrbit {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-15px) rotate(1deg); }
+  66% { transform: translateY(-5px) rotate(-1deg); }
+}
+
+.hear-from-successors img {
+    /* 1. Variable-based background with transparency */
+    background: var(--card-bg);
+    padding: 12px;
+    margin: 15px;
+    border-radius: 30px !important;
+
+    /* 2. THE UPGRADE: Semi-transparent 'Glass' border */
+    /* In Light Mode, it's a soft blue; in Dark Mode, it becomes a sharp neon edge */
+    border: 1px solid rgba(76, 201, 240, 0.3) !important;
+    
+    /* 3. MULTI-LAYERED SHADOWS (The Photoshop Secret) */
+    /* Layer 1: Deep shadow for lift | Layer 2: Subtle blue glow */
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(67, 97, 238, 0.1) !important;
+
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    animation: floatyOrbit 6s ease-in-out infinite;
+    
+    /* Smooth transition for the border/glow when toggling */
+    transition: border 0.4s ease, box-shadow 0.4s ease !important;
+}
+
+/* 4. ENHANCED HOVER (The "Flashlight" Effect) */
+.hear-from-successors img:hover {
+    animation-play-state: paused; 
+    transform: scale(1.05) translateY(-20px) !important;
+    
+    /* Brighten the border on hover */
+    border: 1px solid rgba(76, 201, 240, 0.8) !important;
+    
+    /* Intensify the neon glow */
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(76, 201, 240, 0.4) !important;
+    
+    filter: brightness(1.1);
+    z-index: 10;
 }

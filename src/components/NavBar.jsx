@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import './NavBar.css';
-import logo from './assets/sasnakanlearnsteer.png';
+import logoBlack from './assets/sasnakalearnsteerblack.svg';
+import logoWhite from './assets/sasnakalearnsteerwhite.svg';
 
-const NavBar = () => {
+const NavBar = ({ isDarkMode }) => { 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      // Logic: If scrolled more than 50px, set true
+      setScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // { passive: true } improves scrolling performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -24,29 +22,28 @@ const NavBar = () => {
   }, []);
 
   return (
-      <>
-      {/*<div className="navbar-banner">*/}
-      {/*    <span className="floating-banner-text"> Exam Results are OUT NOW !  </span>*/}
-      {/*</div>*/}
     <nav className={`navbar ${scrolled ? 'navbar-sticky' : ''}`}>
       <div className="navbar-container">
+        {/* Logo Section */}
         <div className="navbar-logo">
-          <img src={logo} alt="Sasnaka&Learnsteer" />
-          {/*<span>Sasnaka Sansada</span>*/}
+          <img 
+            src={isDarkMode ? logoWhite : logoBlack} 
+            alt="Sasnaka & Learnsteer" 
+            height={50}
+          />
         </div>
 
-        {/*<RegisterNow className="always-visible" />*/}
+        {/* Navigation Links */}
+        <ul className={isMenuOpen ? 'nav-menu active' : 'nav-menu'}>
+          
+        </ul>
 
+        {/* Mobile Menu Toggle - Now inside the container for alignment */}
         <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <i className={isMenuOpen ? 'fas fa-times' : 'fas fa-bars'}></i>
         </div>
-
-        <ul className={isMenuOpen ? 'nav-menu active' : 'nav-menu'}>
-          {/* Other navigation items would go here */}
-        </ul>
       </div>
     </nav>
-      </>
   );
 };
 

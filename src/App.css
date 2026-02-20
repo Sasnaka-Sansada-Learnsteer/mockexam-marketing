@@ -1,60 +1,96 @@
-/* Global Layout */
-
+/* Global Layout & Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+/* 1. Theme Variables */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --section-border: #eeeeee;
+  --card-bg: #f5faff;
+  --header-bg: #0f5c85;
+  --accent-color: #4abbf7;
+  --footer-bg: #4abbf7;
+  --logo-color:black;
+}
+
+/* Dark Mode Overrides */
+.dark-mode {
+  --bg-color: #000000;
+  --text-color: #ffffff;
+  --section-border: #222222;
+  --card-bg: #111111;
+  --header-bg: #083a54;
+  --footer-bg: #0a3d59;
+  --logo-color:white;
+}
+
+/* 2. Base Styles */
 * {
+  box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
 }
 
-body,
-html {
-  background-color: #ffffff;
-  color: #333;
-  font-family: "Poppins", sans-serif;
+body, html {
+  background-color: var(--bg-color);
+  color: var(--text-color);
   scroll-behavior: smooth;
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .App {
   text-align: center;
 }
 
+/* 3. Layout Components */
 header.app-header {
-  background-color: #4abbf7;
+  background-color: var(--header-bg);
   padding: 2rem;
   color: white;
+  transition: background-color 0.3s ease;
 }
 
-h1,
-h2 {
-  color: #333;
+h1, h2 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
 }
 
 section {
   padding: 3rem 1rem;
-  border-bottom: 1px solid #eee;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--section-border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
+footer {
+  background-color: var(--footer-bg);
+  color: white;
+  padding: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+/* 4. UI Elements */
 button {
-  background-color: #4abbf7;
+  background-color: var(--accent-color);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   margin-top: 1rem;
 }
 
 button:hover {
-  background-color: #2aa6e0;
+  background-color: var(--header-bg);
+  transform: translateY(-2px);
 }
 
-/* Sponsors grid */
+/* Sponsors */
 .sponsors-logos {
   display: flex;
   justify-content: center;
@@ -72,7 +108,7 @@ button:hover {
   transform: scale(1.1);
 }
 
-/* Stats List */
+/* Stats List - Merged into one single block */
 .stats-list {
   display: flex;
   justify-content: center;
@@ -84,11 +120,14 @@ button:hover {
 .stats-list li {
   list-style: none;
   font-size: 1.2rem;
-  background-color: #f5faff;
+  background-color: var(--card-bg);
+  color: var(--text-color);
   padding: 1rem 1.5rem;
   border-radius: 8px;
   min-width: 200px;
   box-shadow: 0 0 10px rgba(74, 187, 247, 0.15);
+  border: 1px solid var(--section-border);
+  transition: all 0.3s ease;
 }
 
 /* Popup */
@@ -96,27 +135,16 @@ button:hover {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #4abbf7;
+  background-color: var(--accent-color);
   color: #fff;
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   animation: slideUp 0.3s ease-out;
+  z-index: 9999; /* Photoshop-style Top Layer */
 }
 
 @keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-footer {
-  background-color: #4abbf7;
-  color: white;
-  padding: 1rem;
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

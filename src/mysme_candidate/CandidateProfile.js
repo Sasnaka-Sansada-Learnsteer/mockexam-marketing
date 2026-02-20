@@ -322,7 +322,7 @@ const CandidateProfile = () => {
                 <button onClick={handleLogout} className="btn-logout">Logout</button>
             </div>
 
-            {candidateData.candidate.results_released && (
+            {/*candidateData.candidate.results_released && (
                 <div className={`check-results-btn-container ${resultsExpanded ? 'expanded' : ''}`}>
                     <button
                         className={`check-results-btn`}
@@ -347,34 +347,45 @@ const CandidateProfile = () => {
                         />
                     )}
                 </div>
-            )}
+            )*/}
 
             <div className="profile-content">
                 <div className="candidate-details">
                     <h3>My Information</h3>
                     <div className="detail-item">
-                        <span className="label">NIC:</span>
+                        <span className="label">NIC :</span>
                         <span className="value">{candidateData.candidate["NIC"]}</span>
                     </div>
                     <div className="detail-item">
-                        <span className="label">Full Name:</span>
+                        <span className="label">Full Name :</span>
                         <span className="value">{candidateData.candidate["Full Name"]}</span>
                     </div>
                     <div className="detail-item">
-                        <span className="label">School:</span>
+                        <span className="label">School :</span>
                         <span className="value">{candidateData.candidate["School "]}</span>
                     </div>
                     <div className="detail-item">
-                        <span className="label">Subject Stream:</span>
+                        <span className="label">Subject Stream :</span>
                         <span className="value">{candidateData.candidate["Subject Stream"]}</span>
                     </div>
                     <div className="detail-item">
-                        <span className="label">Preferred Exam Center:</span>
+                        <span className="label">Preferred Exam Center :</span>
                         <span className="value">{candidateData.candidate["Preferred Exam Center"]}</span>
                     </div>
                 </div>
+        </div>
 
-                <div className="eligible-papers">
+        <div>
+            <button 
+                className='btn-primary' 
+                onClick={() => window.location.href = '/mysme/quizplatform'}
+            >
+                Go to my quiz
+            </button>
+        </div>
+                
+        <div>           
+                {/*<div className="eligible-papers">
                     <h3>My Exam Papers</h3>
                     {candidateData.candidate.confirmed_papers?.length > 0 ? (
                         <ul>
@@ -385,7 +396,7 @@ const CandidateProfile = () => {
                     ) : (
                         <p>No eligible papers found</p>
                     )}
-                </div>
+                </div>*/}
 
                 <div className="exam-info-card">
                     <h3>My Exam Information</h3>
