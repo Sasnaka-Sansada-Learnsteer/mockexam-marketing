@@ -15,7 +15,7 @@ const CountdownRegister = () => {
 
             <div className="register-section">
               <h2>Ready to excel?</h2>
-              <p>Hurry up! Join our comprehensive A/L mock examination program and prepare yourself for success.</p>
+              <p>Hurry up! Join our A/L Mock Examination MCQ Series and prepare yourself for success.</p>
 
               {/*<a
                 href="https://forms.gle/do6jF9UGx9gh4ZmZ9"
