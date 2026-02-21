@@ -368,17 +368,19 @@ const CandidateProfile = () => {
                         <span className="label">Subject Stream :</span>
                         <span className="value">{candidateData.candidate["Subject Stream"]}</span>
                     </div>
+                    {candidateData.candidate["Preferred Exam Center"] && (
                     <div className="detail-item">
                         <span className="label">Preferred Exam Center :</span>
                         <span className="value">{candidateData.candidate["Preferred Exam Center"]}</span>
                     </div>
+)}
                 </div>
         </div>
 
         <div>
             <button 
                 className='btn-primary' 
-                onClick={() => window.location.href = '/mysme/quizplatform'}
+                onClick={() => window.location.href = 'quiz.sasnaka.org'}
             >
                 Go to my quiz
             </button>

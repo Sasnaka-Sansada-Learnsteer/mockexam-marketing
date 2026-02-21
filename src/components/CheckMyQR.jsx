@@ -6,7 +6,7 @@ const CheckMyQR = ({ className = "", pulsing = true }) => {
 
     return (
         <a
-            href="https://sme.sasnaka.org/mysme/login"
+            href="https://quiz.sasnaka.org"
             target="_blank"
             rel="noreferrer"
             className={`register-button ${pulsing ? "pulsing" : ""} ${
@@ -15,7 +15,7 @@ const CheckMyQR = ({ className = "", pulsing = true }) => {
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
         >
-            Login to MySME
+            Login to Quiz Platform
         </a>
     );
 };
