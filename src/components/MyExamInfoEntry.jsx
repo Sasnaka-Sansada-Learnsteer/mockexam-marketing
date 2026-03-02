@@ -15,7 +15,7 @@ const MyExamInfoEntry = () => {
     }, []);
 
     const handleLoginToQuiz = () => {
-        window.location.href = "https://quiz.sasnaka.org/login?redirected_from=sme.sasnaka.org";
+        window.open("https://quiz.sasnaka.org/login?redirected_from=sme.sasnaka.org", "_blank", "noopener,noreferrer");
     };
     return (
         <div className="my-exam-info-container">
