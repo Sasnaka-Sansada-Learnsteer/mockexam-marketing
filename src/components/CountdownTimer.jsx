@@ -25,7 +25,7 @@ const CountdownTimer = ({ deadline }) => {
 
     return (
         <div className="countdown-container">
-            <h2 className="countdown-title">You can Access Papers In:</h2>
+            <h2 className="countdown-title">You can access papers in:</h2>
             <div className="countdown-units">
                 {/* <div className="countdown-unit">
                     <span className="countdown-value">{timeLeft.days}</span>
