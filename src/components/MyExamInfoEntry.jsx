@@ -38,9 +38,9 @@ const MyExamInfoEntry = () => {
 
                 <p className="portal-description" style={{ marginBottom: "10px" }}>
                     {isLive ? (
-                        <>The <strong>A/L MCQ Mock Exam Series</strong> is officially open. Test your knowledge with papers prepared by university undergrads.</>
+                        <>The <strong>A/L Mock Examination MCQ Series</strong> is officially open. Test your knowledge with papers prepared by university undergrads.</>
                     ) : (
-                        <>The <strong>A/L MCQ Mock Exam Series</strong> is launching soon. Get ready to test your knowledge with papers prepared by university undergrads.</>
+                        <>The <strong>A/L Mock Examination MCQ Series</strong> is launching soon. If you haven't registered yet, Click Register Now button below.</>
                     )}
                 </p>
 
