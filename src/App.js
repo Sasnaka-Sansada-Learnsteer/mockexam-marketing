@@ -44,6 +44,9 @@ function MarketingSite({isDarkMode}) {
                 <section id="myexaminfo">
                     <MyExamInfoEntry />
                 </section>
+                <section id="countdown-register">
+                    <CountdownRegister />
+                </section>
                 <section id="examinfo">
                     <ExamInfo />
                 </section>
@@ -59,11 +62,6 @@ function MarketingSite({isDarkMode}) {
                 {/*<section id="remainingseats">
          <RemainingSeats />
        </section>*/}
-
-
-                <section id="countdown-register">
-                    <CountdownRegister />
-                </section>
             </main>
 
             {/*<PopupNotification />*/}

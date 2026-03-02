@@ -15,7 +15,7 @@ const MyExamInfoEntry = () => {
     }, []);
 
     const handleLoginToQuiz = () => {
-        window.location.href = "https://quiz.sasnaka.org/login?redirected_from=sme.sasnaka.org";
+        window.open("https://quiz.sasnaka.org/login?redirected_from=sme.sasnaka.org", "_blank", "noopener,noreferrer");
     };
     return (
         <div className="my-exam-info-container">
@@ -38,9 +38,9 @@ const MyExamInfoEntry = () => {
 
                 <p className="portal-description" style={{ marginBottom: "10px" }}>
                     {isLive ? (
-                        <>The <strong>A/L MCQ Mock Exam Series</strong> is officially open. Test your knowledge with papers prepared by university undergrads.</>
+                        <>The <strong>A/L Mock Examination MCQ Series</strong> is officially open. Test your knowledge with papers prepared by university undergrads.</>
                     ) : (
-                        <>The <strong>A/L MCQ Mock Exam Series</strong> is launching soon. Get ready to test your knowledge with papers prepared by university undergrads.</>
+                        <>The <strong>A/L Mock Examination MCQ Series</strong> is launching soon. If you haven't registered yet, click the Register Now button below.</>
                     )}
                 </p>
 
