@@ -25,15 +25,15 @@ const CountdownTimer = ({ deadline }) => {
 
     return (
         <div className="countdown-container">
-            <h2 className="countdown-title">Registration opens in:</h2>
+            <h2 className="countdown-title">Platform Opens In:</h2>
             <div className="countdown-units">
-                <div className="countdown-unit">
+                {/* <div className="countdown-unit">
                     <span className="countdown-value">{timeLeft.days}</span>
                     <span className="countdown-label">days</span>
-                </div>
+                </div> */}
                 <div className="countdown-unit">
                     <span className="countdown-value">{timeLeft.hours}</span>
-                    <span className="countdown-label">hours</span>
+                    <span className="countdown-label">hour</span>
                 </div>
                 <div className="countdown-unit">
                     <span className="countdown-value">{timeLeft.minutes}</span>
