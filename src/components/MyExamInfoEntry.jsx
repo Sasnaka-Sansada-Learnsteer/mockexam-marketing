@@ -15,7 +15,7 @@ const MyExamInfoEntry = () => {
     }, []);
 
     const handleLoginToQuiz = () => {
-        window.location.href = "https://quiz.sasnaka.org/login?redirect=quiz.sasnaka.org";
+        window.location.href = "https://quiz.sasnaka.org/login?redirect_from=sme.sasnaka.org";
     };
     return (
         <div className="my-exam-info-container">
