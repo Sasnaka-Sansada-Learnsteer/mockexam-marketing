@@ -17,8 +17,9 @@
 }
 
 .stats-title {
+  font-family: var(--font-heading);
   font-size: clamp(2rem, 4vw, 3rem);
-  color: var(--text-color); /* Swapped for variable */
+  color: var(--text-color);
   margin-bottom: clamp(3rem, 6vw, 5rem);
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -35,33 +36,29 @@
 }
 
 .stat-item {
-  flex: 1; /* Makes all three boxes take equal width */
-  min-width: 0; /* Prevents overflow content from pushing the box wider */
-  background: var(--card-bg); /* Flips color in dark mode */
-  border-radius: 24px;
+  flex: 1;
+  min-width: 0;
+  background: var(--card-bg);
+  border-radius: var(--border-radius-lg);
   padding: clamp(1.5rem, 3vw, 3rem) 1rem;
   
-  /* Layered shadow for dark mode depth */
-  box-shadow: 
-    0 10px 30px -5px rgba(0, 0, 0, 0.3), 
-    0 4px 6px -1px rgba(67, 97, 238, 0.1); 
-  
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
   border: 1px solid var(--section-border);
 }
 
 .stat-item:hover {
-  transform: translateY(-12px);
-  /* Brighter glow for dark mode hover */
-  box-shadow: 0 20px 40px -10px rgba(76, 201, 240, 0.3);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
   border-color: var(--accent-color);
 }
 
 .stat-number {
+  font-family: var(--font-heading);
   display: block;
-  font-size: clamp(1.8rem, 4vw, 3.5rem); /* Scaled down slightly for 3-in-a-row */
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
   font-weight: 900;
-  background: linear-gradient(135deg, #4361ee 0%, #4cc9f0 100%);
+  background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;

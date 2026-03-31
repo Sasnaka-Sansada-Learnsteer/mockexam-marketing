@@ -9,8 +9,9 @@
 }
 
 .exam-info h2 {
+    font-family: var(--font-heading);
     font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--text-color); /* Swapped #1a1a1a */
+    color: var(--text-color);
     margin-bottom: 2rem;
     font-weight: 800;
     letter-spacing: -0.02em;
@@ -28,16 +29,15 @@
 /* THE MODERN HIGHLIGHT BOX */
 .announcement-badge {
     display: inline-block;
-    /* Uses card-bg to look like a dark glass tile in dark mode */
     background: var(--card-bg); 
-    color: #4cc9f0; /* Keeping the bright blue accent */
+    color: var(--accent-color);
     padding: 1.5rem 2.5rem;
-    border-radius: 20px;
+    border-radius: var(--border-radius-lg);
     font-size: clamp(1rem, 1.5vw, 1.15rem);
     font-weight: 700;
-    border: 1px dashed rgba(76, 201, 240, 0.4);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    border: 1px dashed var(--accent-color);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
 }
 
 /* -----------------Styling For Success Stories------------------- */
@@ -108,37 +108,31 @@
     background: var(--card-bg);
     padding: 12px;
     margin: 15px;
-    border-radius: 30px !important;
+    border-radius: var(--border-radius-lg) !important;
 
     /* 2. THE UPGRADE: Semi-transparent 'Glass' border */
-    /* In Light Mode, it's a soft blue; in Dark Mode, it becomes a sharp neon edge */
-    border: 1px solid rgba(76, 201, 240, 0.3) !important;
+    border: 1px solid var(--section-border) !important;
     
     /* 3. MULTI-LAYERED SHADOWS (The Photoshop Secret) */
-    /* Layer 1: Deep shadow for lift | Layer 2: Subtle blue glow */
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        0 0 20px rgba(67, 97, 238, 0.1) !important;
+    box-shadow: var(--shadow-md) !important;
 
-    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    transition: all var(--transition-normal) !important;
     animation: floatyOrbit 6s ease-in-out infinite;
     
     /* Smooth transition for the border/glow when toggling */
-    transition: border 0.4s ease, box-shadow 0.4s ease !important;
+    transition: border 0.4s ease, box-shadow 0.4s ease, transform var(--transition-normal) !important;
 }
 
 /* 4. ENHANCED HOVER (The "Flashlight" Effect) */
 .hear-from-successors img:hover {
     animation-play-state: paused; 
-    transform: scale(1.05) translateY(-20px) !important;
+    transform: scale(1.05) translateY(-10px) !important;
     
     /* Brighten the border on hover */
-    border: 1px solid rgba(76, 201, 240, 0.8) !important;
+    border: 1px solid var(--accent-color) !important;
     
     /* Intensify the neon glow */
-    box-shadow: 
-        0 30px 60px rgba(0, 0, 0, 0.6),
-        0 0 40px rgba(76, 201, 240, 0.4) !important;
+    box-shadow: var(--shadow-lg) !important;
     
     filter: brightness(1.1);
     z-index: 10;

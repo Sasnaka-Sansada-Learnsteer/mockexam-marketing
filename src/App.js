@@ -95,17 +95,33 @@ function App() {
             {/* 3. Apply the class conditionally based on state */}
             <div className={`app-container ${isDarkMode ? 'dark-mode' : ''}`}>
                 
-                {/* 4. The Toggle Button (You can place this anywhere, e.g., in NavBar) */}
+                {/* 4. The Toggle Button */}
                 <button 
                     onClick={toggleDarkMode} 
-                    style={{ position: 'fixed', top: '12px', right: '100px', zIndex: 9999 }}
+                    style={{ 
+                        position: 'fixed', 
+                        bottom: '30px', 
+                        left: '30px', 
+                        zIndex: 9999,
+                        width: '50px',
+                        height: '50px',
+                        borderRadius: '50%',
+                        padding: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.5rem',
+                        boxShadow: 'var(--shadow-lg)',
+                        background: 'var(--card-bg)',
+                        color: 'var(--text-color)',
+                        border: '1px solid var(--section-border)',
+                        backdropFilter: 'var(--glass-blur)',
+                        WebkitBackdropFilter: 'var(--glass-blur)'
+                    }}
                     className="dark-mode-toggle"
+                    aria-label="Toggle Dark Mode"
                 >
-                    {isDarkMode ? (
-                        <>🔆 <span className="button-text">Light Mode</span></>
-                    ) : (
-                        <>🌙 <span className="button-text">Dark Mode</span></>
-                    )}
+                    {isDarkMode ? '🔆' : '🌙'}
                 </button>
 
                 <Routes>
