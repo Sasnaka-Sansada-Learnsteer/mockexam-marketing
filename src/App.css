@@ -1,35 +1,59 @@
 /* Global Layout & Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 /* 1. Theme Variables */
 :root {
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --section-border: #eeeeee;
-  --card-bg: #f5faff;
-  --header-bg: #0f5c85;
-  --accent-color: #4abbf7;
-  --footer-bg: #4abbf7;
-  --logo-color:black;
+  /* Colors */
+  --bg-color: #f8fafc;
+  --text-color: #0f172a;
+  --section-border: #e2e8f0;
+  --card-bg: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  --footer-bg: #0f172a;
+  --logo-color: #000000;
+
+  /* Effects */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.4);
+  --glass-blur: blur(12px);
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-pill: 9999px;
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Typography */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
 }
 
 /* Dark Mode Overrides */
 .dark-mode {
-  --bg-color: #000000;
-  --text-color: #ffffff;
-  --section-border: #222222;
-  --card-bg: #111111;
-  --header-bg: #083a54;
-  --footer-bg: #0a3d59;
-  --logo-color:white;
+  --bg-color: #0b1120;
+  --text-color: #f8fafc;
+  --section-border: #1e293b;
+  --card-bg: #1e293b;
+  --header-bg: rgba(11, 17, 32, 0.85);
+  --accent-color: #8b5cf6;
+  --accent-hover: #a78bfa;
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --footer-bg: #020617;
+  --logo-color: #ffffff;
+  
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.4);
 }
 
 /* 2. Base Styles */
 * {
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-style: normal;
+  font-family: var(--font-body);
 }
 
 body, html {
@@ -38,7 +62,9 @@ body, html {
   scroll-behavior: smooth;
   margin: 0;
   padding: 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .App {
@@ -53,9 +79,10 @@ header.app-header {
   transition: background-color 0.3s ease;
 }
 
-h1, h2 {
+h1, h2, h3, h4, h5, h6 {
   color: var(--text-color);
   margin-bottom: 1rem;
+  font-family: var(--font-heading);
 }
 
 section {
@@ -74,20 +101,23 @@ footer {
 
 /* 4. UI Elements */
 button {
-  background-color: var(--accent-color);
+  background: var(--accent-gradient);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
-  border-radius: 6px;
+  font-weight: 500;
+  border-radius: var(--border-radius-md);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-fast);
   margin-top: 1rem;
+  box-shadow: var(--shadow-sm);
 }
 
 button:hover {
-  background-color: var(--header-bg);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  filter: brightness(1.1);
 }
 
 /* Sponsors */
@@ -108,7 +138,6 @@ button:hover {
   transform: scale(1.1);
 }
 
-/* Stats List - Merged into one single block */
 .stats-list {
   display: flex;
   justify-content: center;
@@ -120,14 +149,20 @@ button:hover {
 .stats-list li {
   list-style: none;
   font-size: 1.2rem;
+  font-weight: 600;
   background-color: var(--card-bg);
   color: var(--text-color);
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  min-width: 200px;
-  box-shadow: 0 0 10px rgba(74, 187, 247, 0.15);
+  padding: 1.5rem 2rem;
+  border-radius: var(--border-radius-lg);
+  min-width: 250px;
+  box-shadow: var(--shadow-md);
   border: 1px solid var(--section-border);
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
+}
+
+.stats-list li:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
 }
 
 /* Popup */

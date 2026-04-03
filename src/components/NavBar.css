@@ -47,30 +47,27 @@
 }
 
 .navbar {
-  background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  height: 100px;
+  background-color: var(--header-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  height: 80px;
   width: 100%;
   display: flex;
   align-items: center;
-  font-family: Montserrat, serif;
   position: fixed;
-  /*top: 48px; !* Height of banner *!*/
   left: 0;
   right: 0;
   z-index: 1000;
-  transition: all 0.4s ease;
+  transition: all var(--transition-normal);
   padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(230, 230, 230, 0.5);
+  border-bottom: 1px solid var(--section-border);
   margin-top: 0;
 }
 
 .navbar-sticky {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-  background-color: rgba(255, 255, 255, 0.98);
+  box-shadow: var(--shadow-md);
+  background-color: var(--header-bg);
   padding: 0.5rem 0;
-  /*top: 48px;*/
   margin-top: 0;
 }
 
@@ -78,38 +75,33 @@
 
 /* Target the navbar when the parent container has .dark-mode */
 .dark-mode .navbar {
-  /* Subtle deep charcoal to pure black gradient */
-  background: linear-gradient(180deg, #1f1f1f 0%, #121212 100%);
-  
-  /* A dark "rim light" border to separate it from the background */
-  border-bottom: 1px solid #333333;
-  
-  /* Reset backdrop blur for a cleaner dark look, or keep it if you like the glass effect */
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--section-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 /* Ensure the sticky state matches the dark aesthetic */
 .dark-mode .navbar-sticky {
-  background: #121212;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  background: var(--header-bg);
+  box-shadow: var(--shadow-lg);
 }
 
 /* Text and Link adjustments for Dark Mode visibility */
 .dark-mode .nav-link {
-  color: #e0e0e0;
+  color: var(--text-color);
 }
 
 .dark-mode .nav-link:hover {
-  color: #4895ef; /* Lighter blue for better contrast on dark */
+  color: var(--accent-hover);
 }
 
 /* Mobile menu background for Dark Mode */
 @media screen and (max-width: 960px) {
   .dark-mode .nav-menu {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: var(--card-bg);
+    border: 1px solid var(--section-border);
+    box-shadow: var(--shadow-lg);
   }
 }
 
@@ -158,14 +150,15 @@
 }
 
 .nav-link {
-  color: #333;
+  color: var(--text-color);
   text-decoration: none;
   padding: 0.5rem 1rem;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all var(--transition-fast);
   position: relative;
   letter-spacing: 0.3px;
   font-size: 0.95rem;
+  font-family: var(--font-heading);
 }
 
 .nav-link:after {
@@ -175,14 +168,14 @@
   height: 3px;
   bottom: -5px;
   left: 50%;
-  background: linear-gradient(90deg, #4361ee, #4895ef);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border-radius: 3px;
+  background: var(--accent-gradient);
+  transition: all var(--transition-normal);
+  border-radius: var(--border-radius-sm);
   opacity: 0;
 }
 
 .nav-link:hover {
-  color: #4361ee;
+  color: var(--accent-hover);
 }
 
 .nav-link:hover:after {
@@ -192,24 +185,25 @@
 }
 
 .register-button.always-visible {
-  background: linear-gradient(135deg, #4361ee, #3a56d4);
+  background: var(--accent-gradient);
   color: white;
   padding: 10px 22px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-md);
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all var(--transition-fast);
   margin-left: auto;
   margin-right: 15px;
   display: inline-block;
   font-size: 14px;
-  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.25);
+  box-shadow: var(--shadow-sm);
   letter-spacing: 0.3px;
 }
 
 .register-button.always-visible:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 6px 16px rgba(67, 97, 238, 0.35);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  filter: brightness(1.1);
 }
 
 .register-button.always-visible:active {
