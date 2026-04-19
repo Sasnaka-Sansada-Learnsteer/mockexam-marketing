@@ -60,7 +60,6 @@
   z-index: 1000;
   transition: all var(--transition-normal);
   padding: 0.5rem 0;
-  border-bottom: 1px solid var(--section-border);
   margin-top: 0;
 }
 
@@ -76,7 +75,6 @@
 /* Target the navbar when the parent container has .dark-mode */
 .dark-mode .navbar {
   background: var(--header-bg);
-  border-bottom: 1px solid var(--section-border);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
 }
@@ -100,7 +98,6 @@
 @media screen and (max-width: 960px) {
   .dark-mode .nav-menu {
     background: var(--card-bg);
-    border: 1px solid var(--section-border);
     box-shadow: var(--shadow-lg);
   }
 }

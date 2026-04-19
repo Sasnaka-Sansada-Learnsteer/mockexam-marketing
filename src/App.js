@@ -114,7 +114,6 @@ function App() {
                         boxShadow: 'var(--shadow-lg)',
                         background: 'var(--card-bg)',
                         color: 'var(--text-color)',
-                        border: '1px solid var(--section-border)',
                         backdropFilter: 'var(--glass-blur)',
                         WebkitBackdropFilter: 'var(--glass-blur)'
                     }}

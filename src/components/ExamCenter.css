@@ -108,7 +108,6 @@
     overflow: hidden;
     box-shadow: var(--shadow-sm);
     transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-    border: 1px solid var(--section-border);
 }
 
 

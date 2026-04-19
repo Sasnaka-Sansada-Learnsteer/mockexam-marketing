@@ -79,7 +79,6 @@
 
 
 .subject-item {
-    border: 1px solid #e0e0e0;
     align-items: flex-start;
     border-radius: 8px;
     padding: 1rem;
@@ -248,7 +247,6 @@
 
     /* Add some visual separation */
     .subject-details {
-        border-top: 1px dashed #e0e0e0;
         padding-top: 1rem;
         margin-top: 0.5rem;
     }
