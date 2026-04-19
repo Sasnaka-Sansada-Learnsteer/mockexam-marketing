@@ -6,12 +6,11 @@ const RegisterNow = ({ className = "", pulsing = true }) => {
 
   return (
     <a
-      href="https://docs.google.com/forms/d/e/1FAIpQLSfV0DfAa1u-NV3XMFPTOYjC-ILvABJRgKS2L9z3MWWRsh9FXQ/viewform"
+      href="https://forms.gle/VSBj5e7iGXakJaPA9"
       target="_blank"
       rel="noreferrer"
-      className={`register-button ${pulsing ? "pulsing" : ""} ${
-        isHovering ? "hovering" : ""
-      } ${className}`}
+      className={`register-button ${pulsing ? "pulsing" : ""} ${isHovering ? "hovering" : ""
+        } ${className}`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
