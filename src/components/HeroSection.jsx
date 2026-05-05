@@ -49,16 +49,19 @@ const HeroSection = () => {
     }, []);
 
     return (
-        <div className="hero-container">
+        <div
+            className="hero-container"
+            style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/tagImage.jpg)` }}
+        >
             <div className="hero-content">
                 <img
                     src={smeCropped}
                     alt="Sasnaka Sansada A/L Mock Exam 2025"
                     className="hero-title-image"
                 />
+            </div>
+            <div className="hero-overlay"></div>
         </div>
-        <div className="hero-overlay"></div>
-    </div>
     
     
     )

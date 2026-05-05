@@ -75,8 +75,14 @@ function MarketingSite({isDarkMode}) {
 
 function App() {
     const [token, setToken] = useState(null);
-    // 1. Add state for Dark Mode
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    // 1. Add state for Dark Mode – persisted in localStorage
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        try {
+            return localStorage.getItem('theme') === 'dark';
+        } catch {
+            return false;
+        }
+    });
 
     useEffect(() => {
         const storedToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
@@ -85,9 +91,21 @@ function App() {
         }
     }, []);
 
-    // 2. Function to toggle the state
+    // 2. Function to toggle the state and persist preference
     const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
+        setIsDarkMode(prev => {
+            const next = !prev;
+            try {
+                localStorage.setItem('theme', next ? 'dark' : 'light');
+                // Keep the <html> class in sync (used by the pre-paint script)
+                if (next) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            } catch {}
+            return next;
+        });
     };
 
     return (
