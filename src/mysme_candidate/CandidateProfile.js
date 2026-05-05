@@ -322,7 +322,7 @@ const CandidateProfile = () => {
                 <button onClick={handleLogout} className="btn-logout">Logout</button>
             </div>
 
-            {/*candidateData.candidate.results_released && (
+            {candidateData.candidate.results_released && (
                 <div className={`check-results-btn-container ${resultsExpanded ? 'expanded' : ''}`}>
                     <button
                         className={`check-results-btn`}
@@ -347,7 +347,7 @@ const CandidateProfile = () => {
                         />
                     )}
                 </div>
-            )*/}
+            )}
 
             <div className="profile-content">
                 <div className="candidate-details">
