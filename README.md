@@ -2,6 +2,19 @@
 
 A comprehensive React-based marketing website for AL Mock Examinations with integrated candidate management and admin panel features.
 
+## 🌿 Branch Naming Convention
+
+We follow a standard branch naming convention to keep our repository organized. Please use the following prefixes for your branches:
+
+- `feature/` - for new features or enhancements (e.g., `feature/amiru/add-login-page`)
+- `bugfix/` or `fix/` - for bug fixes (e.g., `bugfix/sanithu/fix-header-alignment`)
+- `hotfix/` - for urgent production fixes (e.g., `hotfix/dilni/fix-payment-gateway`)
+- `chore/` - for maintenance tasks, dependency updates, etc. (e.g., `chore/seniru/update-dependencies`)
+- `docs/` - for documentation updates (e.g., `docs/seniru/update-readme`)
+- `refactor/` - for code refactoring (e.g., `refactor/vidul/extract-api-service`)
+
+**Format:** `<type>/<dev-name>/<short-description-with-hyphens>`
+
 ## 🚀 Project Overview
 
 This is a full-featured marketing site built with React that includes:
