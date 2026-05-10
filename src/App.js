@@ -61,9 +61,11 @@ function MarketingSite({isDarkMode}) {
                 <section id="examtimetable">
                     <ExamTimetable />
                 </section>
-                {/* <section id="examcenter">
-                    <ExamCenter />
-                </section> */}
+                {SHOW_EXAM_CENTERS && (
+                    <section id="examcenter">
+                        <ExamCenter />
+                    </section>
+                )}
                 {/*<section id="remainingseats">
          <RemainingSeats />
        </section>*/}
