@@ -244,7 +244,7 @@ const CandidateProfile = () => {
         }
     };
 
-    const CandidateResults = ({ data, loading, error }) => {
+    const CandidateResults = ({ data, error }) => {
         if (error) return <div className="results-error">{error}</div>;
         if (!data || !data.results) return null;
 
