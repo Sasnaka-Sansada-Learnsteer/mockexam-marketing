@@ -19,57 +19,73 @@ const ExamCenter = () => {
     },
     {
       province: "Kandy Center",
-      venue: "Viharamahadevi Girls' College, Kandy ",
+      venue: "Viharamahadevi Girls' College, Kandy",
       mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.5919088098835!2d80.62441351019038!3d7.287185092689823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae36884a80ad257%3A0xeb3b08feb9c52601!2sViharamahadevi%20Balika%20Vidyalaya!5e0!3m2!1sen!2slk!4v1753905743284!5m2!1sen!2slk",
       directionsUrl: "https://maps.google.com/maps/dir//Viharamahadevi+Balika+Vidyalaya+333+Peradeniya+Rd+Kandy+20000/@7.2871851,80.6269938,16z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3ae36884a80ad257:0xeb3b08feb9c52601",
     },
   ];
-  
-return(
-  <section className="hear-from-successors" data-aos="fade-up" data-aos-once="false">
-      <div className="container">
-          <h2 className="stats-title">Hear from Successors</h2>
-          <p class = 'description-text'>Discover the inspiring journeys of our students who have excelled in their A/Ls with the help of our mock exams. Read their stories and get motivated to achieve your own success!</p>
-      </div>
-      <br></br>
-    <div>
-      <img 
-      src="/SuccessStory1.jpeg" 
-      data-aos="zoom-in-up" 
-      data-aos-easing="ease-out-back" 
-      data-aos-duration="1000"
-      style={{ width: '100%', maxWidth: '400px' }}
-      />
-      <img 
-      src="/SuccessStory2.jpeg" 
-      data-aos="zoom-in-up" 
-      data-aos-easing="ease-out-back" 
-      data-aos-duration="1000"
-      style={{ width: '100%', maxWidth: '400px' }}
-      />
-      <img 
-      src="/SuccessStory3.jpeg" 
-      data-aos="zoom-in-up" 
-      data-aos-easing="ease-out-back" 
-      data-aos-duration="1000"
-      style={{ width: '100%', maxWidth: '400px' }} 
-      />
-    </div>
-    
-  </section> 
-  );
-};
 
-
-/*
   return (
-    <section className="province-table">
+    <section className="hear-from-successors" data-aos="fade-up" data-aos-once="false">
       <div className="container">
-        <h2>Exam Centers</h2>
+        <h2 className="stats-title">Hear from Successors</h2>
+        <p className="description-text">
+          Discover the inspiring journeys of our students who have excelled in
+          their A/Ls with the help of our mock exams. Read their stories and get
+          motivated to achieve your own success!
+        </p>
+      </div>
 
-        <div className="provincetable-row">
-          {examCenter.slice(0, 3).map((exam, index) => (
-              <div className="province-card" key={index} data-aos="fade-up" data-aos-delay={index * 100}>
+      <br />
+
+      <div className="success-gallery-wrapper">
+        <img
+          src="/SuccessStory1.jpeg"
+          alt="Success Story 1"
+          data-aos="zoom-in-up"
+          data-aos-easing="ease-out-back"
+          data-aos-duration="1000"
+          style={{ width: "100%", maxWidth: "400px" }}
+        />
+        <img
+          src="/SuccessStory2.jpeg"
+          alt="Success Story 2"
+          data-aos="zoom-in-up"
+          data-aos-easing="ease-out-back"
+          data-aos-duration="1000"
+          style={{ width: "100%", maxWidth: "400px" }}
+        />
+        <img
+          src="/SuccessStory3.jpeg"
+          alt="Success Story 3"
+          data-aos="zoom-in-up"
+          data-aos-easing="ease-out-back"
+          data-aos-duration="1000"
+          style={{ width: "100%", maxWidth: "400px" }}
+        />
+      </div>
+
+      <div className="container" style={{ marginTop: '5rem' }}>
+        <h2 className="stats-title">Exam Centers</h2>
+      </div>
+
+      {/* ====================================================
+          EXAM CENTERS CARD
+          To HIDE: wrap the block below in JSX comment braces
+          i.e.  {/*  ...card JSX...  * /}
+          To SHOW: remove the comment wrapper
+          ==================================================== */}
+      <div className="exam-centers-card" data-aos="fade-up">
+
+        <div className="exam-centers-body">
+          <div className="provincetable-row">
+            {examCenter.map((exam, index) => (
+              <div
+                className="province-card"
+                key={index}
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+              >
                 <div className="province-card-header">
                   <h3>{exam.province}</h3>
                 </div>
@@ -82,33 +98,36 @@ return(
                   <div className="map-area">
                     <div className="map-frame">
                       <iframe
-                          src={exam.mapUrl}
-                          width="100%"
-                          height="200"
-                          style={{ border: 0 }}
-                          allowFullScreen=""
-                          loading="lazy"
-                          referrerPolicy="no-referrer-when-downgrade"
-                          title={`Map of ${exam.venue}`}
+                        src={exam.mapUrl}
+                        width="100%"
+                        height="200"
+                        style={{ border: 0 }}
+                        allowFullScreen=""
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title={`Map of ${exam.venue}`}
                       ></iframe>
                     </div>
 
                     <a
-                        href={exam.directionsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="direction-button"
+                      href={exam.directionsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="direction-button"
                     >
                       Get Directions
                     </a>
                   </div>
                 </div>
               </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
+      {/* END EXAM CENTERS CARD */}
+
     </section>
   );
-};*/
+};
 
 export default ExamCenter;
