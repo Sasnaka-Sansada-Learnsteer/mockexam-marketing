@@ -16,7 +16,6 @@ import ExamCenter from "./components/ExamCenter";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import MyExamInfoEntry from "./components/MyExamInfoEntry";
 import PopupCard from "./components/PopupCard";
-import HearFromSuccessors from "./components/HearFromSuccessors";
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './mysme_admin/Login';
