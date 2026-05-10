@@ -2,6 +2,19 @@
 
 A comprehensive React-based marketing website for AL Mock Examinations with integrated candidate management and admin panel features.
 
+## 🚀 Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Build for production
+npm run build
+```
+
 ## 🚀 Project Overview
 
 This is a full-featured marketing site built with React that includes:
@@ -21,33 +34,39 @@ This is a full-featured marketing site built with React that includes:
 
 ## 📁 Project Structure
 
-```
+```text
 src/
 ├── App.js                 # Main app with routing configuration
 ├── App.css                # Global app styles
 ├── components/            # Marketing site components
-│   ├── HeroSection.jsx    # Main hero section with CTA
-│   ├── ExamInfo.jsx       # Exam details and information
-│   ├── ExamTimetable.jsx  # Exam schedule display
-│   └── ...
-├── components_mysme/      # Admin and candidate management components
-│   ├── AdminDashboard.js  # Admin dashboard for candidate management
-│   ├── CandidateCard.js   # Card component for displaying candidate details
-│   └── ...
+├── mysme_admin/           # Admin dashboard and management components
+├── mysme_candidate/       # Candidate portal components
+├── config/                # Application configuration files (e.g., API)
+└── styles/                # Additional stylesheets
 ```
 
-## ⚙️ Recent Updates
+## 🌿 Development Practices & Contributing
 
-- **Fixed Participation Confirmation UI**: Replaced checkboxes with radio buttons in CandidateCard.js to properly handle participation confirmation states (true/false/null)
-- **Page Reload After Update**: Added functionality to reload the dashboard after successful candidate updates
+### Branch Naming Convention
 
-## 🚨 Known Issues
+We follow a standard branch naming convention to keep our repository organized. Please use the following prefixes for your branches:
 
-- **Webpack 5 Polyfill Warnings**: When running in development mode, you might see warnings about missing Node.js core modules like zlib, path, crypto, etc. These are warnings from webpack 5, which no longer includes polyfills for these modules by default.
+- `feature/` - for new features or enhancements (e.g., `feature/amiru/add-login-page`)
+- `bugfix/` or `fix/` - for bug fixes (e.g., `bugfix/sanithu/fix-header-alignment`)
+- `hotfix/` - for urgent production fixes (e.g., `hotfix/dilni/fix-payment-gateway`)
+- `chore/` - for maintenance tasks, dependency updates, etc. (e.g., `chore/seniru/update-dependencies`)
+- `docs/` - for documentation updates (e.g., `docs/seniru/update-readme`)
+- `refactor/` - for code refactoring (e.g., `refactor/vidul/extract-api-service`)
 
-## 💡 Solutions for Webpack 5 Polyfill Warnings
+**Format:** `<type>/<dev-name>/<short-description-with-hyphens>`
 
-To resolve the webpack 5 polyfill warnings, you can use one of these approaches:
+## 🚨 Known Issues & Troubleshooting
+
+### Webpack 5 Polyfill Warnings
+
+When running in development mode, you might see warnings about missing Node.js core modules like zlib, path, crypto, etc. These are warnings from webpack 5, which no longer includes polyfills for these modules by default.
+
+**Solutions:**
 
 1. **Ignore the warnings** - These warnings do not affect the functionality of the application.
 
@@ -93,16 +112,3 @@ To resolve the webpack 5 polyfill warnings, you can use one of these approaches:
      }
    };
    ```
-
-## 🚀 Getting Started
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm start
-
-# Build for production
-npm run build
-```
