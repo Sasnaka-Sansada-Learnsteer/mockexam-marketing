@@ -66,6 +66,15 @@
   margin-bottom: 2rem;
 }
 
+.register-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .register-button {
   background: var(--accent-gradient);
   color: white;
