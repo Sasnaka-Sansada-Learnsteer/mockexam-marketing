@@ -26,6 +26,9 @@ const CandidateProfile = () => {
     const [surveyCompleted, setSurveyCompleted] = useState(false);
     const [checkResultsClickCount, setCheckResultsClickCount] = useState(0);
 
+    // 👇 Flip this to true to re-enable the Check Results button
+    const RESULTS_ENABLED = false;
+
     useEffect(() => {
         const fetchCandidateData = async () => {
             const token = localStorage.getItem('candidateToken');
@@ -304,7 +307,7 @@ const CandidateProfile = () => {
     if (!candidateData) {
         return <div className="error-container">Unable to load profile data</div>;
     }
-
+    
     return (
         <div className="candidate-profile-container">
             {surveyVisible && (
@@ -322,7 +325,8 @@ const CandidateProfile = () => {
                 <button onClick={handleLogout} className="btn-logout">Logout</button>
             </div>
 
-            {candidateData.candidate.results_released && (
+            
+            {RESULTS_ENABLED && candidateData.candidate.results_released && (
                 <div className={`check-results-btn-container ${resultsExpanded ? 'expanded' : ''}`}>
                     <button
                         className={`check-results-btn`}
