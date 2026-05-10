@@ -31,7 +31,7 @@ const CountdownRegister = () => {
             <div className="register-actions">
               <RegisterNow className="small-button" />
               <a href="/mysme/login" className="register-button small-button login-button">
-                Login to My SME
+                My SME Login
               </a>
             </div>
 
