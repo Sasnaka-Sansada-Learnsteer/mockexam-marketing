@@ -16,6 +16,7 @@ import ExamCenter from "./components/ExamCenter";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import MyExamInfoEntry from "./components/MyExamInfoEntry";
 import PopupCard from "./components/PopupCard";
+import HearFromSuccessors from "./components/HearFromSuccessors";
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './mysme_admin/Login';
@@ -26,6 +27,10 @@ import QRScannerDashboard from './mysme_admin/QRScannerDashboard';
 import ProjectDashboard from "./mysme_admin/ProjectDashboard";
 import CandidateLogin from "./mysme_candidate/CandidateLogin";
 import CandidateProfile from "./mysme_candidate/CandidateProfile";
+
+// ─── Feature Flags ────────────────────────────────────────────────────────────
+const SHOW_EXAM_CENTERS = false; // set to false to hide the Exam Centers card
+// ──────────────────────────────────────────────────────────────────────────────
 
 // Create a component for the main marketing site
 function MarketingSite({isDarkMode}) {
@@ -56,9 +61,14 @@ function MarketingSite({isDarkMode}) {
                 <section id="examtimetable">
                     <ExamTimetable />
                 </section>
-                <section id="examcenter">
-                    <ExamCenter />
+                <section id="hear-from-successors">
+                    <HearFromSuccessors />
                 </section>
+                {SHOW_EXAM_CENTERS && (
+                    <section id="examcenter">
+                        <ExamCenter />
+                    </section>
+                )}
                 {/*<section id="remainingseats">
          <RemainingSeats />
        </section>*/}

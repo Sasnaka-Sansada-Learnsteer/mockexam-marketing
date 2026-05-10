@@ -5,19 +5,19 @@ import RegisterNow from "./RegisterNow";
 
 const CountdownRegister = () => {
   return (
-      <div className="countdown-register-container">
-        <div className="container">
-          <div className="countdown-register-wrapper">
-            {/*<div className="countdown-section">*/}
-            {/*  <h2>GET READY!</h2>*/}
-            {/*  <CountdownTimer deadline="2025-08-01T20:00:00" />*/}
-            {/*</div>*/}
+    <div className="countdown-register-container">
+      <div className="container">
+        <div className="countdown-register-wrapper">
+          {/*<div className="countdown-section">*/}
+          {/*  <h2>GET READY!</h2>*/}
+          {/*  <CountdownTimer deadline="2025-08-01T20:00:00" />*/}
+          {/*</div>*/}
 
-            <div className="register-section">
-              <h2>Ready to excel?</h2>
-              <p>Hurry up! Join our A/L Mock Examination and prepare yourself for success.</p>
+          <div className="register-section">
+            <h2>Ready to excel?</h2>
+            <p>Hurry up! Join our A/L Mock Examination and prepare yourself for success.</p>
 
-              {/*<a
+            {/*<a
                 href="https://forms.gle/do6jF9UGx9gh4ZmZ9"
                 target="_blank"
                 rel="noreferrer"
@@ -27,14 +27,14 @@ const CountdownRegister = () => {
               </a>
               */}
 
-              {/*<RegisterNow className="register-button" />*/}
-                <RegisterNow className="small-button" />
+            {/*<RegisterNow className="register-button" />*/}
+            <RegisterNow className="small-button" />
 
-               {/*<p className="registration-message">Registrations opening soon!</p>*/}
-            </div>
+            {/*<p className="registration-message">Registrations opening soon!</p>*/}
           </div>
         </div>
       </div>
+    </div>
   );
 };
 

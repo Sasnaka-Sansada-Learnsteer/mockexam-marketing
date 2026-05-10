@@ -48,7 +48,8 @@
   content: "";
   position: absolute;
   bottom: -10px;
-  left: 50%; /* Changed to 50% for better centering */
+  left: 50%;
+  /* Changed to 50% for better centering */
   transform: translateX(-50%);
   width: 60px;
   height: 4px;
