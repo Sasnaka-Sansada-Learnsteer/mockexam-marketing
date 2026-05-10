@@ -362,7 +362,7 @@ const CandidateProfile = () => {
                     </div>
                     <div className="detail-item">
                         <span className="label">School :</span>
-                        <span className="value">{candidateData.candidate["School "]}</span>
+                        <span className="value">{candidateData.candidate["School"] ?? candidateData.candidate["School "]}</span>
                     </div>
                     <div className="detail-item">
                         <span className="label">Subject Stream :</span>
