@@ -27,6 +27,10 @@ import ProjectDashboard from "./mysme_admin/ProjectDashboard";
 import CandidateLogin from "./mysme_candidate/CandidateLogin";
 import CandidateProfile from "./mysme_candidate/CandidateProfile";
 
+// ─── Feature Flags ────────────────────────────────────────────────────────────
+const SHOW_EXAM_CENTERS = false; // set to false to hide the Exam Centers card
+// ──────────────────────────────────────────────────────────────────────────────
+
 // Create a component for the main marketing site
 function MarketingSite({isDarkMode}) {
     return (
@@ -56,9 +60,11 @@ function MarketingSite({isDarkMode}) {
                 <section id="examtimetable">
                     <ExamTimetable />
                 </section>
-                {/* <section id="examcenter">
-                    <ExamCenter />
-                </section> */}
+                {SHOW_EXAM_CENTERS && (
+                    <section id="examcenter">
+                        <ExamCenter />
+                    </section>
+                )}
                 {/*<section id="remainingseats">
          <RemainingSeats />
        </section>*/}

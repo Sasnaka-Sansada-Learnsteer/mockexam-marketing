@@ -100,6 +100,22 @@
   66% { transform: translateY(-5px) rotate(-1deg); }
 }
 
+.hear-from-successors img {
+    /* 1. Variable-based background with transparency */
+    background: var(--card-bg);
+    padding: 12px;
+    margin: 15px;
+    border-radius: var(--border-radius-lg) !important;
+
+    /* 3. MULTI-LAYERED SHADOWS (The Photoshop Secret) */
+    box-shadow: var(--shadow-md) !important;
+
+    transition: all var(--transition-normal) !important;
+    animation: floatyOrbit 6s ease-in-out infinite;
+    
+    /* Smooth transition for the border/glow when toggling */
+    transition: border 0.4s ease, box-shadow 0.4s ease, transform var(--transition-normal) !important;
+}
 
 /* 4. ENHANCED HOVER (The "Flashlight" Effect) */
 .hear-from-successors img:hover {
