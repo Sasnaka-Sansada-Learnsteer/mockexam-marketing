@@ -706,10 +706,10 @@ h3 {
     color: #2575fc;
     font-weight: 600;
     text-align: center;
-    animation: fadeIn 0.5s ease-in;
+    animation: fadeInSmall 0.5s ease-in;
 }
 
-@keyframes fadeIn {
+@keyframes fadeInSmall {
     from {
         opacity: 0;
         transform: translateY(10px);
