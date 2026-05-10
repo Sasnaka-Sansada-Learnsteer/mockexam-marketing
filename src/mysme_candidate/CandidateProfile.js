@@ -5,6 +5,7 @@ import '../styles/candidate.css';
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
 import SurveyPopup from "./SurveyPopup";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const MAX_BACKOFF_DELAY_MS = 16000;
 
 const CandidateProfile = () => {
     const [candidateData, setCandidateData] = useState(null);
@@ -231,7 +232,7 @@ const CandidateProfile = () => {
             console.error(`Error fetching results (attempt ${retryCount + 1}):`, err);
             if (retryCount < maxRetries) {
                 // Exponential backoff: 1s, 2s, 4s, 8s, 16s
-                const backoffDelay = Math.min(1000 * Math.pow(2, retryCount), 16000);
+                const backoffDelay = Math.min(1000 * Math.pow(2, retryCount), MAX_BACKOFF_DELAY_MS);
                 console.log(`Retrying in ${backoffDelay}ms...`);
 
                 setTimeout(() => {
