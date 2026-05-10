@@ -26,6 +26,7 @@ import QRScannerDashboard from './mysme_admin/QRScannerDashboard';
 import ProjectDashboard from "./mysme_admin/ProjectDashboard";
 import CandidateLogin from "./mysme_candidate/CandidateLogin";
 import CandidateProfile from "./mysme_candidate/CandidateProfile";
+import HearFromSuccessors from "./components/HearFromSuccessors";
 
 // ─── Feature Flags ────────────────────────────────────────────────────────────
 const SHOW_EXAM_CENTERS = false; // set to false to hide the Exam Centers card
@@ -65,9 +66,9 @@ function MarketingSite({isDarkMode}) {
                         <ExamCenter />
                     </section>
                 )}
-                {/*<section id="remainingseats">
-         <RemainingSeats />
-       </section>*/}
+                {<section id="hear-from-successors">
+                    <HearFromSuccessors />
+                </section>}
             </main>
 
             {/*<PopupNotification />*/}
