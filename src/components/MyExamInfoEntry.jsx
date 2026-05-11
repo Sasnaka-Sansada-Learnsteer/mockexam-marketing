@@ -15,7 +15,7 @@ const MyExamInfoEntry = () => {
     }, []);
 
     const handleLoginToQuiz = () => {
-        window.open("https://quiz.sasnaka.org/login?redirected_from=sme.sasnaka.org", "_blank", "noopener,noreferrer");
+        window.open("https://whatsapp.com/channel/0029Vb73tau0lwgsM4guyH1e", "_blank", "noopener,noreferrer");
     };
     return (
         <div className="my-exam-info-container">
@@ -45,8 +45,7 @@ const MyExamInfoEntry = () => {
                 </p>
 
                 {/* Value Propositions (Why they should click) */}
-                <ul style={{ textAlign: "left", fontSize: "0.9rem", color: "#555", listStyleType: "none", padding: 0, margin: "0 auto 20px auto", maxWidth: "250px" }}>
-                    <li style={{ marginBottom: "8px" }}>✅ <strong>Instant</strong> Auto-Grading</li>
+                <ul style={{ textAlign: "left", fontSize: "0.9rem", color: "#e0d1d1ff", listStyleType: "none", padding: 0, margin: "0 auto 20px auto", maxWidth: "250px" }}>
                     <li style={{ marginBottom: "8px" }}>✅ <strong>Detailed</strong> Wiwarana</li>
                     <li>✅ <strong>National-Level</strong> Standards</li>
                 </ul>
@@ -69,10 +68,10 @@ const MyExamInfoEntry = () => {
                             boxShadow: isLive ? "0 4px 6px rgba(0,123,255,0.2)" : "none"
                         }}
                     >
-                        {isLive ? "Take a Mock Exam Now" : "Opening Soon..."}
+                        {isLive ? "Join Now" : "Opening Soon..."}
                     </button>
+                    <p className="portal-description" style={{ marginBottom: "10px" }}>Click this button to join with our whatsapp community and test yourselves with our comprehensive mock exam papers</p>
 
-                    {/* <CheckMyQR className="small-button" /> */}
                 </div>
 
             </div>

@@ -35,7 +35,6 @@
     border-radius: var(--border-radius-lg);
     font-size: clamp(1rem, 1.5vw, 1.15rem);
     font-weight: 700;
-    border: 1px dashed var(--accent-color);
     box-shadow: var(--shadow-md);
     transition: all var(--transition-normal);
 }
@@ -54,19 +53,17 @@
 
 /* 2. THE IMAGE FRAME PHYSICS */
 .hear-from-successors img {
-  background: white;
+  /* Variable-based background with transparency */
+  background: var(--card-bg);
   padding: 12px;
-  margin : 15px;
-  border-radius: 30px !important;
-  border: 1px solid rgba(255, 255, 255, 0.4) !important;
-  
-  /* Modern "Deep" Shadow */
-  box-shadow: 
-    0 10px 20px rgba(0, 0, 0, 0.05),
-    0 30px 60px rgba(67, 97, 238, 0.12) !important;
+  margin: 15px;
+  border-radius: var(--border-radius-lg) !important;
 
-  /* Use a 'Back' transition for a springy snap */
-  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  /* Variable-based shadow */
+  box-shadow: var(--shadow-md) !important;
+
+  /* Smooth transition for the border/glow when toggling */
+  transition: border 0.4s ease, box-shadow 0.4s ease, transform var(--transition-normal) !important;
   
   /* APPLY THE CONSTANT FLOATING ANIMATION */
   animation: floatyOrbit 6s ease-in-out infinite;
@@ -110,9 +107,6 @@
     margin: 15px;
     border-radius: var(--border-radius-lg) !important;
 
-    /* 2. THE UPGRADE: Semi-transparent 'Glass' border */
-    border: 1px solid var(--section-border) !important;
-    
     /* 3. MULTI-LAYERED SHADOWS (The Photoshop Secret) */
     box-shadow: var(--shadow-md) !important;
 
@@ -128,8 +122,6 @@
     animation-play-state: paused; 
     transform: scale(1.05) translateY(-10px) !important;
     
-    /* Brighten the border on hover */
-    border: 1px solid var(--accent-color) !important;
     
     /* Intensify the neon glow */
     box-shadow: var(--shadow-lg) !important;

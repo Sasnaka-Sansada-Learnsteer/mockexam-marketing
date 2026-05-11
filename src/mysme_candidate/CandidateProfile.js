@@ -5,6 +5,7 @@ import '../styles/candidate.css';
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
 import SurveyPopup from "./SurveyPopup";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const MAX_BACKOFF_DELAY_MS = 16000;
 
 const CandidateProfile = () => {
     const [candidateData, setCandidateData] = useState(null);
@@ -25,6 +26,9 @@ const CandidateProfile = () => {
     const [resultMessage, setResultMessage] = useState('');
     const [surveyCompleted, setSurveyCompleted] = useState(false);
     const [checkResultsClickCount, setCheckResultsClickCount] = useState(0);
+
+    // 👇 Flip this to true to re-enable the Check Results button
+    const RESULTS_ENABLED = false;
 
     useEffect(() => {
         const fetchCandidateData = async () => {
@@ -231,7 +235,7 @@ const CandidateProfile = () => {
             console.error(`Error fetching results (attempt ${retryCount + 1}):`, err);
             if (retryCount < maxRetries) {
                 // Exponential backoff: 1s, 2s, 4s, 8s, 16s
-                const backoffDelay = Math.min(1000 * Math.pow(2, retryCount), 16000);
+                const backoffDelay = Math.min(1000 * Math.pow(2, retryCount), MAX_BACKOFF_DELAY_MS);
                 console.log(`Retrying in ${backoffDelay}ms...`);
 
                 setTimeout(() => {
@@ -244,7 +248,7 @@ const CandidateProfile = () => {
         }
     };
 
-    const CandidateResults = ({ data, loading, error }) => {
+    const CandidateResults = ({ data, error }) => {
         if (error) return <div className="results-error">{error}</div>;
         if (!data || !data.results) return null;
 
@@ -304,7 +308,7 @@ const CandidateProfile = () => {
     if (!candidateData) {
         return <div className="error-container">Unable to load profile data</div>;
     }
-
+    
     return (
         <div className="candidate-profile-container">
             {surveyVisible && (
@@ -322,7 +326,8 @@ const CandidateProfile = () => {
                 <button onClick={handleLogout} className="btn-logout">Logout</button>
             </div>
 
-            {/*candidateData.candidate.results_released && (
+            
+            {RESULTS_ENABLED && candidateData.candidate.results_released && (
                 <div className={`check-results-btn-container ${resultsExpanded ? 'expanded' : ''}`}>
                     <button
                         className={`check-results-btn`}
@@ -347,7 +352,7 @@ const CandidateProfile = () => {
                         />
                     )}
                 </div>
-            )*/}
+            )}
 
             <div className="profile-content">
                 <div className="candidate-details">
@@ -362,7 +367,7 @@ const CandidateProfile = () => {
                     </div>
                     <div className="detail-item">
                         <span className="label">School :</span>
-                        <span className="value">{candidateData.candidate["School "]}</span>
+                        <span className="value">{candidateData.candidate["School"] ?? candidateData.candidate["School "]}</span>
                     </div>
                     <div className="detail-item">
                         <span className="label">Subject Stream :</span>

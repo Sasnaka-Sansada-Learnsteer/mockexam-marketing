@@ -2,8 +2,9 @@
   position: relative;
   width: 100%;
   margin-top: 80px; /* Aligned with slimmer navbar */
-  aspect-ratio: 6756 / 2200; 
-  background-image: url("/public/tagImage.jpg");
+  aspect-ratio: 6756 / 2200;
+  /* Fallback color shown instantly before image loads */
+  background-color: #0f172a;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
