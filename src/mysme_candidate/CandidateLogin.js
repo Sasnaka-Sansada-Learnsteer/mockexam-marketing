@@ -17,10 +17,14 @@ const CandidateLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  //reset password
   const [resetToken, setResetToken] = useState('');
   const [showForgotLink, setShowForgotLink] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  //popup for confirm password
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+
 
   useEffect(() => {
     // Check if URL contains a code parameter and redirect if it does
@@ -89,6 +93,42 @@ const CandidateLogin = () => {
     }
   };
 
+  const handleResetSubmit = (e) => {
+    e.preventDefault();
+    setError('');
+    if (newPassword !== confirmNewPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    if (newPassword.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+    setShowConfirmPopup(true);
+  };
+
+  const handleConfirmedReset = async () => {
+    setShowConfirmPopup(false);
+    setLoading(true);
+    try {
+      await axios.post(`${API_BASE_URL}/api/candidate/reset-password`,
+        { NIC, newPassword },
+        { headers: { Authorization: `Bearer ${resetToken}` } }
+      );
+      setStep('login');
+      setShowForgotLink(false);
+      setError('');
+      setPassword('');
+      setNewPassword('');
+      setConfirmNewPassword('');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Reset failed. Please try logging in again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  {/*
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setError('');
@@ -118,7 +158,7 @@ const CandidateLogin = () => {
       setLoading(false);
     }
   };
-
+*/}
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -211,7 +251,7 @@ const CandidateLogin = () => {
   );
 
   const renderResetPasswordForm = () => (
-    <form onSubmit={handleResetPassword}>
+    <form onSubmit={handleResetSubmit}>
       <div className="form-group">
         <label htmlFor="nic">NIC Number</label>
         <input type="text" id="nic-reset" value={NIC} disabled />
@@ -244,6 +284,22 @@ const CandidateLogin = () => {
       <button type="button" className="btn-secondary" onClick={() => { setStep('login'); setError(''); }}>
         Back to Login
       </button>
+      {showConfirmPopup && (
+        <div className="confirm-popup-overlay">
+          <div className="confirm-popup">
+            <p>Are you sure you want to reset your password?</p>
+            <p className="redWarning" >This action cannot be undone</p>
+            <div className="confirm-popup-buttons">
+              <button type="button" className="btn-primary" onClick={handleConfirmedReset}>
+                Yes, Reset
+              </button>
+              <button type="button" className="btn-primary" onClick={() => setShowConfirmPopup(false)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 
