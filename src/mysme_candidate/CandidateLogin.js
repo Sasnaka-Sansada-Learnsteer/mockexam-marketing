@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {useLocation, useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/candidate.css';
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -15,15 +15,20 @@ const CandidateLogin = () => {
   const [candidateExists, setCandidateExists] = useState(false);
   const [hasMySmeAccount, setHasMySmeAccount] = useState(false);
   const navigate = useNavigate();
-    const location = useLocation();
+  const location = useLocation();
 
-    useEffect(() => {
-        // Check if URL contains a code parameter and redirect if it does
-        const queryParams = new URLSearchParams(location.search);
-        if (queryParams.has('code')) {
-            navigate('/mysme/login', { replace: true });
-        }
-    }, [location, navigate]);
+  const [resetToken, setResetToken] = useState('');
+  const [showForgotLink, setShowForgotLink] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+
+  useEffect(() => {
+    // Check if URL contains a code parameter and redirect if it does
+    const queryParams = new URLSearchParams(location.search);
+    if (queryParams.has('code')) {
+      navigate('/mysme/login', { replace: true });
+    }
+  }, [location, navigate]);
 
   const checkNicExists = async () => {
     setError('');
@@ -75,10 +80,45 @@ const CandidateLogin = () => {
     } catch (err) {
       console.error('Login error:', err);
       setError(err.response?.data?.message || 'Login failed. Please check your password.');
+      const token = err.response?.data?.resetToken;
+      if (token) {
+        setResetToken(token); setShowForgotLink(true);
+      }
     } finally {
       setLoading(false);
     }
   };
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (newPassword !== confirmNewPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    if (newPassword.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+    setLoading(true);
+    try {
+      await axios.post(`${API_BASE_URL}/api/candidate/reset-password`,
+        { NIC, newPassword },
+        { headers: { Authorization: `Bearer ${resetToken}` } }
+      );
+      setStep('login');
+      setShowForgotLink(false);
+      setError('');
+      setPassword('');
+      setNewPassword('');
+      setConfirmNewPassword('');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Reset failed. Please try logging in again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -164,6 +204,44 @@ const CandidateLogin = () => {
     </form>
   );
 
+  const renderResetPasswordForm = () => (
+    <form onSubmit={handleResetPassword}>
+      <div className="form-group">
+        <label htmlFor="nic">NIC Number</label>
+        <input type="text" id="nic-reset" value={NIC} disabled />
+      </div>
+      <div className="form-group">
+        <label htmlFor="newPassword">New Password</label>
+        <input
+          type="password"
+          id="newPassword"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          placeholder="Enter new password"
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="confirmNewPassword">Confirm New Password</label>
+        <input
+          type="password"
+          id="confirmNewPassword"
+          value={confirmNewPassword}
+          onChange={(e) => setConfirmNewPassword(e.target.value)}
+          placeholder="Confirm new password"
+          required
+        />
+      </div>
+      <button type="submit" className="btn-primary" disabled={loading}>
+        {loading ? 'Resetting...' : 'Reset Password'}
+      </button>
+      <button type="button" className="btn-secondary" onClick={() => { setStep('login'); setError(''); }}>
+        Back to Login
+      </button>
+    </form>
+  );
+
+
   const renderSignupForm = () => (
     <form onSubmit={handleSignup}>
       <div className="form-group">
@@ -209,12 +287,24 @@ const CandidateLogin = () => {
   return (
     <div className="candidate-login-container">
       <h2>MySME Login</h2>
-      {error && <div className="error-message">{error}</div>}
+      {error && (
+        <div>
+          <div className="error-message">{error}</div>
+          {showForgotLink && (
+            <button type="button" className="forgot-password-link"
+              onClick={() => { setStep('resetPassword'); setError(''); }}>
+              Forgot your password? Reset it here →
+            </button>
+          )}
+        </div>
+      )}
+
 
       {step === 'checkNic' && renderNicForm()}
       {step === 'login' && renderLoginForm()}
       {step === 'signup' && renderSignupForm()}
-        <FloatingWhatsApp phoneNumber="94703445342" />
+      {step === 'resetPassword' && renderResetPasswordForm()}
+      <FloatingWhatsApp phoneNumber="94703445342" />
     </div>
   );
 };
