@@ -194,6 +194,12 @@ const CandidateLogin = () => {
           placeholder="Enter your password"
           required
         />
+        {showForgotLink && (
+          <button type="button" className="forgot-password-link"
+            onClick={() => { setStep('resetPassword'); setError(''); }}>
+            Forgot your password? Reset it here →
+          </button>
+        )}
       </div>
       <button type="submit" className="btn-primary" disabled={loading}>
         {loading ? 'Logging in...' : 'Login'}
@@ -290,12 +296,6 @@ const CandidateLogin = () => {
       {error && (
         <div>
           <div className="error-message">{error}</div>
-          {showForgotLink && (
-            <button type="button" className="forgot-password-link"
-              onClick={() => { setStep('resetPassword'); setError(''); }}>
-              Forgot your password? Reset it here →
-            </button>
-          )}
         </div>
       )}
 
