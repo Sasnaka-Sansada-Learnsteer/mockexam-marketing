@@ -28,7 +28,7 @@ const CandidateProfile = () => {
     const [checkResultsClickCount, setCheckResultsClickCount] = useState(0);
 
     // 👇 Flip this to true to re-enable the Check Results button
-    const RESULTS_ENABLED = false;
+    const RESULTS_ENABLED = true;
 
     useEffect(() => {
         const fetchCandidateData = async () => {
@@ -308,7 +308,7 @@ const CandidateProfile = () => {
     if (!candidateData) {
         return <div className="error-container">Unable to load profile data</div>;
     }
-    
+
     return (
         <div className="candidate-profile-container">
             {surveyVisible && (
@@ -326,7 +326,7 @@ const CandidateProfile = () => {
                 <button onClick={handleLogout} className="btn-logout">Logout</button>
             </div>
 
-            
+
             {RESULTS_ENABLED && candidateData.candidate.results_released && (
                 <div className={`check-results-btn-container ${resultsExpanded ? 'expanded' : ''}`}>
                     <button
@@ -378,18 +378,18 @@ const CandidateProfile = () => {
                         <span className="value">{candidateData.candidate["Preferred Exam Center"]}</span>
                     </div>
                 </div>
-        </div>
+            </div>
 
-        <div>
-            <button 
-                className='btn-primary' 
-                onClick={() => window.location.href = '/mysme/quizplatform'}
-            >
-                Go to my quiz
-            </button>
-        </div>
-                
-        <div>           
+            <div>
+                <button
+                    className='btn-primary'
+                    onClick={() => window.location.href = '/mysme/quizplatform'}
+                >
+                    Go to my quiz
+                </button>
+            </div>
+
+            <div>
                 {/*<div className="eligible-papers">
                     <h3>My Exam Papers</h3>
                     {candidateData.candidate.confirmed_papers?.length > 0 ? (
@@ -416,16 +416,16 @@ const CandidateProfile = () => {
                                 <span className="value">{candidateData.candidate.examIndexNumber}</span>
                             </div>
                             {(candidateData.candidate['qrCode'] && candidateData.candidate['qrCodeData']) && (
-                            <div className="qr-code-container">
-                                <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" className="qr-code" />
-                                <button onClick={downloadQRCode} className="btn-download">
-                                    Download QR Code
-                                </button>
-                                {downloadSuccess &&
-                                    <div className="success-message">QR Code downloaded successfully!</div>
-                                }
-                                <span className="value-qr">You need to bring this QR code on the exam day to mark your attendance.</span>
-                            </div>
+                                <div className="qr-code-container">
+                                    <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" className="qr-code" />
+                                    <button onClick={downloadQRCode} className="btn-download">
+                                        Download QR Code
+                                    </button>
+                                    {downloadSuccess &&
+                                        <div className="success-message">QR Code downloaded successfully!</div>
+                                    }
+                                    <span className="value-qr">You need to bring this QR code on the exam day to mark your attendance.</span>
+                                </div>
                             )}
                         </>
                     )}

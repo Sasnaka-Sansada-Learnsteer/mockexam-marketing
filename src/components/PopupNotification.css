@@ -89,6 +89,7 @@
     transform: translate(-30px, 30px) scale(0.9);
     opacity: 0;
   }
+
   to {
     transform: translate(0, 0) scale(1);
     opacity: 1;
@@ -100,6 +101,7 @@
     transform: translate(0, 0) scale(1);
     opacity: 1;
   }
+
   to {
     transform: translate(-30px, 30px) scale(0.9);
     opacity: 0;
@@ -107,12 +109,19 @@
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(-6px);
   }
+
   60% {
     transform: translateY(-3px);
   }
