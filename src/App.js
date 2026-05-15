@@ -27,6 +27,7 @@ import ProjectDashboard from "./mysme_admin/ProjectDashboard";
 import CandidateLogin from "./mysme_candidate/CandidateLogin";
 import CandidateProfile from "./mysme_candidate/CandidateProfile";
 import HearFromSuccessors from "./components/HearFromSuccessors";
+import RegistrationForm from "./components/form";
 
 // ─── Feature Flags ────────────────────────────────────────────────────────────
 const SHOW_EXAM_CENTERS = false; // set to false to hide the Exam Centers card
@@ -151,6 +152,7 @@ function App() {
                 <Routes>
                     {/* Main marketing site route */}
                     <Route path="/" element={<MarketingSite isDarkMode={isDarkMode} />} />
+                    <Route path="/register" element={<RegistrationForm />} />
 
                     {/* Candidate Routes */}
                     <Route path="/mysme/login" element={<CandidateLogin />} />
