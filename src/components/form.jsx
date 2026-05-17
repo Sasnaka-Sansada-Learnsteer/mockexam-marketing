@@ -323,7 +323,10 @@ export default function RegistrationForm() {
               <div className={`reg-field ${errors.nic ? 'has-error' : ''}`} id="field-nic">
                 <label htmlFor="nic">NIC Number <span className="req">*</span></label>
                 <input id="nic" name="nic" type="text" placeholder="e.g. 200612345678"
-                  value={form.nic} onChange={handleChange} maxLength={12} />
+                  value={form.nic} onChange={(e) => {
+                    const val = e.target.value.replace(/\D/g, '').slice(0, 12);
+                    handleChange({ target: { name: 'nic', value: val } });
+                  }} maxLength={12} />
                 {errors.nic ? <span className="reg-error-msg">{errors.nic}</span>
                   : <span className="reg-field-hint">Must be exactly 12 digits</span>}
               </div>

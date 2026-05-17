@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles/candidate.css';
+import '../components/form.css';
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
 import SurveyPopup from "./SurveyPopup";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -14,7 +14,6 @@ const CandidateProfile = () => {
     const navigate = useNavigate();
     const [downloadSuccess, setDownloadSuccess] = useState(false);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
-    const [loadResultsDirectly, setLoadResultsDirectly] = useState(false);
     const [resultsExpanded, setResultsExpanded] = useState(false);
     const [resultsData, setResultsData] = useState(null);
     const [resultsLoading, setResultsLoading] = useState(false);
@@ -27,8 +26,8 @@ const CandidateProfile = () => {
     const [surveyCompleted, setSurveyCompleted] = useState(false);
     const [checkResultsClickCount, setCheckResultsClickCount] = useState(0);
 
-    // 👇 Flip this to true to re-enable the Check Results button
     const RESULTS_ENABLED = true;
+    const QUIZ_ENABLED = false; // Set to false to hide the Quiz Platform button
 
     useEffect(() => {
         const fetchCandidateData = async () => {
@@ -74,7 +73,6 @@ const CandidateProfile = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    // --- All helper functions must be INSIDE the component to access state/hooks ---
     const handleLogout = () => {
         localStorage.removeItem('candidateToken');
         localStorage.removeItem('userRole');
@@ -82,7 +80,6 @@ const CandidateProfile = () => {
     };
 
     const downloadQRCode = () => {
-        // This function can now safely access `candidateData`
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         const img = new Image();
@@ -140,14 +137,11 @@ const CandidateProfile = () => {
 
         setResultsLoading(true);
         try {
-            // Check if this is the first time checking results
             if (checkResultsClickCount === 0 && !surveyCompleted) {
-                // First time - show survey
                 setSurveyVisible(true);
                 startProgressBar();
                 setResultsLoading(false);
             } else {
-                // Not first time - show results directly
                 const response = await axios.get(
                     `${API_BASE_URL}/api/candidate/results`,
                     {
@@ -169,7 +163,6 @@ const CandidateProfile = () => {
         }
     };
 
-
     const startProgressBar = () => {
         const interval = setInterval(() => {
             setProgressValue(prev => {
@@ -177,7 +170,7 @@ const CandidateProfile = () => {
                     clearInterval(interval);
                     return 100;
                 }
-                return prev + (100 / 120); // Fill in 2 minutes (120 seconds)
+                return prev + (100 / 120);
             });
         }, 1000);
     };
@@ -188,14 +181,10 @@ const CandidateProfile = () => {
         setShowingResultMessages(true);
         setResultsExpanded(true);
 
-        const messages = [
-            "Loading results. . ."
-        ];
-
+        const messages = ["Loading results. . ."];
         let index = 0;
         setResultMessage(messages[0]);
 
-        // Start fetching results immediately with retry mechanism
         fetchActualResultsWithRetry();
 
         const messageInterval = setInterval(() => {
@@ -209,7 +198,7 @@ const CandidateProfile = () => {
             } else {
                 setResultMessage(messages[index]);
             }
-        }, 3000); // Change message every 3 seconds
+        }, 3000);
     };
 
     const fetchActualResultsWithRetry = async (retryCount = 0, maxRetries = 5) => {
@@ -221,7 +210,7 @@ const CandidateProfile = () => {
                 `${API_BASE_URL}/api/candidate/results`,
                 {
                     headers: { Authorization: `Bearer ${token}` },
-                    timeout: 10000 // 10 second timeout
+                    timeout: 10000
                 }
             );
 
@@ -234,10 +223,7 @@ const CandidateProfile = () => {
         } catch (err) {
             console.error(`Error fetching results (attempt ${retryCount + 1}):`, err);
             if (retryCount < maxRetries) {
-                // Exponential backoff: 1s, 2s, 4s, 8s, 16s
                 const backoffDelay = Math.min(1000 * Math.pow(2, retryCount), MAX_BACKOFF_DELAY_MS);
-                console.log(`Retrying in ${backoffDelay}ms...`);
-
                 setTimeout(() => {
                     fetchActualResultsWithRetry(retryCount + 1, maxRetries);
                 }, backoffDelay);
@@ -249,50 +235,50 @@ const CandidateProfile = () => {
     };
 
     const CandidateResults = ({ data, error }) => {
-        if (error) return <div className="results-error">{error}</div>;
+        if (error) return <div className="reg-alert-error" style={{ marginTop: '1rem' }}>{error}</div>;
         if (!data || !data.results) return null;
 
         const { results } = data;
 
         return (
-            <div className="results-content">
-                <h3>My Exam Results</h3>
-                {/* Rankings Section */}
-                <div className="results-summary">
-                    <div className="summary-item">
-                        <span className="label">District Rank:</span>
-                        <span className="value">{results.district_rank}</span>
+            <div style={{ marginTop: '1.5rem' }}>
+                <h3 className="reg-section-title" style={{ fontSize: '1.3rem', marginBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem' }}>Exam Results Overview</h3>
+
+                <div className="reg-fields-grid" style={{ marginBottom: '1.5rem' }}>
+                    <div className="reg-field">
+                        <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>District Rank</label>
+                        <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{results.district_rank}</div>
                     </div>
-                    <div className="summary-item">
-                        <span className="label">Island Rank:</span>
-                        <span className="value">{results.island_rank}</span>
+                    <div className="reg-field">
+                        <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Island Rank</label>
+                        <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{results.island_rank}</div>
                     </div>
-                    <div className="summary-item">
-                        <span className="label">Z-Score:</span>
-                        <span className="value">{results.final_zscore}</span>
+                    <div className="reg-field">
+                        <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Z-Score</label>
+                        <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{results.final_zscore}</div>
                     </div>
                 </div>
 
-                {/* Grades Section */}
-                <div className="results-grades">
+                <h4 style={{ color: 'var(--text-color)', marginBottom: '1rem', fontWeight: 600 }}>Subject Grades</h4>
+                <div className="reg-fields-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
                     {results.bio_grade ? (
-                        <div className="grade-item">
-                            <span className="subject-label">BIOLOGY:</span>
-                            <span className="grade-value">{results.bio_grade}</span>
+                        <div className="reg-field">
+                            <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Biology</label>
+                            <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{results.bio_grade}</div>
                         </div>
                     ) : results.maths_grade ? (
-                        <div className="grade-item">
-                            <span className="subject-label">COMBINED MATHS:</span>
-                            <span className="grade-value">{results.maths_grade}</span>
+                        <div className="reg-field">
+                            <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Combined Maths</label>
+                            <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{results.maths_grade}</div>
                         </div>
                     ) : null}
-                    <div className="grade-item">
-                        <span className="subject-label">PHYSICS:</span>
-                        <span className="grade-value">{results.physics_grade}</span>
+                    <div className="reg-field">
+                        <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Physics</label>
+                        <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{results.physics_grade}</div>
                     </div>
-                    <div className="grade-item">
-                        <span className="subject-label">CHEMISTRY:</span>
-                        <span className="grade-value">{results.chemistry_grade}</span>
+                    <div className="reg-field" style={{ gridColumn: '1 / -1' }}>
+                        <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Chemistry</label>
+                        <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{results.chemistry_grade}</div>
                     </div>
                 </div>
             </div>
@@ -300,17 +286,33 @@ const CandidateProfile = () => {
     };
 
     if (loading) {
-        return <div className="loading">Loading profile data...</div>;
+        return (
+            <div className="reg-page reg-loading-page">
+                <span className="reg-spinner-lg" />
+                <p>Loading profile data...</p>
+            </div>
+        );
     }
-    if (error) {
-        return <div className="error-container">{error}</div>;
-    }
-    if (!candidateData) {
-        return <div className="error-container">Unable to load profile data</div>;
+
+    if (error || !candidateData) {
+        return (
+            <div className="reg-page">
+                <div className="reg-form-container">
+                    <div className="reg-alert-error">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                        {error || 'Unable to load profile data'}
+                    </div>
+                    <button onClick={handleLogout} className="reg-submit-btn" style={{ marginTop: '1rem', width: '100%', justifyContent: 'center' }}>Back to Login</button>
+                </div>
+            </div>
+        );
     }
 
     return (
-        <div className="candidate-profile-container">
+        <div className="reg-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1rem' }}>
+
             {surveyVisible && (
                 <SurveyPopup
                     surveyPage={surveyPage}
@@ -321,115 +323,146 @@ const CandidateProfile = () => {
                 />
             )}
 
-            <div className="profile-header">
-                <h2>MySME Profile</h2>
-                <button onClick={handleLogout} className="btn-logout">Logout</button>
-            </div>
-
-
-            {RESULTS_ENABLED && candidateData.candidate.results_released && (
-                <div className={`check-results-btn-container ${resultsExpanded ? 'expanded' : ''}`}>
-                    <button
-                        className={`check-results-btn`}
-                        onClick={handleShowResultsClick}
-                    > {resultsExpanded ? 'Hide Results' : 'Check Results'}
-                    </button>
-
-                    {resultsExpanded && showingResultMessages && (
-                        <div className="loading-results-message">
-                            <div className="water-bubble">
-                                <div className="water-fill"></div>
-                            </div>
-                            <p className="result-message-text">{resultMessage}</p>
-                        </div>
-                    )}
-
-                    {resultsExpanded && !showingResultMessages && (
-                        <CandidateResults
-                            data={resultsData}
-                            loading={resultsLoading}
-                            error={resultsError}
-                        />
-                    )}
+            {/* Profile Hero Section */}
+            <div style={{ textAlign: 'center', marginBottom: '2rem', position: 'relative', zIndex: 1, width: '100%', maxWidth: '800px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ textAlign: 'left' }}>
+                    <h1 className="reg-hero-title" style={{ fontSize: '2rem', marginBottom: '0.2rem', color: 'var(--text-color)' }}>MySME Dashboard</h1>
+                    <p className="reg-hero-sme-title" style={{ color: 'var(--text-color)', opacity: 0.8, fontSize: '0.9rem', marginTop: 0 }}>Sasnaka Sansada Mock Exam (SME) 2026</p>
                 </div>
-            )}
-
-            <div className="profile-content">
-                <div className="candidate-details">
-                    <h3>My Information</h3>
-                    <div className="detail-item">
-                        <span className="label">NIC :</span>
-                        <span className="value">{candidateData.candidate["NIC"]}</span>
-                    </div>
-                    <div className="detail-item">
-                        <span className="label">Full Name :</span>
-                        <span className="value">{candidateData.candidate["Full Name"]}</span>
-                    </div>
-                    <div className="detail-item">
-                        <span className="label">School :</span>
-                        <span className="value">{candidateData.candidate["School"] ?? candidateData.candidate["School "]}</span>
-                    </div>
-                    <div className="detail-item">
-                        <span className="label">Subject Stream :</span>
-                        <span className="value">{candidateData.candidate["Subject Stream"]}</span>
-                    </div>
-                    <div className="detail-item">
-                        <span className="label">Preferred Exam Center :</span>
-                        <span className="value">{candidateData.candidate["Preferred Exam Center"]}</span>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <button
-                    className='btn-primary'
-                    onClick={() => window.location.href = '/mysme/quizplatform'}
-                >
-                    Go to my quiz
+                <button onClick={handleLogout} className="reg-submit-btn" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', marginTop: 0 }}>
+                    Logout
                 </button>
             </div>
 
-            <div>
-                {/*<div className="eligible-papers">
-                    <h3>My Exam Papers</h3>
-                    {candidateData.candidate.confirmed_papers?.length > 0 ? (
-                        <ul>
-                            {candidateData.candidate.confirmed_papers.map((paper, index) => (
-                                <li key={index}>{paper}</li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No eligible papers found</p>
-                    )}
-                </div>*/}
+            <div className="reg-form-container" style={{ width: '100%', maxWidth: '800px', margin: 0, padding: '2.5rem' }}>
 
-                <div className="exam-info-card">
-                    <h3>My Exam Information</h3>
-                    {(!candidateData.candidate.examIndexNumber) ? (
-                        <div className="error-container">
-                            Your Participation is not confirmed yet
+                {/* ── Section 1: Personal Details ── */}
+                <div className="reg-section" style={{ marginBottom: '2.5rem' }}>
+                    <div className="reg-section-header">
+                        <div className="reg-section-icon">👤</div>
+                        <div>
+                            <h2 className="reg-section-title">Candidate Information</h2>
+                            <p className="reg-section-desc">Welcome back, {candidateData.candidate["Full Name"]?.split(' ')[0]}</p>
                         </div>
-                    ) : (
-                        <>
-                            <div className="detail-item highlight">
-                                <span className="label">Exam Index Number:</span>
-                                <span className="value">{candidateData.candidate.examIndexNumber}</span>
+                    </div>
+                    <div className="reg-fields-grid">
+                        <div className="reg-field">
+                            <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Full Name</label>
+                            <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{candidateData.candidate["Full Name"]}</div>
+                        </div>
+                        <div className="reg-field">
+                            <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>NIC Number</label>
+                            <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{candidateData.candidate["NIC"]}</div>
+                        </div>
+                        <div className="reg-field">
+                            <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>School</label>
+                            <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{candidateData.candidate["School"] ?? candidateData.candidate["School "]}</div>
+                        </div>
+                        <div className="reg-field">
+                            <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Subject Stream</label>
+                            <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{candidateData.candidate["Subject Stream"]}</div>
+                        </div>
+                        <div className="reg-field" style={{ gridColumn: '1 / -1' }}>
+                            <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Preferred Exam Center</label>
+                            <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{candidateData.candidate["Preferred Exam Center"]}</div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* ── Section 2: Exam Information & QR ── */}
+                <div className="reg-section" style={{ marginBottom: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.5rem 1.75rem', flexWrap: 'wrap', gap: '1rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                            <div className="reg-section-icon" style={{ fontSize: '2rem', marginTop: 0 }}>🎓</div>
+                            <div>
+                                <h2 className="reg-section-title">Exam Information</h2>
+                                <p className="reg-section-desc">Your Index Number and QR Code</p>
                             </div>
-                            {(candidateData.candidate['qrCode'] && candidateData.candidate['qrCodeData']) && (
-                                <div className="qr-code-container">
-                                    <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" className="qr-code" />
-                                    <button onClick={downloadQRCode} className="btn-download">
-                                        Download QR Code
+                        </div>
+
+                        {!candidateData.candidate.examIndexNumber ? (
+                            <div className="reg-alert-error" style={{ backgroundColor: 'rgba(255, 152, 0, 0.1)', border: '1px solid rgba(255, 152, 0, 0.3)', color: '#ff9800', margin: 0 }}>
+                                Your participation is not confirmed yet.
+                            </div>
+                        ) : (
+                            <div>
+                                <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Exam Index Number</label>
+                                <div style={{ color: 'var(--text-color)', fontWeight: 'bold', fontSize: '2rem', marginTop: '0.2rem' }}>
+                                    {candidateData.candidate.examIndexNumber}
+                                </div>
+                                <p style={{ color: 'var(--text-color)', opacity: 0.6, fontSize: '0.85rem', marginTop: '0.5rem', maxWidth: '250px' }}>
+                                    You need to bring this QR code on the exam day to mark your attendance.
+                                </p>
+                            </div>
+                        )}
+                    </div>
+
+                    {(candidateData.candidate.examIndexNumber && candidateData.candidate['qrCode'] && candidateData.candidate['qrCodeData']) && (
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                            <div style={{ background: '#fff', padding: '8px', borderRadius: '8px', marginBottom: '0.75rem' }}>
+                                <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" style={{ display: 'block', width: '120px', height: '120px' }} />
+                            </div>
+                            <button onClick={downloadQRCode} className="reg-submit-btn" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', marginTop: 0 }}>
+                                Download QR
+                            </button>
+                            {downloadSuccess && (
+                                <div style={{ color: '#4ade80', marginTop: '0.5rem', fontWeight: 600, fontSize: '0.8rem' }}>Downloaded!</div>
+                            )}
+                        </div>
+                    )}
+                </div>               {/* ── Section 3: Actions & Results ── */}
+                {(QUIZ_ENABLED || (RESULTS_ENABLED && candidateData.candidate.results_released)) && (
+                    <div className="reg-section" style={{ borderBottom: 'none', paddingBottom: 0 }}>
+                        <div className="reg-section-header">
+                            <div className="reg-section-icon">📊</div>
+                            <div>
+                                <h2 className="reg-section-title">Quiz & Results</h2>
+                                <p className="reg-section-desc">Access your digital quiz platform and exam results</p>
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            {QUIZ_ENABLED && (
+                                <button
+                                    className="reg-submit-btn"
+                                    onClick={() => window.location.href = '/mysme/quizplatform'}
+                                    style={{ width: '100%', justifyContent: 'center', background: 'linear-gradient(135deg, #0056b3 0%, #004494 100%)' }}
+                                >
+                                    Go to My Quiz Platform
+                                </button>
+                            )}
+
+                            {RESULTS_ENABLED && candidateData.candidate.results_released && (
+                                <div style={{ marginTop: '1rem', background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                    <button
+                                        className="reg-submit-btn"
+                                        onClick={handleShowResultsClick}
+                                        style={{ width: '100%', justifyContent: 'center', background: resultsExpanded ? 'rgba(255,255,255,0.1)' : 'var(--accent-gradient)' }}
+                                    >
+                                        {resultsExpanded ? 'Hide Results' : 'Check My Results'}
                                     </button>
-                                    {downloadSuccess &&
-                                        <div className="success-message">QR Code downloaded successfully!</div>
-                                    }
-                                    <span className="value-qr">You need to bring this QR code on the exam day to mark your attendance.</span>
+
+                                    {resultsExpanded && showingResultMessages && (
+                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 0' }}>
+                                            {/* Simple loading spinner placeholder for water-bubble */}
+                                            <span className="reg-spinner-lg" style={{ marginBottom: '1rem' }} />
+                                            <p style={{ color: 'var(--text-color)', fontWeight: 600 }}>{resultMessage}</p>
+                                        </div>
+                                    )}
+
+                                    {resultsExpanded && !showingResultMessages && (
+                                        <CandidateResults
+                                            data={resultsData}
+                                            loading={resultsLoading}
+                                            error={resultsError}
+                                        />
+                                    )}
                                 </div>
                             )}
-                        </>
-                    )}
-                </div>
+                        </div>
+                    </div>
+                )}
+
             </div>
             <FloatingWhatsApp phoneNumber="94703445342" />
         </div>
