@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
-import QRCode from 'qrcode';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import './form.css';
 
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwq3n_KIBuaYnW5Sb6W0-5RRPcQYuppmx1MWCu5UiBV7x8D0bRR4aRSOUbLYoQg7HBVAw/exec';
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwveMQFnZ51INI7EfaoW_VClVFEje1POg53SaeyJ8-Db3BNrb7forqU_N2jUQL8aOVYnA/exec';
 
 const DISTRICTS = [
   'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo',
@@ -13,10 +13,10 @@ const DISTRICTS = [
 ];
 const AL_BATCHES = ['2026 A/L', '2027 A/L', '2028 A/L'];
 const AL_ATTEMPTS = ['1st Attempt', '2nd Attempt', '3rd Attempt'];
-const STREAMS = ['Bio Science', 'Physical Science', 'Non Stream (Combined Maths + ICT)', 'Non Stream (ICT)'];
+const STREAMS = ['Bio Science', 'Physical Science', 'Non Stream (Combined Maths + ICT)', 'Other Stream (ICT only)'];
 const MEDIUMS = ['Sinhala', 'English'];
 
-const INIT = { firstName: '', lastName: '', email: '', nic: '', whatsapp: '', alBatch: '', alAttempt: '', stream: '', medium: '', district: '', examCenter: '' };
+const INIT = { firstName: '', lastName: '', email: '', school: '', nic: '', whatsapp: '', alBatch: '', alAttempt: '', stream: '', medium: '', district: '', examCenter: '' };
 
 function validate(f) {
   const e = {};
@@ -24,6 +24,7 @@ function validate(f) {
   if (!f.lastName.trim()) e.lastName = 'Last name is required.';
   if (!f.email.trim()) e.email = 'Email is required.';
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email = 'Enter a valid email address.';
+  if (!f.school.trim()) e.school = 'School is required.';
   if (!f.nic.trim()) e.nic = 'NIC number is required.';
   else if (!/^\d{12}$/.test(f.nic)) e.nic = 'Invalid NIC — must be exactly 12 digits.';
   if (!f.whatsapp.trim()) e.whatsapp = 'WhatsApp number is required.';
@@ -40,21 +41,10 @@ function validate(f) {
 export default function RegistrationForm() {
   const [form, setForm] = useState(INIT);
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('idle'); // idle | confirming | submitting | success | error
+  const [status, setStatus] = useState('idle'); // idle | confirming | submitting | success | error | already_registered
   const [errorMsg, setErrorMsg] = useState('');
-  const [studentId, setStudentId] = useState('');
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    if (status === 'success' && canvasRef.current && studentId) {
-      QRCode.toCanvas(canvasRef.current,
-        [`Student ID: ${studentId}`, `Name: ${form.firstName} ${form.lastName}`,
-        `NIC: ${form.nic}`, `Stream: ${form.stream}`, `Medium: ${form.medium}`,
-        `District: ${form.district}`, `Exam Center: ${form.examCenter}`].join('\n'),
-        { width: 220, margin: 2, color: { dark: '#0f172a', light: '#ffffff' }, errorCorrectionLevel: 'M' }
-      ).catch(console.error);
-    }
-  }, [status, studentId, form]);
+  const [backendFirstName, setBackendFirstName] = useState('');
+  const navigate = useNavigate();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -77,19 +67,50 @@ export default function RegistrationForm() {
   async function handleConfirm() {
     setStatus('submitting');
     try {
-      const params = new URLSearchParams({
-        firstName: form.firstName, lastName: form.lastName, email: form.email,
-        nic: form.nic, whatsapp: form.whatsapp, alBatch: form.alBatch,
-        alAttempt: form.alAttempt, stream: form.stream, medium: form.medium,
-        district: form.district, examCenter: form.examCenter,
+      const payload = {
+        "First Name": form.firstName,
+        "Last Name": form.lastName,
+        "Email Address": form.email,
+        "NIC": form.nic,
+        "WhatsApp Number": form.whatsapp,
+        "School": form.school,
+        "AL Batch": form.alBatch,
+        "AL Attempt": form.alAttempt,
+        "Subject Stream": form.stream,
+        "Medium": form.medium,
+        "District": form.district,
+        "Preferred Exam Center": form.examCenter
+      };
+
+      const res = await fetch('https://sme-api-backend-new-2f61da25f399.herokuapp.com/api/candidate/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
-      const res = await fetch(`${GOOGLE_SHEET_URL}?${params.toString()}`);
       const result = await res.json();
-      if (result.status === 'success') {
-        setStudentId(result.studentId);
-        setStatus('success');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else throw new Error(result.message || 'Unknown error.');
+
+      if (res.ok && result.success) {
+        try {
+          const params = new URLSearchParams({
+            firstName: form.firstName, lastName: form.lastName, email: form.email,
+            school: form.school, nic: form.nic, whatsapp: form.whatsapp, alBatch: form.alBatch,
+            alAttempt: form.alAttempt, stream: form.stream, medium: form.medium,
+            district: form.district, examCenter: form.examCenter,
+          });
+          fetch(`${GOOGLE_SHEET_URL}?${params.toString()}`).catch(console.error);
+        } catch (e) {
+          console.error("Google Sheets error", e);
+        }
+
+        navigate('/mysme/login', { state: { NIC: form.nic, firstName: form.firstName, autoCheck: true } });
+      } else if (result.message === "This NIC is already registered.") {
+        if (result.firstName) {
+          setBackendFirstName(result.firstName);
+        }
+        setStatus('already_registered');
+      } else {
+        throw new Error(result.message || 'Unknown error.');
+      }
     } catch (err) {
       console.error(err);
       setErrorMsg('Something went wrong. Please try again or contact support.');
@@ -98,14 +119,6 @@ export default function RegistrationForm() {
   }
 
   function handleCancel() { setStatus('idle'); }
-
-  function handleDownload() {
-    if (!canvasRef.current) return;
-    const a = document.createElement('a');
-    a.download = `${studentId}-QR.png`;
-    a.href = canvasRef.current.toDataURL('image/png');
-    a.click();
-  }
 
   // ── Confirmation popup ─────────────────────────────────────────────────────
   if (status === 'confirming') {
@@ -126,6 +139,7 @@ export default function RegistrationForm() {
               {[
                 ['Name', `${form.firstName} ${form.lastName}`],
                 ['Email', form.email],
+                ['School', form.school],
                 ['NIC', form.nic],
                 ['WhatsApp', form.whatsapp],
                 ['A/L Batch', form.alBatch],
@@ -165,60 +179,21 @@ export default function RegistrationForm() {
     );
   }
 
-  // ── Success screen ─────────────────────────────────────────────────────────
-  if (status === 'success') {
+  if (status === 'already_registered') {
+    const displayName = backendFirstName || form.firstName;
     return (
       <div className="reg-page">
-        <div className="reg-success-wrapper">
-          <div className="reg-success-card">
-            <div className="reg-checkmark-circle">
-              <svg className="reg-checkmark" viewBox="0 0 52 52">
-                <circle className="reg-checkmark-circle-bg" cx="26" cy="26" r="25" fill="none" />
-                <path className="reg-checkmark-check" fill="none" d="M14 27l8 8 16-16" />
-              </svg>
-            </div>
-            <h2 className="reg-success-title">Registration Successful!</h2>
-            <p className="reg-success-sub">Welcome, <strong>{form.firstName} {form.lastName}</strong>. Your student ID has been generated below.</p>
-
-            <div className="reg-id-badge">
-              <span className="reg-id-label">Your Student ID</span>
-              <span className="reg-id-value">{studentId}</span>
-            </div>
-
-            <div className="reg-qr-section">
-              <p className="reg-qr-hint">Scan this QR code at your exam center for check-in</p>
-              <div className="reg-qr-canvas-wrapper">
-                <canvas ref={canvasRef} className="reg-qr-canvas" />
-              </div>
-              <button id="btn-download-qr" className="reg-download-btn" onClick={handleDownload}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                Download QR Code
-              </button>
-            </div>
-
-            <div className="reg-detail-summary">
-              <h3>Registration Summary</h3>
-              <div className="reg-summary-grid">
-                {[
-                  ['First Name', form.firstName], ['Last Name', form.lastName],
-                  ['Email', form.email], ['NIC', form.nic],
-                  ['WhatsApp', form.whatsapp], ['A/L Batch', form.alBatch],
-                  ['Attempt', form.alAttempt], ['Stream', form.stream],
-                  ['Medium', form.medium], ['District', form.district],
-                  ['Exam Center', form.examCenter],
-                ].map(([label, val]) => (
-                  <div className="reg-summary-item" key={label}>
-                    <span>{label}</span><strong>{val}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <p className="reg-note">📩 Keep this page open or download your QR code. You may be asked to present it on exam day.</p>
+        <div className="reg-confirm-wrapper">
+          <div className="reg-confirm-card">
+            <div className="reg-confirm-icon">⚠️</div>
+            <h2 className="reg-confirm-title">Already Registered</h2>
+            {displayName && <p style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--text-color)', marginBottom: '0.5rem' }}>Hi, {displayName}!</p>}
+            <p className="reg-confirm-english" style={{ marginBottom: '2rem' }}>
+              There is an account associated with this NIC. Please head towards login.
+            </p>
+            <button className="reg-submit-btn" onClick={() => navigate('/mysme/login', { state: { NIC: form.nic, firstName: displayName, autoCheck: true } })}>
+              Go to Login
+            </button>
           </div>
         </div>
       </div>
@@ -242,15 +217,17 @@ export default function RegistrationForm() {
           </div>
 
           {/* Warning notice inside hero */}
-          <div className="reg-hero-notice">
-            <span>⚠️</span>
+          <div className="reg-hero-notice" style={{ textAlign: 'center', justifyContent: 'center' }}>
             <div>
-              <p><strong>සැ.යු :</strong> ඔබ Early Registrations හරහා දැනටමත් ලියාපදිංචි වී ඇත්නම්, මෙහි නැවත වරක් ලියාපදිංචි වීමට අවශ්‍‍ය නොවේ.</p>
+              <p><strong>සැ.යු :</strong> ඔබ Early Registrations හරහා දැනටමත් ලියාපදිංචි වී ඇත්නම්, මෙහි නැවත වරක් ලියාපදිංචි වීමට අවශ්‍ය නොවේ.</p>
               <p><strong>Important:</strong> If you've already registered through Early Registrations, you don't need to register here.</p>
+              <p style={{ marginTop: '0.5rem', fontWeight: 600 }}>
+                👉 <Link to="/mysme/login" style={{ color: '#fde68a', textDecoration: 'underline', textUnderlineOffset: '2px' }}>Login to your MySME Account here</Link>
+              </p>
             </div>
           </div>
           <br></br>
-          <p className="reg-hero-sub">Fill in your details below — your Student ID and QR code will be generated instantly.</p>
+          <p className="reg-hero-sub">Fill in your details below — proceed to account creation upon successful registration.</p>
         </div>
       </div>
 
@@ -294,11 +271,18 @@ export default function RegistrationForm() {
                 {errors.lastName && <span className="reg-error-msg">{errors.lastName}</span>}
               </div>
 
-              <div className={`reg-field reg-field--full ${errors.email ? 'has-error' : ''}`} id="field-email">
+              <div className={`reg-field ${errors.email ? 'has-error' : ''}`} id="field-email">
                 <label htmlFor="email">Email Address <span className="req">*</span></label>
                 <input id="email" name="email" type="email" placeholder="e.g. kavindu@example.com"
                   value={form.email} onChange={handleChange} autoComplete="email" />
                 {errors.email && <span className="reg-error-msg">{errors.email}</span>}
+              </div>
+
+              <div className={`reg-field ${errors.school ? 'has-error' : ''}`} id="field-school">
+                <label htmlFor="school">School <span className="req">*</span></label>
+                <input id="school" name="school" type="text" placeholder="e.g. Royal College"
+                  value={form.school} onChange={handleChange} />
+                {errors.school && <span className="reg-error-msg">{errors.school}</span>}
               </div>
 
               <div className={`reg-field ${errors.nic ? 'has-error' : ''}`} id="field-nic">
@@ -392,14 +376,13 @@ export default function RegistrationForm() {
           <div className="reg-submit-section">
             <p className="reg-disclaimer">
               By submitting this form, you confirm that all provided information is accurate.
-              Your Student ID and QR code will be generated instantly upon submission.
             </p>
             <button id="btn-submit-registration" type="submit" className="reg-submit-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
-              Submit &amp; Get Student ID
+              Next
             </button>
           </div>
 
