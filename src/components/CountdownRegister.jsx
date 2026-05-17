@@ -15,7 +15,7 @@ const CountdownRegister = () => {
 
           <div className="register-section">
             <h2>Ready to excel?</h2>
-            <p>Hurry up! Register early for A/L Mock Examination 2026 and prepare yourself for success.</p>
+            <p>Hurry up! Register now for A/L Mock Examination 2026 and prepare yourself for success.</p>
 
             {/*<a
                 href="https://forms.gle/do6jF9UGx9gh4ZmZ9"
@@ -30,9 +30,6 @@ const CountdownRegister = () => {
             {/*<RegisterNow className="register-button" />*/}
             <div className="register-actions">
               <RegisterNow className="small-button" />
-              <a href="/mysme/login" className="register-button small-button login-button">
-                MySME Login
-              </a>
             </div>
 
             {/*<p className="registration-message">Registrations opening soon!</p>*/}

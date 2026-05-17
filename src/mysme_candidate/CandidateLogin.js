@@ -69,6 +69,12 @@ const CandidateLogin = () => {
       return;
     }
 
+    if (!/^\d{12}$/.test(nicToUse.trim())) {
+      setError('Invalid NIC — must be exactly 12 digits.');
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await axios.post(`${API_BASE_URL}/api/candidate/check-nic`, { NIC: nicToUse });
 
@@ -86,7 +92,7 @@ const CandidateLogin = () => {
           setStep('signup');
         }
       } else {
-        setError('No registration found with this NIC. Please check your NIC or contact support.');
+        navigate('/register', { state: { nic: nicToUse, unregisteredMessage: "You don't have an account. Please register first." } });
       }
     } catch (err) {
       console.error('NIC check error:', err);
@@ -144,10 +150,15 @@ const CandidateLogin = () => {
         { NIC, newPassword },
         { headers: { Authorization: `Bearer ${resetToken}` } }
       );
-      setStep('login');
-      setShowForgotLink(false);
-      setError('');
-      setPassword('');
+      
+      // Auto login after reset
+      const loginResponse = await axios.post(`${API_BASE_URL}/api/candidate/login`, {
+        NIC,
+        password: newPassword
+      });
+      localStorage.setItem('candidateToken', loginResponse.data.token);
+      localStorage.setItem('userRole', 'candidate');
+      navigate('/mysme/profile');
       setNewPassword('');
       setConfirmNewPassword('');
     } catch (err) {
@@ -234,7 +245,10 @@ const CandidateLogin = () => {
               type="text"
               id="nic"
               value={NIC}
-              onChange={(e) => setNIC(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value.replace(/\D/g, '').slice(0, 12);
+                setNIC(val);
+              }}
               placeholder="Enter your NIC number"
               required
             />
