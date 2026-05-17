@@ -260,25 +260,27 @@ export default function RegistrationForm() {
         <form className="reg-form" onSubmit={handleSubmitClick} noValidate>
 
           {/* DEBUG START */}
-          <button type="button" onClick={() => {
-            setForm({
-              firstName: 'Test',
-              lastName: 'User',
-              email: `test${Math.floor(Math.random()*10000)}@test.com`,
-              school: 'Test School',
-              nic: `2006${Math.floor(10000000 + Math.random() * 90000000)}`,
-              whatsapp: `07${Math.floor(10000000 + Math.random() * 90000000)}`,
-              alBatch: AL_BATCHES[0],
-              alAttempt: AL_ATTEMPTS[0],
-              stream: STREAMS[0],
-              medium: MEDIUMS[0],
-              district: DISTRICTS[0],
-              examCenter: DISTRICTS[0]
-            });
-            setErrors({});
-          }} style={{ background: 'orange', color: 'black', padding: '10px', borderRadius: '5px', marginBottom: '20px', fontWeight: 'bold', border: 'none', cursor: 'pointer', width: '100%' }}>
-            [DEBUG] Auto Fill Form
-          </button>
+          {process.env.NODE_ENV === 'development' && (
+            <button type="button" onClick={() => {
+              setForm({
+                firstName: 'Test',
+                lastName: 'User',
+                email: `test${Math.floor(Math.random()*10000)}@test.com`,
+                school: 'Test School',
+                nic: `2006${Math.floor(10000000 + Math.random() * 90000000)}`,
+                whatsapp: `07${Math.floor(10000000 + Math.random() * 90000000)}`,
+                alBatch: AL_BATCHES[0],
+                alAttempt: AL_ATTEMPTS[0],
+                stream: STREAMS[0],
+                medium: MEDIUMS[0],
+                district: DISTRICTS[0],
+                examCenter: DISTRICTS[0]
+              });
+              setErrors({});
+            }} style={{ background: 'orange', color: 'black', padding: '10px', borderRadius: '5px', marginBottom: '20px', fontWeight: 'bold', border: 'none', cursor: 'pointer', width: '100%' }}>
+              [DEBUG] Auto Fill Form
+            </button>
+          )}
           {/* DEBUG END */}
 
           {/* ── Section 1: Personal Details ── */}
