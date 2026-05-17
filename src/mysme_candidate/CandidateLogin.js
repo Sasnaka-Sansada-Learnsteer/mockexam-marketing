@@ -121,6 +121,7 @@ const CandidateLogin = () => {
       setLoading(false);
     }
   };
+*/}
 
   const handleResetSubmit = (e) => {
     e.preventDefault();
