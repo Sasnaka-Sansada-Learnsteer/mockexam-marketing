@@ -330,7 +330,7 @@ const CandidateProfile = () => {
                     <p className="reg-hero-sme-title" style={{ color: 'var(--text-color)', opacity: 0.8, fontSize: '0.9rem', marginTop: 0 }}>Sasnaka Sansada Mock Exam (SME) 2026</p>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <button onClick={() => navigate('/')} style={{ background: 'transparent', border: 'none', color: 'var(--text-color)', cursor: 'pointer', fontSize: '0.9rem', textDecoration: 'underline', padding: '0.6rem 0', fontWeight: 600, transform: 'translateY(-8px)' }}>
+                    <button className="hide-on-mobile" onClick={() => navigate('/')} style={{ background: 'transparent', border: 'none', color: 'var(--text-color)', cursor: 'pointer', fontSize: '0.9rem', textDecoration: 'underline', padding: '0.6rem 0', fontWeight: 600, transform: 'translateY(-8px)' }}>
                         Home
                     </button>
                     <button onClick={handleLogout} className="reg-submit-btn" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', marginTop: 0 }}>

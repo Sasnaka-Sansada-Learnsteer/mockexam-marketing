@@ -466,7 +466,7 @@ const CandidateLogin = () => {
 
   return (
     <div className="reg-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem', position: 'relative' }}>
-      <button onClick={() => navigate('/')} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', zIndex: 100, background: 'transparent', border: 'none', color: 'var(--text-color)', cursor: 'pointer', fontSize: '1rem', fontWeight: 600, textDecoration: 'underline' }}>
+      <button className="hide-on-mobile" onClick={() => navigate('/')} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', zIndex: 100, background: 'transparent', border: 'none', color: 'var(--text-color)', cursor: 'pointer', fontSize: '1rem', fontWeight: 600, textDecoration: 'underline' }}>
         Home
       </button>
       <div style={{ textAlign: 'center', marginBottom: '2rem', position: 'relative', zIndex: 1 }}>

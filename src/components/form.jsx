@@ -216,7 +216,7 @@ export default function RegistrationForm() {
   // ── Main form ──────────────────────────────────────────────────────────────
   return (
     <div className="reg-page" style={{ position: 'relative' }}>
-      <button onClick={() => navigate('/')} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', zIndex: 100, background: 'transparent', border: 'none', color: 'var(--text-color)', cursor: 'pointer', fontSize: '1rem', fontWeight: 600, textDecoration: 'underline' }}>
+      <button className="hide-on-mobile" onClick={() => navigate('/')} style={{ position: 'absolute', top: '2rem', right: '1.5rem', zIndex: 100, background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '1rem', fontWeight: 600, textDecoration: 'underline' }}>
         Home
       </button>
       <div className="reg-hero">
@@ -268,7 +268,7 @@ export default function RegistrationForm() {
 
         <form className="reg-form" onSubmit={handleSubmitClick} noValidate>
 
-          {/* DEBUG START */}
+          {/* DEBUG START*/}
           {process.env.NODE_ENV === 'development' && (
             <button type="button" onClick={() => {
               setForm({
@@ -290,7 +290,7 @@ export default function RegistrationForm() {
               [DEBUG] Auto Fill Form
             </button>
           )}
-          {/* DEBUG END */}
+          {/*DEBUG END */}
 
           {/* ── Section 1: Personal Details ── */}
           <div className="reg-section">
