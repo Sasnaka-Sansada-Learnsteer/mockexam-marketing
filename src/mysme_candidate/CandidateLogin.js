@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../styles/candidate.css';
+import '../components/form.css';
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -42,6 +42,7 @@ const CandidateLogin = () => {
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [fetchedFirstName, setFetchedFirstName] = useState('');
 
 
   useEffect(() => {
@@ -73,6 +74,10 @@ const CandidateLogin = () => {
 
       setCandidateExists(response.data.exists);
       setHasMySmeAccount(response.data.hasMySmeAccount);
+
+      if (response.data.firstName) {
+        setFetchedFirstName(response.data.firstName);
+      }
 
       if (response.data.exists) {
         if (response.data.hasMySmeAccount) {
@@ -219,135 +224,153 @@ const CandidateLogin = () => {
   };
 
   const renderNicForm = () => (
-    <form onSubmit={(e) => { e.preventDefault(); checkNicExists(); }}>
-      <div className="form-group">
-        <label htmlFor="nic">NIC Number</label>
-        <input
-          type="text"
-          id="nic"
-          value={NIC}
-          onChange={(e) => setNIC(e.target.value)}
-          placeholder="Enter your NIC number"
-          required
-        />
+    <form className="reg-form" onSubmit={(e) => { e.preventDefault(); checkNicExists(); }}>
+      <div className="reg-section">
+        <div className="reg-fields-grid" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="reg-field">
+            <label className="reg-label" htmlFor="nic">NIC Number</label>
+            <input
+              className="reg-input"
+              type="text"
+              id="nic"
+              value={NIC}
+              onChange={(e) => setNIC(e.target.value)}
+              placeholder="Enter your NIC number"
+              required
+            />
+          </div>
+        </div>
       </div>
-      <button type="submit" className="btn-primary" disabled={loading}>
+      <button type="submit" className="reg-submit-btn" disabled={loading} style={{ width: '100%', justifyContent: 'center' }}>
         {loading ? 'Checking...' : 'Continue'}
       </button>
     </form>
   );
 
   const renderLoginForm = () => (
-    <form onSubmit={handleLogin}>
-      <div className="form-group">
-        <label htmlFor="nic">NIC Number</label>
-        <input
-          type="text"
-          id="nic"
-          value={NIC}
-          disabled
-        />
+    <form className="reg-form" onSubmit={handleLogin}>
+      <div className="reg-section">
+        <div className="reg-fields-grid" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="reg-field">
+            <label className="reg-label" htmlFor="nic">NIC Number</label>
+            <input
+              className="reg-input"
+              type="text"
+              id="nic"
+              value={NIC}
+              disabled
+            />
+          </div>
+          <div className="reg-field">
+            <label className="reg-label" htmlFor="password" style={{ display: 'flex', alignItems: 'center' }}>
+              <span>Password</span>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{ marginLeft: '10px', transform: 'translateY(-8px)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
+                title={showPassword ? "Hide password" : "Show password"}
+              >
+                <EyeIcon visible={showPassword} />
+              </button>
+            </label>
+            <input
+              className="reg-input"
+              type={showPassword ? "text" : "password"}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+            />
+            {showForgotLink && (
+              <button type="button"
+                onClick={() => { setStep('resetPassword'); setError(''); }}
+                style={{ color: '#fde68a', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', marginTop: '0.5rem', fontSize: '0.85rem' }}>
+                Forgot your password? Reset it here →
+              </button>
+            )}
+          </div>
+        </div>
       </div>
-      <div className="form-group">
-        <label htmlFor="password" style={{ display: 'flex', alignItems: 'center' }}>
-          <span>Password</span>
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            style={{ marginLeft: '10px', transform: 'translateY(-3px)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
-            title={showPassword ? "Hide password" : "Show password"}
-          >
-            <EyeIcon visible={showPassword} />
-          </button>
-        </label>
-        <input
-          type={showPassword ? "text" : "password"}
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-          required
-        />
-        {showForgotLink && (
-          <button type="button" className="forgot-password-link"
-            onClick={() => { setStep('resetPassword'); setError(''); }}>
-            Forgot your password? Reset it here →
-          </button>
-        )}
-      </div>
-      <button type="submit" className="btn-primary" disabled={loading}>
+      <button type="submit" className="reg-submit-btn" disabled={loading} style={{ width: '100%', justifyContent: 'center' }}>
         {loading ? 'Logging in...' : 'Login'}
       </button>
-      <button type="button" className="btn-secondary" onClick={() => setStep('checkNic')}>
+      <button type="button" onClick={() => setStep('checkNic')} style={{ width: '100%', padding: '0.95rem 2.5rem', borderRadius: 'var(--border-radius-pill)', border: '1px solid rgba(255,255,255,0.3)', background: 'transparent', color: '#fff', cursor: 'pointer', fontWeight: 600 }}>
         Back
       </button>
     </form>
   );
 
   const renderResetPasswordForm = () => (
-    <form onSubmit={handleResetSubmit}>
-      <div className="form-group">
-        <label htmlFor="nic">NIC Number</label>
-        <input type="text" id="nic-reset" value={NIC} disabled />
+    <form className="reg-form" onSubmit={handleResetSubmit}>
+      <div className="reg-section">
+        <div className="reg-fields-grid" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="reg-field">
+            <label className="reg-label" htmlFor="nic">NIC Number</label>
+            <input className="reg-input" type="text" id="nic-reset" value={NIC} disabled />
+          </div>
+          <div className="reg-field">
+            <label className="reg-label" htmlFor="newPassword" style={{ display: 'flex', alignItems: 'center' }}>
+              <span>New Password</span>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{ marginLeft: '10px', transform: 'translateY(-8px)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
+                title={showPassword ? "Hide password" : "Show password"}
+              >
+                <EyeIcon visible={showPassword} />
+              </button>
+            </label>
+            <input
+              className="reg-input"
+              type={showPassword ? "text" : "password"}
+              id="newPassword"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Enter new password"
+              required
+            />
+          </div>
+          <div className="reg-field">
+            <label className="reg-label" htmlFor="confirmNewPassword" style={{ display: 'flex', alignItems: 'center' }}>
+              <span>Confirm New Password</span>
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                style={{ marginLeft: '10px', transform: 'translateY(-8px)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
+                title={showConfirmPassword ? "Hide password" : "Show password"}
+              >
+                <EyeIcon visible={showConfirmPassword} />
+              </button>
+            </label>
+            <input
+              className="reg-input"
+              type={showConfirmPassword ? "text" : "password"}
+              id="confirmNewPassword"
+              value={confirmNewPassword}
+              onChange={(e) => setConfirmNewPassword(e.target.value)}
+              placeholder="Confirm new password"
+              required
+            />
+          </div>
+        </div>
       </div>
-      <div className="form-group">
-        <label htmlFor="newPassword" style={{ display: 'flex', alignItems: 'center' }}>
-          <span>New Password</span>
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            style={{ marginLeft: '10px', transform: 'translateY(-8px)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
-            title={showPassword ? "Hide password" : "Show password"}
-          >
-            <EyeIcon visible={showPassword} />
-          </button>
-        </label>
-        <input
-          type={showPassword ? "text" : "password"}
-          id="newPassword"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          placeholder="Enter new password"
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="confirmNewPassword" style={{ display: 'flex', alignItems: 'center' }}>
-          <span>Confirm New Password</span>
-          <button
-            type="button"
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            style={{ marginLeft: '10px', transform: 'translateY(-8px)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
-            title={showConfirmPassword ? "Hide password" : "Show password"}
-          >
-            <EyeIcon visible={showConfirmPassword} />
-          </button>
-        </label>
-        <input
-          type={showConfirmPassword ? "text" : "password"}
-          id="confirmNewPassword"
-          value={confirmNewPassword}
-          onChange={(e) => setConfirmNewPassword(e.target.value)}
-          placeholder="Confirm new password"
-          required
-        />
-      </div>
-      <button type="submit" className="btn-primary" disabled={loading}>
+      <button type="submit" className="reg-submit-btn" disabled={loading} style={{ width: '100%', justifyContent: 'center' }}>
         {loading ? 'Resetting...' : 'Reset Password'}
       </button>
-      <button type="button" className="btn-secondary" onClick={() => { setStep('login'); setError(''); }}>
+      <button type="button" onClick={() => { setStep('login'); setError(''); }} style={{ width: '100%', padding: '0.95rem 2.5rem', borderRadius: 'var(--border-radius-pill)', border: '1px solid rgba(255,255,255,0.3)', background: 'transparent', color: '#fff', cursor: 'pointer', fontWeight: 600 }}>
         Back to Login
       </button>
       {showConfirmPopup && (
         <div className="confirm-popup-overlay">
           <div className="confirm-popup">
-            <p>Are you sure you want to reset your password?</p>
-            <p className="redWarning" >This action cannot be undone</p>
+            <p style={{ color: '#000' }}>Are you sure you want to reset your password?</p>
+            <p className="redWarning" style={{ color: 'red' }}>This action cannot be undone</p>
             <div className="confirm-popup-buttons">
-              <button type="button" className="btn-primary" onClick={handleConfirmedReset}>
+              <button type="button" className="reg-submit-btn" onClick={handleConfirmedReset}>
                 Yes, Reset
               </button>
-              <button type="button" className="btn-primary" onClick={() => setShowConfirmPopup(false)}>
+              <button type="button" onClick={() => setShowConfirmPopup(false)} style={{ padding: '0.95rem 2.5rem', borderRadius: 'var(--border-radius-pill)', border: '1px solid rgba(0,0,0,0.3)', background: 'transparent', color: '#000', cursor: 'pointer', fontWeight: 600 }}>
                 Cancel
               </button>
             </div>
@@ -359,83 +382,102 @@ const CandidateLogin = () => {
 
 
   const renderSignupForm = () => (
-    <form onSubmit={handleSignup}>
-      <div className="form-group">
-        <label htmlFor="nic">NIC Number</label>
-        <input
-          type="text"
-          id="nic"
-          value={NIC}
-          disabled
-        />
+    <form className="reg-form" onSubmit={handleSignup}>
+      <div className="reg-section">
+        <div className="reg-fields-grid" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="reg-field">
+            <label className="reg-label" htmlFor="nic">NIC Number</label>
+            <input
+              className="reg-input"
+              type="text"
+              id="nic"
+              value={NIC}
+              disabled
+            />
+          </div>
+          <div className="reg-field">
+            <label className="reg-label" htmlFor="password" style={{ display: 'flex', alignItems: 'center' }}>
+              <span>New Password</span>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{ marginLeft: '10px', transform: 'translateY(-8px)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
+                title={showPassword ? "Hide password" : "Show password"}
+              >
+                <EyeIcon visible={showPassword} />
+              </button>
+            </label>
+            <input
+              className="reg-input"
+              type={showPassword ? "text" : "password"}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Create a password"
+              required
+            />
+          </div>
+          <div className="reg-field">
+            <label className="reg-label" htmlFor="confirmPassword" style={{ display: 'flex', alignItems: 'center' }}>
+              <span>Confirm Password</span>
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                style={{ marginLeft: '10px', transform: 'translateY(-8px)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
+                title={showConfirmPassword ? "Hide password" : "Show password"}
+              >
+                <EyeIcon visible={showConfirmPassword} />
+              </button>
+            </label>
+            <input
+              className="reg-input"
+              type={showConfirmPassword ? "text" : "password"}
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm your password"
+              required
+            />
+          </div>
+        </div>
       </div>
-      <div className="form-group">
-        <label htmlFor="password" style={{ display: 'flex', alignItems: 'center' }}>
-          <span>New Password</span>
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            style={{ marginLeft: '10px', transform: 'translateY(-8px)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
-            title={showPassword ? "Hide password" : "Show password"}
-          >
-            <EyeIcon visible={showPassword} />
-          </button>
-        </label>
-        <input
-          type={showPassword ? "text" : "password"}
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Create a password"
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="confirmPassword" style={{ display: 'flex', alignItems: 'center' }}>
-          <span>Confirm Password</span>
-          <button
-            type="button"
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            style={{ marginLeft: '10px', transform: 'translateY(-8px)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center' }}
-            title={showConfirmPassword ? "Hide password" : "Show password"}
-          >
-            <EyeIcon visible={showConfirmPassword} />
-          </button>
-        </label>
-        <input
-          type={showConfirmPassword ? "text" : "password"}
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Confirm your password"
-          required
-        />
-      </div>
-      <button type="submit" className="btn-primary" disabled={loading}>
+      <button type="submit" className="reg-submit-btn" disabled={loading} style={{ width: '100%', justifyContent: 'center' }}>
         {loading ? 'Creating Account...' : 'Create Account'}
       </button>
-      <button type="button" className="btn-secondary" onClick={() => setStep('checkNic')}>
+      <button type="button" onClick={() => setStep('checkNic')} style={{ width: '100%', padding: '0.95rem 2.5rem', borderRadius: 'var(--border-radius-pill)', border: '1px solid rgba(255,255,255,0.3)', background: 'transparent', color: '#fff', cursor: 'pointer', fontWeight: 600 }}>
         Back
       </button>
     </form>
   );
 
   return (
-    <div className="candidate-login-container">
-      {locationState.firstName && <h2 style={{ marginBottom: '1rem', color: 'black' }}>Hi, {locationState.firstName}!</h2>}
-      <h2>MySME Login</h2>
-      {error && (
-        <div>
-          <div className="error-message">{error}</div>
-        </div>
-      )}
+    <div className="reg-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '2rem', position: 'relative', zIndex: 1 }}>
+        <h1 className="reg-hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: 'var(--text-color)' }}>MySME Portal</h1>
+        <p className="reg-hero-sme-title" style={{ color: 'var(--text-color)', opacity: 0.8, fontSize: '1rem', marginTop: 0 }}>Sasnaka Sansada Mock Exam (SME) 2026</p>
+        {(locationState.firstName || fetchedFirstName) && (
+          <p style={{ fontSize: '1.15rem', fontWeight: 600, margin: '1.5rem 0 0', color: 'var(--text-color)' }}>
+            Hi, {locationState.firstName || fetchedFirstName}! Welcome back.
+          </p>
+        )}
+      </div>
 
+      <div className="reg-form-container" style={{ width: '100%', maxWidth: '420px', margin: 0 }}>
+        {error && (
+          <div className="reg-alert-error">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            {error}
+          </div>
+        )}
 
-      {step === 'checkNic' && renderNicForm()}
-      {step === 'login' && renderLoginForm()}
-      {step === 'signup' && renderSignupForm()}
-      {step === 'resetPassword' && renderResetPasswordForm()}
-      <FloatingWhatsApp phoneNumber="94703445342" />
+        {step === 'checkNic' && renderNicForm()}
+        {step === 'login' && renderLoginForm()}
+        {step === 'signup' && renderSignupForm()}
+        {step === 'resetPassword' && renderResetPasswordForm()}
+        <FloatingWhatsApp phoneNumber="94703445342" />
+      </div>
     </div>
   );
 };

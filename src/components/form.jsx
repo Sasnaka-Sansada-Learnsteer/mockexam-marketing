@@ -41,8 +41,9 @@ function validate(f) {
 export default function RegistrationForm() {
   const [form, setForm] = useState(INIT);
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('idle'); // idle | confirming | submitting | success | error
+  const [status, setStatus] = useState('idle'); // idle | confirming | submitting | success | error | already_registered
   const [errorMsg, setErrorMsg] = useState('');
+  const [backendFirstName, setBackendFirstName] = useState('');
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -103,6 +104,9 @@ export default function RegistrationForm() {
 
         navigate('/mysme/login', { state: { NIC: form.nic, firstName: form.firstName, autoCheck: true } });
       } else if (result.message === "This NIC is already registered.") {
+        if (result.firstName) {
+          setBackendFirstName(result.firstName);
+        }
         setStatus('already_registered');
       } else {
         throw new Error(result.message || 'Unknown error.');
@@ -176,16 +180,18 @@ export default function RegistrationForm() {
   }
 
   if (status === 'already_registered') {
+    const displayName = backendFirstName || form.firstName;
     return (
       <div className="reg-page">
         <div className="reg-confirm-wrapper">
           <div className="reg-confirm-card">
             <div className="reg-confirm-icon">⚠️</div>
             <h2 className="reg-confirm-title">Already Registered</h2>
+            {displayName && <p style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--text-color)', marginBottom: '0.5rem' }}>Hi, {displayName}!</p>}
             <p className="reg-confirm-english" style={{ marginBottom: '2rem' }}>
               There is an account associated with this NIC. Please head towards login.
             </p>
-            <button className="reg-submit-btn" onClick={() => navigate('/mysme/login', { state: { NIC: form.nic, firstName: form.firstName, autoCheck: true } })}>
+            <button className="reg-submit-btn" onClick={() => navigate('/mysme/login', { state: { NIC: form.nic, firstName: displayName, autoCheck: true } })}>
               Go to Login
             </button>
           </div>
