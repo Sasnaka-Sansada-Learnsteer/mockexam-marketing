@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import './form.css';
 
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwveMQFnZ51INI7EfaoW_VClVFEje1POg53SaeyJ8-Db3BNrb7forqU_N2jUQL8aOVYnA/exec';
@@ -39,7 +39,13 @@ function validate(f) {
 }
 
 export default function RegistrationForm() {
-  const [form, setForm] = useState(INIT);
+  const location = useLocation();
+  const locationState = location.state || {};
+
+  const [form, setForm] = useState({
+    ...INIT,
+    nic: locationState.nic || ''
+  });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | confirming | submitting | success | error | already_registered
   const [errorMsg, setErrorMsg] = useState('');
@@ -89,7 +95,7 @@ export default function RegistrationForm() {
       });
       const result = await res.json();
 
-      if (res.ok && result.success) {
+      if (res.ok && result.success && !result.exists) {
         try {
           const params = new URLSearchParams({
             firstName: form.firstName, lastName: form.lastName, email: form.email,
@@ -103,7 +109,7 @@ export default function RegistrationForm() {
         }
 
         navigate('/mysme/login', { state: { NIC: form.nic, firstName: form.firstName, autoCheck: true } });
-      } else if (result.message === "This NIC is already registered.") {
+      } else if (result.exists || result.message === "This NIC is already registered.") {
         if (result.firstName) {
           setBackendFirstName(result.firstName);
         }
@@ -233,7 +239,14 @@ export default function RegistrationForm() {
 
       <div className="reg-form-container">
 
-
+        {locationState.unregisteredMessage && status !== 'error' && (
+          <div className="reg-alert-error" style={{ backgroundColor: 'rgba(255, 152, 0, 0.1)', border: '1px solid rgba(255, 152, 0, 0.3)', color: '#ff9800', marginBottom: '1.5rem' }}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            {locationState.unregisteredMessage}
+          </div>
+        )}
 
         {status === 'error' && (
           <div className="reg-alert-error">
@@ -245,6 +258,28 @@ export default function RegistrationForm() {
         )}
 
         <form className="reg-form" onSubmit={handleSubmitClick} noValidate>
+
+          {/* DEBUG START */}
+          <button type="button" onClick={() => {
+            setForm({
+              firstName: 'Test',
+              lastName: 'User',
+              email: `test${Math.floor(Math.random()*10000)}@test.com`,
+              school: 'Test School',
+              nic: `2006${Math.floor(10000000 + Math.random() * 90000000)}`,
+              whatsapp: `07${Math.floor(10000000 + Math.random() * 90000000)}`,
+              alBatch: AL_BATCHES[0],
+              alAttempt: AL_ATTEMPTS[0],
+              stream: STREAMS[0],
+              medium: MEDIUMS[0],
+              district: DISTRICTS[0],
+              examCenter: DISTRICTS[0]
+            });
+            setErrors({});
+          }} style={{ background: 'orange', color: 'black', padding: '10px', borderRadius: '5px', marginBottom: '20px', fontWeight: 'bold', border: 'none', cursor: 'pointer', width: '100%' }}>
+            [DEBUG] Auto Fill Form
+          </button>
+          {/* DEBUG END */}
 
           {/* ── Section 1: Personal Details ── */}
           <div className="reg-section">
@@ -280,7 +315,7 @@ export default function RegistrationForm() {
 
               <div className={`reg-field ${errors.school ? 'has-error' : ''}`} id="field-school">
                 <label htmlFor="school">School <span className="req">*</span></label>
-                <input id="school" name="school" type="text" placeholder="e.g. Royal College"
+                <input id="school" name="school" type="text" placeholder="e.g. Your School Name"
                   value={form.school} onChange={handleChange} />
                 {errors.school && <span className="reg-error-msg">{errors.school}</span>}
               </div>

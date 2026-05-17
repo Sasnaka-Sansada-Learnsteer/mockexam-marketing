@@ -86,7 +86,7 @@ const CandidateLogin = () => {
           setStep('signup');
         }
       } else {
-        setError('No registration found with this NIC. Please check your NIC or contact support.');
+        navigate('/register', { state: { nic: nicToUse, unregisteredMessage: "You don't have an account. Please register first." } });
       }
     } catch (err) {
       console.error('NIC check error:', err);

@@ -3,7 +3,7 @@ import './NavBar.css';
 import logoBlack from './assets/sasnakalearnsteerblack.svg';
 import logoWhite from './assets/sasnakalearnsteerwhite.svg';
 
-const NavBar = ({ isDarkMode }) => { 
+const NavBar = ({ isDarkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -26,17 +26,21 @@ const NavBar = ({ isDarkMode }) => {
       <div className="navbar-container">
         {/* Logo Section */}
         <div className="navbar-logo">
-          <img 
-            src={isDarkMode ? logoWhite : logoBlack} 
-            alt="Sasnaka & Learnsteer" 
+          <img
+            src={isDarkMode ? logoWhite : logoBlack}
+            alt="Sasnaka & Learnsteer"
             height={50}
           />
         </div>
 
         {/* Navigation Links */}
         <ul className={isMenuOpen ? 'nav-menu active' : 'nav-menu'}>
-          
+
         </ul>
+
+        <a href="/mysme/login" className="register-button always-visible">
+          MySME Login
+        </a>  
 
         {/* Mobile Menu Toggle - Now inside the container for alignment */}
         <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>

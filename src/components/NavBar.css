@@ -195,6 +195,16 @@
   font-size: 14px;
   box-shadow: var(--shadow-sm);
   letter-spacing: 0.3px;
+  position: absolute;      /* or 'fixed' depending on your layout */
+  top: 15px;
+  right: 20px; 
+}
+
+/* 2. Desktop styles (Screens wider than 768px) */
+@media (min-width: 768px) {
+  .register-button.always-visible {
+    right: 100px;          /* Automatically scales up to 100px on desktop */
+  }
 }
 
 .register-button.always-visible:hover {
@@ -291,10 +301,8 @@
   }
 
   .register-button.always-visible {
-    margin-left: 0;
-    width: 80%;
     font-size: 14px;
-    padding: 10px 16px;
+    padding: 8px 16px;
   }
 }
 
