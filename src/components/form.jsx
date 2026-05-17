@@ -43,7 +43,19 @@ export default function RegistrationForm() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | confirming | submitting | success | error
   const [errorMsg, setErrorMsg] = useState('');
-  const navigate = useNavigate();
+  const [studentId, setStudentId] = useState('');
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    if (status === 'success' && canvasRef.current && studentId) {
+      QRCode.toCanvas(canvasRef.current,
+        [`Student ID: ${studentId}`, `Name: ${form.firstName} ${form.lastName}`,
+        `NIC: ${form.nic}`, `Stream: ${form.stream}`, `Medium: ${form.medium}`,
+        `District: ${form.district}`, `Exam Center: ${form.examCenter}`].join('\n'),
+        { width: 220, margin: 2, color: { dark: '#0f172a', light: '#ffffff' }, errorCorrectionLevel: 'M' }
+      ).catch(console.error);
+    }
+  }, [status, studentId, form]);
 
   function handleChange(e) {
     const { name, value } = e.target;
