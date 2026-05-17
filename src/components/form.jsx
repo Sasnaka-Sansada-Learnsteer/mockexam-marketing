@@ -11,6 +11,13 @@ const DISTRICTS = [
   'Matale', 'Matara', 'Monaragala', 'Mullaitivu', 'Nuwara Eliya',
   'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya',
 ];
+const EXAM_CENTERS = [
+  'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo',
+  'Galle', 'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara',
+  'Kandy', 'Kegalle', 'Kilinochchi', 'Kurunegala', 'Mannar',
+  'Matale', 'Matara', 'Monaragala', 'Mullaitivu', 'Nuwara Eliya',
+  'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya',
+];
 const AL_BATCHES = ['2026 A/L', '2027 A/L', '2028 A/L'];
 const AL_ATTEMPTS = ['1st Attempt', '2nd Attempt', '3rd Attempt'];
 const STREAMS = ['Bio Science', 'Physical Science', 'Non Stream (Combined Maths + ICT)', 'Other Stream (ICT only)'];
@@ -208,12 +215,15 @@ export default function RegistrationForm() {
 
   // ── Main form ──────────────────────────────────────────────────────────────
   return (
-    <div className="reg-page">
+    <div className="reg-page" style={{ position: 'relative' }}>
+      <button onClick={() => navigate('/')} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', zIndex: 100, background: 'transparent', border: 'none', color: 'var(--text-color)', cursor: 'pointer', fontSize: '1rem', fontWeight: 600, textDecoration: 'underline' }}>
+        Home
+      </button>
       <div className="reg-hero">
         <div className="reg-hero-glow" />
         <div className="reg-hero-content">
           <h1 className="reg-hero-title">Student Registration</h1>
-          <p className="reg-hero-sme-title">Sasnaka Sansada Mock Exam (SME) 2026 👩‍🏫💙 — Register Now !!</p>
+          <p className="reg-hero-sme-title">Sasnaka Sansada Mock Exam (SME) <span className="mobile-break-title">2026 👩‍🏫💙 — Register Now !!</span></p>
 
           {/* Bilingual intro inside hero */}
           <div className="reg-hero-intro">
@@ -232,8 +242,7 @@ export default function RegistrationForm() {
               </p>
             </div>
           </div>
-          <br></br>
-          <p className="reg-hero-sub">Fill in your details below — proceed to account creation upon successful registration.</p>
+          <p className="reg-hero-sub" style={{ marginTop: '0.5rem' }}>Fill in your details below — proceed to account creation upon successful registration.</p>
         </div>
       </div>
 
@@ -274,7 +283,7 @@ export default function RegistrationForm() {
                 stream: STREAMS[0],
                 medium: MEDIUMS[0],
                 district: DISTRICTS[0],
-                examCenter: DISTRICTS[0]
+                examCenter: EXAM_CENTERS[0]
               });
               setErrors({});
             }} style={{ background: 'orange', color: 'black', padding: '10px', borderRadius: '5px', marginBottom: '20px', fontWeight: 'bold', border: 'none', cursor: 'pointer', width: '100%' }}>
@@ -404,7 +413,7 @@ export default function RegistrationForm() {
                 <label htmlFor="examCenter">Preferred Exam Center <span className="req">*</span></label>
                 <select id="examCenter" name="examCenter" value={form.examCenter} onChange={handleChange}>
                   <option value="">Select preferred exam center</option>
-                  {DISTRICTS.map(d => <option key={d} value={d}>{d}</option>)}
+                  {EXAM_CENTERS.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
                 {errors.examCenter && <span className="reg-error-msg">{errors.examCenter}</span>}
               </div>

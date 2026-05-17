@@ -19,7 +19,7 @@
 .reg-hero {
   position: relative;
   overflow: hidden;
-  padding: 5rem 1.5rem 4rem;
+  padding: 4rem 1.5rem 3rem;
   text-align: center;
   background: #0b1d3c;
 }
@@ -55,10 +55,10 @@
 
 .reg-hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-size: clamp(1.6rem, 4.5vw, 2.75rem);
   font-weight: 800;
   color: #fff;
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.5rem;
   line-height: 1.15;
 }
 
@@ -84,17 +84,17 @@
   background: rgba(255, 255, 255, 0.88);
   border: none;
   border-radius: var(--border-radius-md);
-  padding: 1.15rem 1.4rem;
-  margin: 1.25rem 0 0;
+  padding: 0.8rem 1rem;
+  margin: 0.75rem 0 0;
   text-align: left;
   backdrop-filter: blur(6px);
 }
 
 .reg-hero-intro p {
   margin: 0;
-  font-size: 0.93rem;
+  font-size: 0.85rem;
   color: #000;
-  line-height: 1.8;
+  line-height: 1.25;
 }
 
 .reg-hero-intro p strong {
@@ -105,19 +105,19 @@
 .reg-hero-intro-sep {
   height: 1px;
   background: rgba(255, 255, 255, 0.2);
-  margin: 0.9rem 0;
+  margin: 0.6rem 0;
 }
 
 /* Warning notice inside hero */
 .reg-hero-notice {
   display: flex;
   align-items: flex-start;
-  gap: 0.7rem;
+  gap: 0.5rem;
   background: rgba(251, 191, 36, 0.12);
   border: 1px solid rgba(251, 191, 36, 0.3);
   border-radius: var(--border-radius-md);
-  padding: 0.9rem 1.25rem;
-  margin: 0.85rem 0 0;
+  padding: 0.6rem 1rem;
+  margin: 0.6rem 0 0;
   text-align: left;
 }
 
@@ -128,10 +128,10 @@
 }
 
 .reg-hero-notice p {
-  margin: 0 0 0.25rem;
-  font-size: 0.82rem;
+  margin: 0 0 0.15rem;
+  font-size: 0.72rem;
   color: #fde68a;
-  line-height: 1.55;
+  line-height: 1.25;
 }
 
 .reg-hero-notice p:last-child {
@@ -145,7 +145,7 @@
 /* ── Form container ───────────────────────────────────────── */
 .reg-form-container {
   max-width: 860px;
-  margin: -2rem auto 4rem;
+  margin: -3rem auto 4rem;
   padding: 0 1rem;
   position: relative;
   z-index: 2;
@@ -238,8 +238,33 @@
 }
 
 @media (max-width: 600px) {
+  .mobile-break-title {
+    display: block;
+  }
   .reg-fields-grid {
     grid-template-columns: 1fr;
+    gap: 0.65rem;
+    padding: 0.8rem 1rem;
+  }
+  .reg-form {
+    gap: 0.75rem;
+  }
+  .reg-field input,
+  .reg-field select {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.75rem;
+  }
+  .reg-field label {
+    font-size: 0.7rem;
+  }
+  .reg-section-header {
+    padding: 0.8rem 1rem 0.6rem;
+  }
+  .reg-section-title {
+    font-size: 0.95rem;
+  }
+  .reg-section-desc {
+    font-size: 0.7rem;
   }
 }
 

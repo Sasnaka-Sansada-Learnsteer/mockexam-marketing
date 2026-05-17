@@ -39,7 +39,8 @@ const NavBar = ({ isDarkMode }) => {
         </ul>
 
         <a href="/mysme/login" className="register-button always-visible">
-          MySME Login
+          <span className="mysme-login-full">MySME Login</span>
+          <span className="mysme-login-short">Login</span>
         </a>  
 
         {/* Mobile Menu Toggle - Now inside the container for alignment */}

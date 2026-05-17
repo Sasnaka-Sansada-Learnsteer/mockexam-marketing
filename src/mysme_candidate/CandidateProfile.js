@@ -54,7 +54,7 @@ const CandidateProfile = () => {
             } catch (err) {
                 console.error('Error fetching candidate data:', err);
                 setError('Failed to load profile data. Please try again later.');
-                if (err.response?.status === 401) {
+                if (err.response?.status >= 400) {
                     localStorage.removeItem('candidateToken');
                     localStorage.removeItem('userRole');
                     navigate('/mysme/login');
@@ -329,9 +329,14 @@ const CandidateProfile = () => {
                     <h1 className="reg-hero-title" style={{ fontSize: '2rem', marginBottom: '0.2rem', color: 'var(--text-color)' }}>MySME Dashboard</h1>
                     <p className="reg-hero-sme-title" style={{ color: 'var(--text-color)', opacity: 0.8, fontSize: '0.9rem', marginTop: 0 }}>Sasnaka Sansada Mock Exam (SME) 2026</p>
                 </div>
-                <button onClick={handleLogout} className="reg-submit-btn" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', marginTop: 0 }}>
-                    Logout
-                </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <button onClick={() => navigate('/')} style={{ background: 'transparent', border: 'none', color: 'var(--text-color)', cursor: 'pointer', fontSize: '0.9rem', textDecoration: 'underline', padding: '0.6rem 0', fontWeight: 600, transform: 'translateY(-8px)' }}>
+                        Home
+                    </button>
+                    <button onClick={handleLogout} className="reg-submit-btn" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem', marginTop: 0 }}>
+                        Logout
+                    </button>
+                </div>
             </div>
 
             <div className="reg-form-container" style={{ width: '100%', maxWidth: '800px', margin: 0, padding: '2.5rem' }}>
@@ -382,7 +387,7 @@ const CandidateProfile = () => {
 
                         {!candidateData.candidate.examIndexNumber ? (
                             <div className="reg-alert-error" style={{ backgroundColor: 'rgba(255, 152, 0, 0.1)', border: '1px solid rgba(255, 152, 0, 0.3)', color: '#ff9800', margin: 0 }}>
-                                Your participation is not confirmed yet.
+                                {candidateData.myExamInfoMessage || candidateData.candidate?.myExamInfoMessage || 'Your participation is not confirmed yet.'}
                             </div>
                         ) : (
                             <div>
