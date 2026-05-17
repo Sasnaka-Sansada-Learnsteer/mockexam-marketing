@@ -29,18 +29,24 @@
 }
 
 @keyframes gradientShift {
-  0%, 100% {
+
+  0%,
+  100% {
     background-position: 0 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-3px);
   }
@@ -104,26 +110,31 @@
 
 .navbar-container {
   display: flex;
-  align-items: center; /* This centers the logo and menu vertically */
+  align-items: center;
+  /* This centers the logo and menu vertically */
   width: 100%;
   max-width: 1300px;
   padding: 0 2rem;
-  height: 100%; /* Ensures container takes full navbar height */
+  height: 100%;
+  /* Ensures container takes full navbar height */
 }
 
 .navbar-logo {
   display: flex;
-  align-items: center; 
-  height: 100%; /* Important for vertical alignment */
+  align-items: center;
+  height: 100%;
+  /* Important for vertical alignment */
   text-decoration: none;
 }
 
 .navbar-logo img {
-  height: 50px; /* Adjusted size for a cleaner look */
+  height: 50px;
+  /* Adjusted size for a cleaner look */
   width: auto;
-  display: block; /* Removes baseline spacing */
+  display: block;
+  /* Removes baseline spacing */
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-  transition: all 0.3s ease;  
+  transition: all 0.3s ease;
   margin-left: 50px;
 }
 
@@ -195,15 +206,17 @@
   font-size: 14px;
   box-shadow: var(--shadow-sm);
   letter-spacing: 0.3px;
-  position: absolute;      /* or 'fixed' depending on your layout */
+  position: absolute;
+  /* or 'fixed' depending on your layout */
   top: 15px;
-  right: 20px; 
+  right: 20px;
 }
 
 /* 2. Desktop styles (Screens wider than 768px) */
 @media (min-width: 768px) {
   .register-button.always-visible {
-    right: 100px;          /* Automatically scales up to 100px on desktop */
+    right: 100px;
+    /* Automatically scales up to 100px on desktop */
   }
 }
 
@@ -229,7 +242,7 @@
   border-radius: 50%;
   transition: all 0.3s ease;
   margin-right: 50px;
-  margin : 0 15px;
+  margin: 0 15px;
   display: none;
 }
 
@@ -345,14 +358,21 @@
 
 /* For subtle emphasis */
 @media (prefers-reduced-motion: no-preference) {
-    .floating-banner-text {
-        animation: alertPulse 3s infinite;
+  .floating-banner-text {
+    animation: alertPulse 3s infinite;
+  }
+
+  @keyframes alertPulse {
+
+    0%,
+    100% {
+      transform: scale(1);
     }
 
-    @keyframes alertPulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.03); }
+    50% {
+      transform: scale(1.03);
     }
+  }
 }
 
 @media screen and (max-width: 700px) {
@@ -360,24 +380,27 @@
     height: 40px;
     margin-left: -10px !important;
   }
+
   .dark-mode-toggle {
     right: 20px !important;
   }
+
   .button-text {
-    display : none;
+    display: none;
   }
 }
+
 @media screen and (max-width: 460px) {
   .navbar-logo img {
     height: 40px;
     margin-left: -10px !important;
   }
+
   .button-text {
-    display : none;
+    display: none;
   }
+
   .dark-mode-toggle {
     right: 20px !important;
   }
 }
-
-
