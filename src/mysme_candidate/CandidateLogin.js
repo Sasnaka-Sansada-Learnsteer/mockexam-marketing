@@ -121,7 +121,6 @@ const CandidateLogin = () => {
       setLoading(false);
     }
   };
-*/}
 
   const handleResetSubmit = (e) => {
     e.preventDefault();
@@ -158,7 +157,7 @@ const CandidateLogin = () => {
     }
   };
 
-  {/*
+  /*
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setError('');
@@ -188,7 +187,7 @@ const CandidateLogin = () => {
       setLoading(false);
     }
   };
-*/}
+*/
 
   const handleSignup = async (e) => {
     e.preventDefault();
