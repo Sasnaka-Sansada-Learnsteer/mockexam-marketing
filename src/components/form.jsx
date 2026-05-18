@@ -11,6 +11,10 @@ const DISTRICTS = [
   'Matale', 'Matara', 'Monaragala', 'Mullaitivu', 'Nuwara Eliya',
   'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya',
 ];
+const EXAM_CENTERS = [
+  'Ampara', 'Colombo', 'Kandy', 'Kurunegala', 'Matara', 'Nuwara Eliya', 'Polonnaruwa', 'Ratnapura'
+];
+
 const AL_BATCHES = ['2026 A/L', '2027 A/L', '2028 A/L'];
 const AL_ATTEMPTS = ['1st Attempt', '2nd Attempt', '3rd Attempt'];
 const STREAMS = ['Bio Science', 'Physical Science', 'Non Stream (Combined Maths + ICT)', 'Other Stream (ICT only)'];
@@ -208,12 +212,15 @@ export default function RegistrationForm() {
 
   // ── Main form ──────────────────────────────────────────────────────────────
   return (
-    <div className="reg-page">
+    <div className="reg-page" style={{ position: 'relative' }}>
+      <button className="hide-on-mobile" onClick={() => navigate('/')} style={{ position: 'absolute', top: '2rem', right: '1.5rem', zIndex: 100, background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '1rem', fontWeight: 600, textDecoration: 'underline' }}>
+        Home
+      </button>
       <div className="reg-hero">
         <div className="reg-hero-glow" />
         <div className="reg-hero-content">
           <h1 className="reg-hero-title">Student Registration</h1>
-          <p className="reg-hero-sme-title">Sasnaka Sansada Mock Exam (SME) 2026 👩‍🏫💙 — Register Now !!</p>
+          <p className="reg-hero-sme-title">Sasnaka Sansada Mock Exam (SME) <span className="mobile-break-title">2026 👩‍🏫💙 — Register Now !!</span></p>
 
           {/* Bilingual intro inside hero */}
           <div className="reg-hero-intro">
@@ -232,8 +239,7 @@ export default function RegistrationForm() {
               </p>
             </div>
           </div>
-          <br></br>
-          <p className="reg-hero-sub">Fill in your details below — proceed to account creation upon successful registration.</p>
+          <p className="reg-hero-sub" style={{ marginTop: '0.5rem' }}>Fill in your details below — proceed to account creation upon successful registration.</p>
         </div>
       </div>
 
@@ -259,13 +265,13 @@ export default function RegistrationForm() {
 
         <form className="reg-form" onSubmit={handleSubmitClick} noValidate>
 
-          {/* DEBUG START */}
+          {/* DEBUG START*/}
           {process.env.NODE_ENV === 'development' && (
             <button type="button" onClick={() => {
               setForm({
                 firstName: 'Test',
                 lastName: 'User',
-                email: `test${Math.floor(Math.random()*10000)}@test.com`,
+                email: `test${Math.floor(Math.random() * 10000)}@test.com`,
                 school: 'Test School',
                 nic: `2006${Math.floor(10000000 + Math.random() * 90000000)}`,
                 whatsapp: `07${Math.floor(10000000 + Math.random() * 90000000)}`,
@@ -274,14 +280,14 @@ export default function RegistrationForm() {
                 stream: STREAMS[0],
                 medium: MEDIUMS[0],
                 district: DISTRICTS[0],
-                examCenter: DISTRICTS[0]
+                examCenter: EXAM_CENTERS[0]
               });
               setErrors({});
             }} style={{ background: 'orange', color: 'black', padding: '10px', borderRadius: '5px', marginBottom: '20px', fontWeight: 'bold', border: 'none', cursor: 'pointer', width: '100%' }}>
               [DEBUG] Auto Fill Form
             </button>
           )}
-          {/* DEBUG END */}
+          {/*DEBUG END */}
 
           {/* ── Section 1: Personal Details ── */}
           <div className="reg-section">
@@ -404,7 +410,7 @@ export default function RegistrationForm() {
                 <label htmlFor="examCenter">Preferred Exam Center <span className="req">*</span></label>
                 <select id="examCenter" name="examCenter" value={form.examCenter} onChange={handleChange}>
                   <option value="">Select preferred exam center</option>
-                  {DISTRICTS.map(d => <option key={d} value={d}>{d}</option>)}
+                  {EXAM_CENTERS.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
                 {errors.examCenter && <span className="reg-error-msg">{errors.examCenter}</span>}
               </div>

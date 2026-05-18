@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 import { Analytics } from "@vercel/analytics/react";
@@ -34,7 +34,7 @@ const SHOW_EXAM_CENTERS = false; // set to false to hide the Exam Centers card
 // ──────────────────────────────────────────────────────────────────────────────
 
 // Create a component for the main marketing site
-function MarketingSite({isDarkMode}) {
+function MarketingSite({ isDarkMode }) {
     return (
         <div className="App">
             {/*<PopupCard />*/}
@@ -78,7 +78,7 @@ function MarketingSite({isDarkMode}) {
             <FloatingWhatsApp phoneNumber="94703445342" />
         </div>
     );
-    
+
 }
 
 function App() {
@@ -111,7 +111,7 @@ function App() {
                 } else {
                     document.documentElement.classList.remove('dark-mode');
                 }
-            } catch {}
+            } catch { }
             return next;
         });
     };
@@ -120,14 +120,14 @@ function App() {
         <Router>
             {/* 3. Apply the class conditionally based on state */}
             <div className={`app-container ${isDarkMode ? 'dark-mode' : ''}`}>
-                
+
                 {/* 4. The Toggle Button */}
-                <button 
-                    onClick={toggleDarkMode} 
-                    style={{ 
-                        position: 'fixed', 
-                        bottom: '30px', 
-                        left: '30px', 
+                <button
+                    onClick={toggleDarkMode}
+                    style={{
+                        position: 'fixed',
+                        bottom: '30px',
+                        left: '30px',
                         zIndex: 9999,
                         width: '50px',
                         height: '50px',
@@ -168,14 +168,14 @@ function App() {
                     />
                     <Route path="/admin/qr-scanner-dashboard" element={
                         <PrivateRoute>
-                            <QRScannerDashboard/>
+                            <QRScannerDashboard />
                         </PrivateRoute>
                     }
                     />
 
                     {/*Admin redirect */}
                     <Route path="/admin" element={<Navigate to="/admin/login" />} />
-                    
+
                     {/* Project Dashboard */}
                     <Route path="/mysme/dashboard/overview" element={
                         <PrivateRoute >

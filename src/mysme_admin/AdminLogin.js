@@ -88,7 +88,10 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="admin-login-container">
+    <div className="admin-login-container" style={{ position: 'relative' }}>
+      <button className="hide-on-mobile" onClick={() => navigate('/')} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', zIndex: 100, background: 'transparent', border: 'none', color: 'var(--text-color)', cursor: 'pointer', fontSize: '1rem', fontWeight: 600, textDecoration: 'underline' }}>
+        Home
+      </button>
       <h2>Exam Admin Panel Login</h2>
       {error && <div className="error-message">{error}</div>}
 

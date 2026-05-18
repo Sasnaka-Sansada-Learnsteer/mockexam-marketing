@@ -465,7 +465,10 @@ const CandidateLogin = () => {
   );
 
   return (
-    <div className="reg-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
+    <div className="reg-page" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem', position: 'relative' }}>
+      <button className="hide-on-mobile" onClick={() => navigate('/')} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', zIndex: 100, background: 'transparent', border: 'none', color: 'var(--text-color)', cursor: 'pointer', fontSize: '1rem', fontWeight: 600, textDecoration: 'underline' }}>
+        Home
+      </button>
       <div style={{ textAlign: 'center', marginBottom: '2rem', position: 'relative', zIndex: 1 }}>
         <h1 className="reg-hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: 'var(--text-color)' }}>MySME Portal</h1>
         <p className="reg-hero-sme-title" style={{ color: 'var(--text-color)', opacity: 0.8, fontSize: '1rem', marginTop: 0 }}>Sasnaka Sansada Mock Exam (SME) 2026</p>

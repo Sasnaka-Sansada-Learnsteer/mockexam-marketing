@@ -19,7 +19,7 @@
 .reg-hero {
   position: relative;
   overflow: hidden;
-  padding: 5rem 1.5rem 4rem;
+  padding: 1.5rem 1.5rem 2.5rem;
   text-align: center;
   background: #0b1d3c;
 }
@@ -64,7 +64,7 @@
 
 .reg-hero-sub {
   color: rgba(255, 255, 255, 0.85);
-  font-size: 1.05rem;
+  font-size: 0.8rem;
   margin: 0;
   line-height: 1.6;
 }
@@ -92,9 +92,9 @@
 
 .reg-hero-intro p {
   margin: 0;
-  font-size: 0.93rem;
+  font-size: 0.85rem;
   color: #000;
-  line-height: 1.8;
+  line-height: 1.25;
 }
 
 .reg-hero-intro p strong {
@@ -105,7 +105,7 @@
 .reg-hero-intro-sep {
   height: 1px;
   background: rgba(255, 255, 255, 0.2);
-  margin: 0.9rem 0;
+  margin: 0.6rem 0;
 }
 
 /* Warning notice inside hero */
@@ -128,10 +128,10 @@
 }
 
 .reg-hero-notice p {
-  margin: 0 0 0.25rem;
-  font-size: 0.82rem;
+  margin: 0 0 0.15rem;
+  font-size: 0.72rem;
   color: #fde68a;
-  line-height: 1.55;
+  line-height: 1.25;
 }
 
 .reg-hero-notice p:last-child {
@@ -238,8 +238,40 @@
 }
 
 @media (max-width: 600px) {
+  .mobile-break-title {
+    display: block;
+  }
+
   .reg-fields-grid {
     grid-template-columns: 1fr;
+    gap: 0.65rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .reg-form {
+    gap: 0.75rem;
+  }
+
+  .reg-field input,
+  .reg-field select {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.75rem;
+  }
+
+  .reg-field label {
+    font-size: 0.7rem;
+  }
+
+  .reg-section-header {
+    padding: 0.8rem 1rem 0.6rem;
+  }
+
+  .reg-section-title {
+    font-size: 0.95rem;
+  }
+
+  .reg-section-desc {
+    font-size: 0.7rem;
   }
 }
 

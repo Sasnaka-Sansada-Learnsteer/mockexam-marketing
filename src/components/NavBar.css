@@ -208,7 +208,7 @@
   letter-spacing: 0.3px;
   position: absolute;
   /* or 'fixed' depending on your layout */
-  top: 15px;
+  top: 23px;
   right: 20px;
 }
 
@@ -228,6 +228,10 @@
 
 .register-button.always-visible:active {
   transform: translateY(1px);
+}
+
+.mysme-login-short {
+  display: none;
 }
 
 .menu-icon {
@@ -387,6 +391,20 @@
 
   .button-text {
     display: none;
+  }
+
+  .mysme-login-full {
+    display: none;
+  }
+
+  .mysme-login-short {
+    display: inline;
+  }
+
+  .register-button.always-visible {
+    padding: 6px 14px;
+    font-size: 13px;
+    right: 15px;
   }
 }
 
