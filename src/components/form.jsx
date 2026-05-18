@@ -12,12 +12,9 @@ const DISTRICTS = [
   'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya',
 ];
 const EXAM_CENTERS = [
-  'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Colombo',
-  'Galle', 'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara',
-  'Kandy', 'Kegalle', 'Kilinochchi', 'Kurunegala', 'Mannar',
-  'Matale', 'Matara', 'Monaragala', 'Mullaitivu', 'Nuwara Eliya',
-  'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya',
+  'Ampara', 'Colombo', 'Kandy', 'Kurunegala', 'Matara', 'Nuwara Eliya', 'Polonnaruwa', 'Ratnapura'
 ];
+
 const AL_BATCHES = ['2026 A/L', '2027 A/L', '2028 A/L'];
 const AL_ATTEMPTS = ['1st Attempt', '2nd Attempt', '3rd Attempt'];
 const STREAMS = ['Bio Science', 'Physical Science', 'Non Stream (Combined Maths + ICT)', 'Other Stream (ICT only)'];
@@ -274,7 +271,7 @@ export default function RegistrationForm() {
               setForm({
                 firstName: 'Test',
                 lastName: 'User',
-                email: `test${Math.floor(Math.random()*10000)}@test.com`,
+                email: `test${Math.floor(Math.random() * 10000)}@test.com`,
                 school: 'Test School',
                 nic: `2006${Math.floor(10000000 + Math.random() * 90000000)}`,
                 whatsapp: `07${Math.floor(10000000 + Math.random() * 90000000)}`,
