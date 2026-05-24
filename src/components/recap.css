@@ -1,0 +1,124 @@
+/* ═══════════════════════════════════════════════════
+   HIGHLIGHTS & RECAPS 2025 — vertical video layout
+   ═══════════════════════════════════════════════════ */
+
+.recap-section {
+  padding: clamp(4rem, 10vw, 8rem) 1.5rem;
+  background: var(--bg-color);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative glow blob */
+.recap-section::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(800px, 120vw);
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Header ── */
+.recap-header {
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+.recap-badge {
+  display: inline-block;
+  background: var(--accent-gradient);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.4rem 1.1rem;
+  border-radius: var(--border-radius-pill);
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.recap-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.recap-subtitle {
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  line-height: 1.8;
+  color: var(--text-color);
+  opacity: 0.7;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ── Video wrapper — centred, max phone width ── */
+.recap-video-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Vertical (9:16) frame — looks like a phone screen */
+.recap-video-frame {
+  position: relative;
+  width: min(360px, 88vw);   /* comfortable phone width */
+  aspect-ratio: 9 / 16;      /* portrait / vertical video */
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.25),
+    var(--shadow-lg),
+    0 0 60px rgba(99, 102, 241, 0.18);
+  background: #000;
+  transition: box-shadow 0.4s ease;
+}
+
+.recap-video-frame:hover {
+  box-shadow:
+    0 0 0 2px rgba(99, 102, 241, 0.5),
+    var(--shadow-lg),
+    0 0 80px rgba(99, 102, 241, 0.28);
+}
+
+.recap-video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.recap-video-title {
+  color: var(--text-color);
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  font-weight: 700;
+  margin: 0;
+  transition: color var(--transition-normal);
+}
+
+.recap-video-label {
+  font-size: 0.88rem;
+  opacity: 0.6;
+  color: var(--text-color);
+  margin: 0;
+}
+
+/* ═══════════════ MOBILE ═══════════════ */
+@media (max-width: 480px) {
+  .recap-video-frame {
+    width: 92vw;
+  }
+}

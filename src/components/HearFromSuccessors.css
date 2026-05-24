@@ -1,0 +1,118 @@
+/* ═══════════════════════════════════════════════════
+   HEAR FROM SUCCESSORS — 1 focused tile, 2 partial peeks
+   ═══════════════════════════════════════════════════ */
+
+.hear-from-successors {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  background: radial-gradient(circle at top right, var(--bg-color), var(--card-bg));
+  overflow: hidden;
+  text-align: center;
+}
+
+/* ── Viewport: 2/3 of screen, centred, clips the overflowing strip ── */
+.successors-carousel-viewport {
+  width: min(80vw, 1060px);     /* 80% of screen — gap visible on both sides */
+  margin: 0 auto;               /* centred */
+  overflow: hidden;
+  cursor: grab;
+  padding: 2.5rem 0;
+  position: relative;           /* Anchor for pseudo-elements */
+}
+
+.successors-carousel-viewport::before,
+.successors-carousel-viewport::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20%;                   /* Slightly wider for a longer, smoother fade */
+  z-index: 2;
+  pointer-events: none;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.successors-carousel-viewport::before {
+  left: 0;
+  -webkit-mask-image: linear-gradient(to right, black 0%, transparent 100%);
+  mask-image: linear-gradient(to right, black 0%, transparent 100%);
+}
+
+.successors-carousel-viewport::after {
+  right: 0;
+  -webkit-mask-image: linear-gradient(to left, black 0%, transparent 100%);
+  mask-image: linear-gradient(to left, black 0%, transparent 100%);
+}
+
+.successors-carousel-viewport:active {
+  cursor: grabbing;
+}
+
+/* ── Moving strip ── */
+.successors-carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  will-change: transform;
+}
+
+/*
+  ── Tile sizing: 62% of the 66.67vw viewport ──
+  Visible: [~13vw peek] [gap] [~41vw tile] [gap] [~13vw peek] ≈ 66.67vw ✓
+  1 full tile in focus, ~32% of each neighbour showing on each side.
+*/
+.successor-tile {
+  --tile-w: min(286px, 49.5vw);
+  flex: 0 0 var(--tile-w);
+  width: var(--tile-w);
+  aspect-ratio: 1 / 1;          /* square */
+  background: var(--card-bg);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.35s ease;
+}
+
+.successor-tile:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: var(--shadow-lg);
+}
+
+.successor-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;  /* Anchor to top middle */
+  transition: filter 0.35s ease;
+}
+
+.successor-tile:hover img {
+  filter: brightness(1.08);
+}
+
+/* ═══════════════ MOBILE ═══════════════ */
+@media (max-width: 768px) {
+  .successors-carousel-viewport {
+    width: min(88vw, 600px);    /* wider on mobile, still has edge gap */
+    margin: 0 auto;
+    padding: 1.5rem 0;
+  }
+
+  .successors-carousel-viewport::before,
+  .successors-carousel-viewport::after {
+    width: 12%;
+  }
+
+  .successors-carousel-track {
+    gap: 1rem;
+  }
+
+  /*
+    Mobile: tile = 53vw ≈ 62% of 85vw viewport → same 1+2 proportion
+  */
+  .successor-tile {
+    --tile-w: min(220px, 60.5vw);
+  }
+}

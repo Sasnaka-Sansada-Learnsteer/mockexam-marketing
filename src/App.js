@@ -27,6 +27,7 @@ import ProjectDashboard from "./mysme_admin/ProjectDashboard";
 import CandidateLogin from "./mysme_candidate/CandidateLogin";
 import CandidateProfile from "./mysme_candidate/CandidateProfile";
 import HearFromSuccessors from "./components/HearFromSuccessors";
+import Recap from "./components/recap";
 import RegistrationForm from "./components/form";
 
 // ─── Feature Flags ────────────────────────────────────────────────────────────
@@ -47,15 +48,21 @@ function MarketingSite({ isDarkMode }) {
                 <section id="herosection">
                     <HeroSection />
                 </section>
-                <section id="myexaminfo">
+                {/*<section id="myexaminfo">
                     <MyExamInfoEntry />
-                </section>
-                <section id="countdown-register">
-                    <CountdownRegister />
-                </section>
+                </section>*/}
                 <section id="examinfo">
                     <ExamInfo />
                 </section>
+                {<section id="hear-from-successors">
+                    <HearFromSuccessors />
+                </section>}
+                <section id="recap">
+                    <Recap />
+                </section>
+                {/*<section id="countdown-register">
+                    <CountdownRegister />
+                </section>*/}
                 <section id="stats">
                     <Stats />
                 </section>
@@ -67,9 +74,6 @@ function MarketingSite({ isDarkMode }) {
                         <ExamCenter />
                     </section>
                 )}
-                {<section id="hear-from-successors">
-                    <HearFromSuccessors />
-                </section>}
             </main>
 
             {/*<PopupNotification />*/}
