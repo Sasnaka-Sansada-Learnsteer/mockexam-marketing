@@ -31,7 +31,7 @@ import Recap from "./components/recap";
 import RegistrationForm from "./components/form";
 
 // ─── Feature Flags ────────────────────────────────────────────────────────────
-const SHOW_EXAM_CENTERS = false; // set to false to hide the Exam Centers card
+const SHOW_EXAM_CENTERS = true; // set to false to hide the Exam Centers card
 // ──────────────────────────────────────────────────────────────────────────────
 
 // Create a component for the main marketing site
