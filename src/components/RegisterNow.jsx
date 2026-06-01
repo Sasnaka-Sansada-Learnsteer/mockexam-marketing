@@ -7,7 +7,7 @@ const RegisterNow = ({ className = "", pulsing = true }) => {
 
   return (
     <Link
-      to={{ pathname: "https://forms.gle/p7tyeZHdPuFBRA5f7" }}
+      to={{ pathname: "https://sme.sasnaka.org/register" }}
       //to="/register"
       className={`register-button ${pulsing ? "pulsing" : ""} ${isHovering ? "hovering" : ""} ${className}`}
       onMouseEnter={() => setIsHovering(true)}
