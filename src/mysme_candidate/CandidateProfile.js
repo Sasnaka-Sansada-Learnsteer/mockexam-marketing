@@ -397,7 +397,7 @@ const CandidateProfile = () => {
                                 </div>
                                 <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Your Exam Center</label>
                                 <div style={{ color: 'var(--text-color)', fontWeight: 'bold', fontSize: '1rem', marginTop: '0.2rem' }}>
-                                    {candidateData.candidate["Preferred Exam Center"]}
+                                    {candidateData.candidate["your_exam_center"]}
                                 </div>
                                 <p style={{ color: 'var(--text-color)', opacity: 0.6, fontSize: '0.85rem', marginTop: '0.5rem', maxWidth: '250px' }}>
                                     You need to bring this QR code on the exam day to mark your attendance.
