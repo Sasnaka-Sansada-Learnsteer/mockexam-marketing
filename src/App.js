@@ -66,14 +66,14 @@ function MarketingSite({ isDarkMode }) {
                 <section id="stats">
                     <Stats />
                 </section>
-                <section id="examtimetable">
-                    <ExamTimetable />
-                </section>
                 {SHOW_EXAM_CENTERS && (
                     <section id="examcenter">
                         <ExamCenter />
                     </section>
                 )}
+                <section id="examtimetable">
+                    <ExamTimetable />
+                </section>
             </main>
 
             {/*<PopupNotification />*/}
