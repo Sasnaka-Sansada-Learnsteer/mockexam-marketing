@@ -299,7 +299,7 @@ const CandidateLogin = () => {
             {showForgotLink && (
               <button type="button"
                 onClick={() => { setStep('resetPassword'); setError(''); }}
-                style={{ color: '#fde68a', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', marginTop: '0.5rem', fontSize: '0.85rem' }}>
+                style={{ color: '#3182CE', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', marginTop: '0.5rem', fontSize: '0.85rem' }}>
                 Forgot your password? Reset it here →
               </button>
             )}
