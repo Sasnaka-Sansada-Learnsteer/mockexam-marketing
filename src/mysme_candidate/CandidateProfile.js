@@ -367,10 +367,10 @@ const CandidateProfile = () => {
                             <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Subject Stream</label>
                             <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{candidateData.candidate["Subject Stream"]}</div>
                         </div>
-                        <div className="reg-field" style={{ gridColumn: '1 / -1' }}>
-                            <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Preferred Exam Center</label>
-                            <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{candidateData.candidate["Preferred Exam Center"]}</div>
-                        </div>
+                        {/*<div className="reg-field" style={{ gridColumn: '1 / -1' }}>*/}
+                        {/*    <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Preferred Exam Center</label>*/}
+                        {/*    <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{candidateData.candidate["Preferred Exam Center"]}</div>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
 
@@ -395,6 +395,10 @@ const CandidateProfile = () => {
                                 <div style={{ color: 'var(--text-color)', fontWeight: 'bold', fontSize: '2rem', marginTop: '0.2rem' }}>
                                     {candidateData.candidate.examIndexNumber}
                                 </div>
+                                <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Your Exam Center</label>
+                                <div style={{ color: 'var(--text-color)', fontWeight: 'bold', fontSize: '1rem', marginTop: '0.2rem' }}>
+                                    {candidateData.candidate["your_exam_center"]}
+                                </div>
                                 <p style={{ color: 'var(--text-color)', opacity: 0.6, fontSize: '0.85rem', marginTop: '0.5rem', maxWidth: '250px' }}>
                                     You need to bring this QR code on the exam day to mark your attendance.
                                 </p>
@@ -405,7 +409,7 @@ const CandidateProfile = () => {
                     {(candidateData.candidate.examIndexNumber && candidateData.candidate['qrCode'] && candidateData.candidate['qrCodeData']) && (
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
                             <div style={{ background: '#fff', padding: '8px', borderRadius: '8px', marginBottom: '0.75rem' }}>
-                                <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" style={{ display: 'block', width: '120px', height: '120px' }} />
+                                <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" style={{ display: 'block', width: '150px', height: '150px' }} />
                             </div>
                             <button onClick={downloadQRCode} className="reg-submit-btn" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', marginTop: 0 }}>
                                 Download QR
