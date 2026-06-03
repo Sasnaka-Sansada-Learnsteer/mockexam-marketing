@@ -1,43 +1,87 @@
 import React from "react";
 import "./ExamTimetable.css";
 
-
 const ExamTimetable = () => {
     const districtData = [
         {
-            district: "Ampara",
+            district: "Colombo, Matara, Kalutara, Kurunegala",
             exams: [
                 {
-                    subject: "Combined Mathematics",
-                    date: "2025-09-23",
-                    time: "8:30 AM - 3:50 PM",
+                    subject: "Biology II, Combined Mathematics I",
+                    date: "2026-06-06",
+                    time: "8:30 AM - 11:40 AM",
                 },
                 {
-                    subject: "Biology",
-                    date: "2025-09-23",
-                    time: "8:30 AM - 2:10 PM",
+                    subject: "Biology I, Combined Mathematics II",
+                    date: "2026-06-06",
+                    time: ["12:40 PM - 2:40 PM", "12:40 PM - 3:50 PM"],
                 },
                 {
-                    subject: "Chemistry",
-                    date: "2025-09-25",
-                    time: "8:30 AM - 2:40 PM",
+                    subject: "Chemistry II, ICT II",
+                    date: "2026-06-07",
+                    time: "8:30 AM - 11:40 AM",
                 },
                 {
-                    subject: "Physics",
-                    date: "2025-09-30",
-                    time: "8:30 AM - 2:40 PM",
+                    subject: "Chemistry I, ICT I",
+                    date: "2026-06-07",
+                    time: "12:40 PM - 2:40 PM",
                 },
-            ],
+                {
+                    subject: "Physics II",
+                    date: "2026-06-13",
+                    time: "8:30 AM - 11:40 AM",
+                },
+                {
+                    subject: "Physics I",
+                    date: "2026-06-13",
+                    time: "12:40 PM - 2:40 PM",
+                }
+            ]
         },
+        {
+            district: "Kandy",
+            exams: [
+                {
+                    subject: "Biology II, Combined Mathematics I",
+                    date: "2026-06-06",
+                    time: "8:30 AM - 11:40 AM",
+                },
+                {
+                    subject: "Biology I, Combined Mathematics II",
+                    date: "2026-06-06",
+                    time: ["12:40 PM - 2:40 PM", "12:40 PM - 3:50 PM"],
+                },
+                {
+                    subject: "Chemistry II, ICT II",
+                    date: "2026-06-07",
+                    time: "8:30 AM - 11:40 AM",
+                },
+                {
+                    subject: "Chemistry I, ICT I",
+                    date: "2026-06-07",
+                    time: "12:40 PM - 2:40 PM",
+                },
+                {
+                    subject: "Physics II",
+                    date: "2026-06-20",
+                    time: "8:30 AM - 11:40 AM",
+                },
+                {
+                    subject: "Physics I",
+                    date: "2026-06-20",
+                    time: "12:40 PM - 2:40 PM",
+                }
+            ]
+        }
     ];
 
-    return null;
-
     return (
-        <section className="exam-timetable">
+        <section className="exam-timetable" id="timetable">
             <div className="container">
-                <h2>Exam Timetable</h2>
-
+                <div className="exam-timetable-heading" data-aos="fade-up">
+                    <h2>Exam Timetable</h2>
+                    <p className="subtitle">View scheduled dates and times for your district region</p>
+                </div>
 
                 <div className="district-card-container">
                     {districtData.map((district, districtIndex) => (
@@ -59,17 +103,29 @@ const ExamTimetable = () => {
                                         <div className="subject-details">
                                             <div className="exam-detail">
                                                 <span className="detail-label">Date:</span>
+                                                {/* Added non-breaking space mapping to prevent layout jumps with small text */}
+                                                {"\u00a0"}
                                                 <span className="detail-value">
-                         {new Date(exam.date).toLocaleDateString("en-US", {
-                             year: "numeric",
-                             month: "long",
-                             day: "numeric",
-                         })}
-                       </span>
+                                                    {new Date(exam.date).toLocaleDateString("en-US", {
+                                                        year: "numeric",
+                                                        month: "long",
+                                                        day: "numeric",
+                                                        timeZone: "UTC" /* Prevents local engine from rolling the date backward/forward */
+                                                    })}
+                                                </span>
                                             </div>
                                             <div className="exam-detail">
                                                 <span className="detail-label">Time:</span>
-                                                <span className="detail-value">{exam.time}</span>
+                                                {"\u00a0"}
+                                                {Array.isArray(exam.time) ? (
+                                                    <div className="time-values">
+                                                        {exam.time.map((t, idx) => (
+                                                            <span key={idx} className="detail-value" style={{ display: 'block' }}>{t}</span>
+                                                        ))}
+                                                    </div>
+                                                ) : (
+                                                    <span className="detail-value">{exam.time}</span>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -83,6 +139,4 @@ const ExamTimetable = () => {
     );
 };
 
-
 export default ExamTimetable;
-

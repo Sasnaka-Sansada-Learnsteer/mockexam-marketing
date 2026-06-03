@@ -12,7 +12,7 @@ const DISTRICTS = [
   'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya',
 ];
 const EXAM_CENTERS = [
-  'Ampara', 'Colombo-Malabe', 'Colombo-Colpetty', 'Kalutara', 'Kandy-Peradeniya', 'Matara',
+  'Ampara', 'Colombo-Malabe', 'Colombo-Colpetty', 'Kalutara', 'Kandy-Peradeniya', 'Matara', 'Kurunegala',
 ];
 
 const AL_BATCHES = ['2026 A/L', '2027 A/L', '2028 A/L'];
@@ -46,9 +46,9 @@ export default function RegistrationForm() {
   const location = useLocation();
   const locationState = location.state || {};
 
-    useEffect(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
 
   const [form, setForm] = useState({
     ...INIT,
