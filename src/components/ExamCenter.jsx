@@ -43,6 +43,19 @@ const ExamCenter = () => {
       mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.446687613651!2d81.67192059999999!3d7.303607899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae519c71d83cf15%3A0xf98995dcbc660552!2z4LaRIOC3g-C3iiDgt4Pgt5rgtrHgt4_gtrHgt4_gtrrgtpog4Lai4LeP4Lat4LeS4LaaIOC2tOC3j-C3g-C2vSwg4LaF4La44LeK4La04LeP4La7!5e0!3m2!1sen!2slk!4v1780336815631!5m2!1sen!2slk",
       directionsUrl: "https://www.google.com/maps/dir//%E0%B6%91+%E0%B7%83%E0%B7%8A+%E0%B7%83%E0%B7%9A%E0%B6%B1%E0%B7%8F%E0%B6%B1%E0%B7%8F%E0%B6%BA%E0%B6%9A+%E0%B6%A2%E0%B7%8F%E0%B6%AD%E0%B7%92%E0%B6%9A+%E0%B6%B4%E0%B7%8F%E0%B7%83%E0%B6%BD,+%E0%B6%85%E0%B6%B8%E0%B7%8A%E0%B6%B4%E0%B7%8F%E0%B6%BB,+D.S.Senanayaka+National+School,+Dharmapala+Mawatha,+Ampara/@7.3036079,81.6719206,858m/data=!3m1!1e3!4m16!1m7!3m6!1s0x3ae519c71d83cf15:0xf98995dcbc660552!2z4LaRIOC3g-C3iiDgt4Pgt5rgtrHgt4_gtrHgt4_gtrrgtpog4Lai4LeP4Lat4LeS4LaaIOC2tOC3j-C3g-C2vSwg4LaF4La44LeK4La04LeP4La7!8m2!3d7.3036079!4d81.6719206!16s%2Fg%2F11ckkxrkxx!4m7!1m0!1m5!1m1!1s0x3ae519c71d83cf15:0xf98995dcbc660552!2m2!1d81.6719205!2d7.303608!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D",
     },
+    {
+      province: "Kurunegala Center",
+      venue: "SLIIT Kurunegala",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.7843729471133!2d80.36279417571912!3d7.4890448925230855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae33a1f76f3dfaf%3A0x288f333fefb6c535!2sSLIIT%20Kurunegala%20Center!5e0!3m2!1sen!2slk!4v1780487946597!5m2!1sen!2slk",
+      directionsUrl: "https://www.google.com/maps/dir//SLIIT+Kurunegala+Center,+8+Dambulla+Road,+Kurunegala,+Sri+Lanka/data=!4m9!4m8!1m0!1m5!1m1!19sChIJr9_zdh864zoRNcW27z8zjyg!2m2!1d80.3653691!2d7.4890449!3e0?entry=gemini&utm_source=gemini&utm_campaign=gem-default",
+    },
+    {
+      province: "Ratnapura Center",
+      venue: "Sivali Central College, Ratnapura",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.4629872021665!2d80.3850022!3d6.7132145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae3bec17d74cd83%3A0x7e2606f4c0f4af14!2sSivali%20Central%20College!5e0!3m2!1sen!2slk!4v1780487755151!5m2!1sen!2slk",
+      directionsUrl: "https://www.google.com/maps/dir//Sivali+Central+College,+P97P%2B73W+Zoological+and+Botanical+Labs+and+AL+Arts+Building,+Sivali+Central+Collage,+70000+A4,+Ratnapura,+Sri+Lanka/data=!4m9!4m8!1m0!1m5!1m1!19sChIJg810fcG-4zoRFK_0wPQGJn4!2m2!1d80.3850022!2d6.7132144999999994!3e0?entry=gemini&utm_source=gemini&utm_campaign=gem-default",
+    },
+
 
   ];
 

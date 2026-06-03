@@ -72,6 +72,41 @@ const ExamTimetable = () => {
                     time: "12:40 PM - 2:40 PM",
                 }
             ]
+        },
+        {
+            district: "Ratnapura",
+            exams: [
+                {
+                    subject: "Biology II, Combined Mathematics I",
+                    date: "2026-06-13",
+                    time: "8:30 AM - 11:40 AM",
+                },
+                {
+                    subject: "Biology I, Combined Mathematics II",
+                    date: "2026-06-13",
+                    time: ["12:40 PM - 2:40 PM", "12:40 PM - 3:50 PM"],
+                },
+                {
+                    subject: "Chemistry II, ICT II",
+                    date: "2026-06-14",
+                    time: "8:30 AM - 11:40 AM",
+                },
+                {
+                    subject: "Chemistry I, ICT I",
+                    date: "2026-06-14",
+                    time: "12:40 PM - 2:40 PM",
+                },
+                {
+                    subject: "Physics II",
+                    date: "2026-06-20",
+                    time: "8:30 AM - 11:40 AM",
+                },
+                {
+                    subject: "Physics I",
+                    date: "2026-06-20",
+                    time: "12:40 PM - 2:40 PM",
+                }
+            ]
         }
     ];
 

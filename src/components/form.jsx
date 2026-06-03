@@ -12,7 +12,7 @@ const DISTRICTS = [
   'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya',
 ];
 const EXAM_CENTERS = [
-  'Ampara', 'Colombo-Malabe', 'Colombo-Colpetty', 'Kalutara', 'Kandy-Peradeniya', 'Matara', 'Kurunegala',
+  'Ampara', 'Colombo-Malabe', 'Colombo-Colpetty', 'Kalutara', 'Kandy-Peradeniya', 'Matara', 'Kurunegala', 'Ratnapura',
 ];
 
 const AL_BATCHES = ['2026 A/L', '2027 A/L', '2028 A/L'];
