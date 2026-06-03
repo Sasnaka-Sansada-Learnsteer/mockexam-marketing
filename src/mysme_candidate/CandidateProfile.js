@@ -107,7 +107,7 @@ const CandidateProfile = () => {
                 const { default: jsPDF } = jsPDFModule;
                 const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
                 pdf.setFontSize(16);
-                pdf.text('MySME25 QR Code', 105, 20, { align: 'center' });
+                pdf.text('MySME26 QR Code', 105, 20, { align: 'center' });
                 pdf.setFontSize(12);
                 pdf.text(`Candidate: ${candidateData.candidate["Full Name"]}`, 105, 30, { align: 'center' });
                 pdf.text(`Exam Index: ${candidateData.candidate.examIndexNumber}`, 105, 40, { align: 'center' });
@@ -115,8 +115,8 @@ const CandidateProfile = () => {
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 pdf.addImage(imageData, 'PNG', (210 - imgWidth) / 2, 50, imgWidth, imgHeight);
                 pdf.setFontSize(10);
-                pdf.text('Please bring this QR code to the examination center to mark your attendance', 105, 50 + imgHeight + 10, { align: 'center' });
-                pdf.save(`${candidateData.candidate.examIndexNumber}_MySME25_QRCode.pdf`);
+                pdf.text('Please present this QR code at your examination center to mark your attendance.', 105, 50 + imgHeight + 10, { align: 'center' });
+                pdf.save(`${candidateData.candidate.examIndexNumber}_MySME26_QRCode.pdf`);
                 setDownloadSuccess(true);
                 setTimeout(() => setDownloadSuccess(false), 3000);
             });
