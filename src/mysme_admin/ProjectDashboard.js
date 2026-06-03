@@ -1,16 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import '../styles/ProjectDashboard.css';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import ExamCenterCard from './ExamCenterCard';
+
+const WS_URL = 'wss://sme-api-backend-new-2f61da25f399.herokuapp.com/ws/dashboard';
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 const ProjectDashboard = ({ token }) => {
-    const [dashboardData, setDashboardData] = useState({
-        colombo: { total: 0, confirmed: 0, rejected: 0, not_reachable: 0 },
-        kandy: { total: 0, confirmed: 0, rejected: 0, not_reachable: 0 },
-        galle: { total: 0, confirmed: 0, rejected: 0, not_reachable: 0 }
-    });
+    const [centers, setCenters] = useState([]);
     const [isConnected, setIsConnected] = useState(false);
     const [lastUpdated, setLastUpdated] = useState(null);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
     const navigate = useNavigate();
+    const wsRef = useRef(null);         // live WebSocket instance
+    const loggingOutRef = useRef(false); // prevents reconnect on intentional close
+
+    const handleLogout = useCallback(async () => {
+        // 1. Signal that we're logging out so the reconnect loop doesn't fire
+        loggingOutRef.current = true;
+        setIsLoggingOut(true);
+
+        // 2. Close the WebSocket immediately
+        if (wsRef.current) {
+            wsRef.current.close();
+            wsRef.current = null;
+        }
+
+        // 3. Call the backend logout endpoint
+        const authToken = localStorage.getItem('adminToken');
+        try {
+            if (authToken) {
+                await fetch(`${API_BASE}/api/admin/logout`, {
+                    method: 'POST',
+                    headers: { Authorization: `Bearer ${authToken}` },
+                });
+            }
+        } catch (e) {
+            console.error('Logout request failed:', e);
+        } finally {
+            ['adminToken', 'authToken', 'panelId', 'deviceId', 'userRole'].forEach(k =>
+                localStorage.removeItem(k)
+            );
+            navigate('/admin/login');
+        }
+    }, [navigate]);
 
     useEffect(() => {
         const authToken = token || localStorage.getItem('adminToken') || localStorage.getItem('authToken');
@@ -20,96 +53,106 @@ const ProjectDashboard = ({ token }) => {
             return;
         }
 
-        // Create WebSocket connection
-        const ws = new WebSocket(`ws://localhost:3002/ws/dashboard?token=${authToken}`);
+        let ws = null;
+        let reconnectTimer = null;
 
-        ws.onopen = () => {
-            console.log('Dashboard WebSocket connected');
-            setIsConnected(true);
+        const connect = () => {
+            if (loggingOutRef.current) return; // don't reconnect during logout
+            ws = new WebSocket(`${WS_URL}?token=${authToken}`);
+            wsRef.current = ws;
+
+            ws.onopen = () => {
+                console.log('Dashboard WebSocket connected');
+                setIsConnected(true);
+                // Clear any pending reconnect timer on successful connect
+                if (reconnectTimer) {
+                    clearTimeout(reconnectTimer);
+                    reconnectTimer = null;
+                }
+            };
+
+            ws.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (Array.isArray(data)) {
+                        setCenters(data);
+                        setLastUpdated(new Date());
+                    }
+                } catch (error) {
+                    console.error('Error parsing WebSocket data:', error);
+                }
+            };
+
+            ws.onclose = () => {
+                if (loggingOutRef.current) return; // intentional close — skip reconnect
+                console.log('Dashboard WebSocket disconnected — reconnecting in 60s…');
+                setIsConnected(false);
+                reconnectTimer = setTimeout(connect, 60_000);
+            };
+
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+                setIsConnected(false);
+                ws.close(); // triggers onclose → reconnect timer
+            };
         };
 
-        ws.onmessage = (event) => {
-            try {
-                const data = JSON.parse(event.data);
-                setDashboardData(data);
-                setLastUpdated(new Date());
-            } catch (error) {
-                console.error('Error parsing WebSocket data:', error);
-            }
-        };
+        connect();
 
-        ws.onclose = () => {
-            console.log('Dashboard WebSocket disconnected');
-            setIsConnected(false);
-        };
-
-        ws.onerror = (error) => {
-            console.error('WebSocket error:', error);
-            setIsConnected(false);
-        };
-
-        // Cleanup on unmount
         return () => {
-            ws.close();
+            if (reconnectTimer) clearTimeout(reconnectTimer);
+            if (ws) ws.close();
         };
     }, [navigate, token]);
 
-    const StatCard = ({ title, data, centerName }) => (
-        <div className="stat-card">
-            <h3 className="stat-card-title">{title}</h3>
-            <div className="stat-grid">
-                <div className="stat-item total">
-                    <span className="stat-label">Total Registered</span>
-                    <span className="stat-value">{data.total}</span>
-                </div>
-                <div className="stat-item confirmed">
-                    <span className="stat-label">Confirmed</span>
-                    <span className="stat-value">{data.confirmed}</span>
-                </div>
-                <div className="stat-item rejected">
-                    <span className="stat-label">Rejected</span>
-                    <span className="stat-value">{data.rejected}</span>
-                </div>
-                <div className="stat-item not-reachable">
-                    <span className="stat-label">Not Reachable</span>
-                    <span className="stat-value">{data.not_reachable}</span>
-                </div>
-            </div>
-        </div>
-    );
+    const totalRegistrations = centers.reduce((sum, { count }) => sum + count, 0);
 
     return (
         <div className="dashboard-container">
+            {isLoggingOut && (
+                <div className="logout-overlay">
+                    <div className="logout-overlay-box">
+                        <div className="logout-spinner" />
+                        <p>Logging out, please wait…</p>
+                    </div>
+                </div>
+            )}
+
             <div className="dashboard-header">
-                <h1>Project Dashboard</h1>
-                <div className="connection-status">
-                    <span className={`status-indicator ${isConnected ? 'connected' : 'disconnected'}`}>
-                        {isConnected ? '🟢 Connected' : '🔴 Disconnected'}
-                    </span>
-                    {lastUpdated && (
-                        <span className="last-updated">
-                            Last updated: {lastUpdated.toLocaleTimeString()}
+                <h1>SME26 Exam Centers Overview</h1>
+                <div className="header-right">
+                    <div className="connection-status">
+                        <span className={`status-indicator ${isConnected ? 'connected' : 'disconnected'}`}>
+                            {isConnected ? '🟢 Connected' : '🔴 Disconnected'}
                         </span>
-                    )}
+                        {lastUpdated && (
+                            <span className="last-updated">
+                                Last updated: {lastUpdated.toLocaleTimeString()}
+                            </span>
+                        )}
+                    </div>
+                    <button className="logout-btn" onClick={handleLogout}>
+                        Logout
+                    </button>
                 </div>
             </div>
 
+            {centers.length > 0 && (
+                <div className="total-banner">
+                    <span className="total-banner-label">Total Registrations</span>
+                    <span className="total-banner-value">{totalRegistrations.toLocaleString()}</span>
+                </div>
+            )}
+
             <div className="dashboard-grid">
-                <StatCard
-                    title="Colombo Center"
-                    data={dashboardData.colombo}
-                    centerName="colombo"
-                />
-                <StatCard
-                    title="Kandy Center"
-                    data={dashboardData.kandy}
-                    centerName="kandy"
-                />
-                <StatCard
-                    title="Galle Center"
-                    data={dashboardData.galle}
-                    centerName="galle"
-                />
+                {centers.length > 0
+                    ? centers.map(({ center, count }) => (
+                        <ExamCenterCard key={center} center={center} count={count} />
+                    ))
+                    : !isConnected && (
+                        <p className="no-data-message">Waiting for connection…</p>
+                    )
+                }
             </div>
         </div>
     );
