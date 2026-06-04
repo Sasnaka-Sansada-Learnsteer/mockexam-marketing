@@ -105,7 +105,8 @@ const ProjectDashboard = ({ token }) => {
         };
     }, [navigate, token]);
 
-    const totalRegistrations = centers.reduce((sum, { count }) => sum + count, 0);
+    const totalRegistrations = centers.reduce((sum, { registered_count }) => sum + (registered_count || 0), 0);
+    const totalConfirmations = centers.reduce((sum, { confirmed_count }) => sum + (confirmed_count || 0), 0);
 
     return (
         <div className="dashboard-container">
@@ -138,16 +139,27 @@ const ProjectDashboard = ({ token }) => {
             </div>
 
             {centers.length > 0 && (
-                <div className="total-banner">
-                    <span className="total-banner-label">Total Registrations</span>
-                    <span className="total-banner-value">{totalRegistrations.toLocaleString()}</span>
+                <div className="total-banners-wrapper">
+                    <div className="total-banner">
+                        <span className="total-banner-label">Total Registrations</span>
+                        <span className="total-banner-value">{totalRegistrations.toLocaleString()}</span>
+                    </div>
+                    <div className="total-banner confirmations">
+                        <span className="total-banner-label">Total Confirmations</span>
+                        <span className="total-banner-value">{totalConfirmations.toLocaleString()}</span>
+                    </div>
                 </div>
             )}
 
             <div className="dashboard-grid">
                 {centers.length > 0
-                    ? centers.map(({ center, count }) => (
-                        <ExamCenterCard key={center} center={center} count={count} />
+                    ? centers.map(({ center, registered_count, confirmed_count }) => (
+                        <ExamCenterCard 
+                            key={center} 
+                            center={center} 
+                            registeredCount={registered_count} 
+                            confirmedCount={confirmed_count} 
+                        />
                     ))
                     : !isConnected && (
                         <p className="no-data-message">Waiting for connection…</p>
