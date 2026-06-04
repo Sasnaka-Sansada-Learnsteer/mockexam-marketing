@@ -141,11 +141,11 @@ const ProjectDashboard = ({ token }) => {
             {centers.length > 0 && (
                 <div className="total-banners-wrapper">
                     <div className="total-banner">
-                        <span className="total-banner-label">Total Registrations</span>
+                        <span className="total-banner-label">Total New Registrations</span>
                         <span className="total-banner-value">{totalRegistrations.toLocaleString()}</span>
                     </div>
                     <div className="total-banner confirmations">
-                        <span className="total-banner-label">Total Confirmations</span>
+                        <span className="total-banner-label">Total Center Confirmations</span>
                         <span className="total-banner-value">{totalConfirmations.toLocaleString()}</span>
                     </div>
                 </div>
