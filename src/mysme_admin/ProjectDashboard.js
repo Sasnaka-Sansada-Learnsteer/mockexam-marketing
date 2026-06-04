@@ -105,8 +105,8 @@ const ProjectDashboard = ({ token }) => {
         };
     }, [navigate, token]);
 
-    const totalRegistrations = centers.reduce((sum, { registered_count }) => sum + (registered_count || 0), 0);
-    const totalConfirmations = centers.reduce((sum, { confirmed_count }) => sum + (confirmed_count || 0), 0);
+const totalRegistrations = centers.reduce((sum, c) => sum + Number(c.registered_count ?? c.count ?? 0), 0);
+const totalConfirmations = centers.reduce((sum, c) => sum + Number(c.confirmed_count ?? 0), 0);
 
     return (
         <div className="dashboard-container">
@@ -153,14 +153,14 @@ const ProjectDashboard = ({ token }) => {
 
             <div className="dashboard-grid">
                 {centers.length > 0
-                    ? centers.map(({ center, registered_count, confirmed_count }) => (
-                        <ExamCenterCard 
-                            key={center} 
-                            center={center} 
-                            registeredCount={registered_count} 
-                            confirmedCount={confirmed_count} 
-                        />
-                    ))
+? centers.map(({ center, registered_count, confirmed_count, count }) => (
+    <ExamCenterCard
+        key={center}
+        center={center}
+        registeredCount={registered_count ?? count}
+        confirmedCount={confirmed_count}
+    />
+))
                     : !isConnected && (
                         <p className="no-data-message">Waiting for connection…</p>
                     )
