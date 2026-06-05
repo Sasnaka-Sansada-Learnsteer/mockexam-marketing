@@ -63,7 +63,7 @@ const QRScanner = () => {
             // If no exam index number found, show error
             if (!examIndexNumber) {
                 setScanResult({
-                    success: false,
+                    status: 'error',
                     message: 'Could not extract a valid exam index number'
                 });
                 return;
