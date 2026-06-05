@@ -74,23 +74,32 @@ const QRScanner = () => {
             const response = await axios.get(`${API_BASE_URL}/api/qrcode/verify-qr/${examIndexNumber}`);
             console.log("API response:", response.data);
 
-            if (response.data.verified) {
-                setScanResult({
-                    success: true,
-                    examIndexNumber: response.data.examIndexNumber
-                });
+            if (response.data.success) {
+                if (response.data.warning) {
+                    setScanResult({
+                        status: 'warning',
+                        message: response.data.message,
+                        examIndexNumber: response.data.examIndexNumber
+                    });
+                } else {
+                    setScanResult({
+                        status: 'success',
+                        message: response.data.message,
+                        examIndexNumber: response.data.examIndexNumber
+                    });
+                }
             } else {
                 setScanResult({
-                    success: false,
-                    message: response.data.message,
+                    status: 'error',
+                    message: response.data.message || 'Verification failed',
                 });
             }
         } catch (err) {
             console.error("QR verification error:", err);
             setError('Failed to verify QR code');
             setScanResult({
-                success: false,
-                message: err.response?.data?.error || 'Failed to verify QR code'
+                status: 'error',
+                message: err.response?.data?.error || err.response?.data?.message || 'Failed to verify QR code'
             });
         } finally {
             setLoading(false);
@@ -251,15 +260,23 @@ const QRScanner = () => {
             )}
 
             {scanResult && (
-                <div className={`scan-result ${scanResult.success ? 'success' : 'error'}`}>
-                    {scanResult.success ? (
+                <div className={`scan-result ${scanResult.status}`}>
+                    {scanResult.status === 'success' && (
                         <>
                             <h3>✔️ Marked Attendance </h3>
                             <p><strong>Exam Index Number:</strong> {scanResult.examIndexNumber}</p>
                         </>
-                    ) : (
+                    )}
+                    {scanResult.status === 'warning' && (
                         <>
                             <h3>Already Verified</h3>
+                            <p><strong>Exam Index Number:</strong> {scanResult.examIndexNumber}</p>
+                            <p>{scanResult.message}</p>
+                        </>
+                    )}
+                    {scanResult.status === 'error' && (
+                        <>
+                            <h3>Error</h3>
                             <p>{scanResult.message}</p>
                         </>
                     )}
