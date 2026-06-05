@@ -26,44 +26,110 @@ const CandidateProfile = () => {
     const [surveyCompleted, setSurveyCompleted] = useState(false);
     const [checkResultsClickCount, setCheckResultsClickCount] = useState(0);
 
+    // States for QR and Exam Center Confirmation Popup
+    const [isQRModalOpen, setIsQRModalOpen] = useState(false);
+    const [qrModalStep, setQrModalStep] = useState('select'); // 'select' | 'confirm' | 'show_qr'
+    const [selectedCenter, setSelectedCenter] = useState('');
+    const [isUpdatingCenter, setIsUpdatingCenter] = useState(false);
+    const [centerUpdateError, setCenterUpdateError] = useState('');
+
+    const handleGetQRCodeClick = () => {
+        const candidate = candidateData?.candidate;
+        if (!candidate) return;
+
+        if (candidate.exam_center_confirmed26 === true) {
+            setQrModalStep('show_qr');
+        } else {
+            const centers = candidate.eligible_exam_centers || [
+                "Ampara",
+                "Colombo-Malabe",
+                "Colombo-Colpetty",
+                "Kalutara",
+                "Kandy-Peradeniya",
+                "Matara",
+                "Kurunegala",
+                "Ratnapura"
+            ];
+            const currentCenter = candidate.your_exam_center || candidate["Preferred Exam Center"];
+            const defaultCenter = centers.includes(currentCenter) ? currentCenter : centers[0];
+
+            setSelectedCenter(defaultCenter);
+            setQrModalStep('select');
+            setCenterUpdateError('');
+        }
+        setIsQRModalOpen(true);
+    };
+
+    const handleConfirmCenter = async () => {
+        const token = localStorage.getItem('candidateToken');
+        if (!token) {
+            setError('Your session has expired. Please login again.');
+            return;
+        }
+
+        setIsUpdatingCenter(true);
+        setCenterUpdateError('');
+        try {
+            const response = await axios.post(
+                `${API_BASE_URL}/api/candidate/update_profile`,
+                { final_exam_center: selectedCenter },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (response.data && response.data.success !== false) {
+                await fetchCandidateData();
+                setQrModalStep('show_qr');
+            } else {
+                setCenterUpdateError(response.data.error || 'Failed to update exam center. Please try again.');
+            }
+        } catch (err) {
+            console.error('Error updating exam center:', err);
+            setCenterUpdateError(err.response?.data?.error || 'Failed to update exam center. Please try again.');
+        } finally {
+            setIsUpdatingCenter(false);
+        }
+    };
+
     const RESULTS_ENABLED = true;
     const QUIZ_ENABLED = false; // Set to false to hide the Quiz Platform button
 
-    useEffect(() => {
-        const fetchCandidateData = async () => {
-            const token = localStorage.getItem('candidateToken');
-            if (!token) {
+    const fetchCandidateData = async () => {
+        const token = localStorage.getItem('candidateToken');
+        if (!token) {
+            navigate('/mysme/login');
+            return;
+        }
+        try {
+            const response = await axios.get(
+                `${API_BASE_URL}/api/candidate/profile`,
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (response.data.success === false) {
+                localStorage.removeItem('candidateToken');
+                localStorage.removeItem('userRole');
                 navigate('/mysme/login');
                 return;
             }
-            try {
-                const response = await axios.get(
-                    `${API_BASE_URL}/api/candidate/profile`,
-                    { headers: { Authorization: `Bearer ${token}` } }
-                );
 
-                if (response.data.success === false) {
-                    localStorage.removeItem('candidateToken');
-                    localStorage.removeItem('userRole');
-                    navigate('/mysme/login');
-                    return;
-                }
-
-                setCandidateData(response.data);
-                setCheckResultsClickCount(response.data.candidate.check_results_button_clicks_count || 0);
-            } catch (err) {
-                console.error('Error fetching candidate data:', err);
-                setError('Failed to load profile data. Please try again later.');
-                if (err.response?.status >= 400) {
-                    localStorage.removeItem('candidateToken');
-                    localStorage.removeItem('userRole');
-                    navigate('/mysme/login');
-                }
-            } finally {
-                setLoading(false);
+            setCandidateData(response.data);
+            setCheckResultsClickCount(response.data.candidate.check_results_button_clicks_count || 0);
+        } catch (err) {
+            console.error('Error fetching candidate data:', err);
+            setError('Failed to load profile data. Please try again later.');
+            if (err.response?.status >= 400) {
+                localStorage.removeItem('candidateToken');
+                localStorage.removeItem('userRole');
+                navigate('/mysme/login');
             }
-        };
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         fetchCandidateData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [navigate]);
 
     useEffect(() => {
@@ -107,7 +173,7 @@ const CandidateProfile = () => {
                 const { default: jsPDF } = jsPDFModule;
                 const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
                 pdf.setFontSize(16);
-                pdf.text('MySME25 QR Code', 105, 20, { align: 'center' });
+                pdf.text('MySME26 QR Code', 105, 20, { align: 'center' });
                 pdf.setFontSize(12);
                 pdf.text(`Candidate: ${candidateData.candidate["Full Name"]}`, 105, 30, { align: 'center' });
                 pdf.text(`Exam Index: ${candidateData.candidate.examIndexNumber}`, 105, 40, { align: 'center' });
@@ -115,8 +181,8 @@ const CandidateProfile = () => {
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 pdf.addImage(imageData, 'PNG', (210 - imgWidth) / 2, 50, imgWidth, imgHeight);
                 pdf.setFontSize(10);
-                pdf.text('Please bring this QR code to the examination center to mark your attendance', 105, 50 + imgHeight + 10, { align: 'center' });
-                pdf.save(`${candidateData.candidate.examIndexNumber}_MySME25_QRCode.pdf`);
+                pdf.text('Please present this QR code at your examination center to mark your attendance.', 105, 50 + imgHeight + 10, { align: 'center' });
+                pdf.save(`${candidateData.candidate.examIndexNumber}_MySME26_QRCode.pdf`);
                 setDownloadSuccess(true);
                 setTimeout(() => setDownloadSuccess(false), 3000);
             });
@@ -406,17 +472,15 @@ const CandidateProfile = () => {
                         )}
                     </div>
 
-                    {(candidateData.candidate.examIndexNumber && candidateData.candidate['qrCode'] && candidateData.candidate['qrCodeData']) && (
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                            <div style={{ background: '#fff', padding: '8px', borderRadius: '8px', marginBottom: '0.75rem' }}>
-                                <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" style={{ display: 'block', width: '150px', height: '150px' }} />
-                            </div>
-                            <button onClick={downloadQRCode} className="reg-submit-btn" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', marginTop: 0 }}>
-                                Download QR
+                    {candidateData.candidate && (
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                            <button
+                                onClick={candidateData.candidate.exam_center_confirmed26 === true ? downloadQRCode : handleGetQRCodeClick}
+                                className="reg-submit-btn"
+                                style={{ padding: '0.75rem 1.75rem', fontSize: '0.95rem', marginTop: 0 }}
+                            >
+                                {candidateData.candidate.exam_center_confirmed26 === true ? 'Download QR Code' : 'Confirm Exam Center'}
                             </button>
-                            {downloadSuccess && (
-                                <div style={{ color: '#4ade80', marginTop: '0.5rem', fontWeight: 600, fontSize: '0.8rem' }}>Downloaded!</div>
-                            )}
                         </div>
                     )}
                 </div>               {/* ── Section 3: Actions & Results ── */}
@@ -474,6 +538,230 @@ const CandidateProfile = () => {
 
             </div>
             <FloatingWhatsApp phoneNumber="94703445342" />
+
+            {isQRModalOpen && (
+                <div className="confirm-modal-overlay">
+                    <style>{`
+                        .confirm-modal-overlay {
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            background-color: rgba(0, 0, 0, 0.65);
+                            backdrop-filter: blur(4px);
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            z-index: 10000;
+                        }
+                        .confirm-modal-container {
+                            background-color: var(--card-bg, #ffffff);
+                            color: var(--text-color, #0f172a);
+                            border: 1px solid var(--section-border, #e2e8f0);
+                            border-radius: var(--border-radius-lg, 16px);
+                            box-shadow: var(--shadow-lg);
+                            width: 480px;
+                            max-width: 90%;
+                            position: relative;
+                            overflow: hidden;
+                            padding: 2.25rem 2rem;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            animation: confirm-slide-up 0.3s ease-out;
+                        }
+                        @keyframes confirm-slide-up {
+                            from { transform: translateY(30px); opacity: 0; }
+                            to { transform: translateY(0); opacity: 1; }
+                        }
+                        .confirm-modal-close {
+                            position: absolute;
+                            top: 1rem;
+                            right: 1.25rem;
+                            background: none;
+                            border: none;
+                            font-size: 1.8rem;
+                            cursor: pointer;
+                            color: var(--text-color);
+                            opacity: 0.5;
+                            transition: opacity 0.2s;
+                        }
+                        .confirm-modal-close:hover {
+                            opacity: 1;
+                            color: #ff5252;
+                        }
+                        .confirm-modal-step {
+                            width: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            text-align: center;
+                        }
+                        .confirm-modal-icon {
+                            font-size: 2.5rem;
+                            margin-bottom: 0.75rem;
+                        }
+                        .confirm-modal-title {
+                            font-size: 1.35rem;
+                            font-weight: 700;
+                            margin-bottom: 0.5rem;
+                            color: var(--text-color);
+                        }
+                        .confirm-modal-text {
+                            font-size: 0.95rem;
+                            line-height: 1.5;
+                            margin-bottom: 1.25rem;
+                            color: var(--text-color);
+                            opacity: 0.85;
+                        }
+                        .confirm-modal-subtext {
+                            font-size: 0.8rem;
+                            line-height: 1.4;
+                            margin-bottom: 1.25rem;
+                            color: var(--text-color);
+                            opacity: 0.6;
+                        }
+                        .confirm-modal-select-wrapper {
+                            width: 100%;
+                            margin-bottom: 0.5rem;
+                            position: relative;
+                        }
+                        .confirm-modal-select {
+                            width: 100%;
+                            padding: 0.7rem 0.95rem;
+                            font-size: 0.95rem;
+                            border-radius: var(--border-radius-sm, 8px);
+                            border: 1.5px solid var(--section-border, #e2e8f0);
+                            background-color: var(--bg-color, #f8fafc);
+                            color: var(--text-color, #0f172a);
+                            outline: none;
+                            cursor: pointer;
+                            appearance: none;
+                            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7280' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+                            background-repeat: no-repeat;
+                            background-position: right 1rem center;
+                            padding-right: 2.5rem;
+                        }
+                        .confirm-modal-select:focus {
+                            border-color: var(--accent-color);
+                        }
+                    `}</style>
+
+                    <div className="confirm-modal-container">
+                        <button className="confirm-modal-close" onClick={() => setIsQRModalOpen(false)}>
+                            &times;
+                        </button>
+
+                        {qrModalStep === 'select' && (
+                            <div className="confirm-modal-step">
+                                <div className="confirm-modal-icon">📍</div>
+                                <h3 className="confirm-modal-title">Select Your Exam Center</h3>
+                                <p className="confirm-modal-text">
+                                    Please select your preferred examination center from the options below. You can only confirm your center once.
+                                </p>
+                                <div className="confirm-modal-select-wrapper">
+                                    <select
+                                        value={selectedCenter}
+                                        onChange={(e) => setSelectedCenter(e.target.value)}
+                                        className="confirm-modal-select"
+                                    >
+                                        {(candidateData.candidate.eligible_exam_centers || [
+                                            "Ampara",
+                                            "Colombo-Malabe",
+                                            "Colombo-Colpetty",
+                                            "Kalutara",
+                                            "Kandy-Peradeniya",
+                                            "Matara",
+                                            "Kurunegala",
+                                            "Ratnapura"
+                                        ]).map((center, index) => (
+                                            <option key={index} value={center}>
+                                                {center}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <button
+                                    onClick={() => setQrModalStep('confirm')}
+                                    className="reg-submit-btn"
+                                    style={{ width: '100%', justifyContent: 'center', marginTop: '1.5rem' }}
+                                >
+                                    Continue
+                                </button>
+                            </div>
+                        )}
+
+                        {qrModalStep === 'confirm' && (
+                            <div className="confirm-modal-step">
+                                <div className="confirm-modal-icon">⚠️</div>
+                                <h3 className="confirm-modal-title">Confirm Exam Center</h3>
+                                <p className="confirm-modal-text" style={{ fontSize: '1.05rem', fontWeight: '500' }}>
+                                    You are confirming your exam center as <strong style={{ color: 'var(--accent-color)' }}>"{selectedCenter}"</strong>.
+                                </p>
+                                <p className="confirm-modal-subtext">
+                                    Please note that you will not be able to change this selection once confirmed.
+                                </p>
+                                {centerUpdateError && (
+                                    <div className="reg-alert-error" style={{ width: '100%', padding: '0.75rem', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                                        {centerUpdateError}
+                                    </div>
+                                )}
+                                <div className="confirm-modal-actions" style={{ display: 'flex', gap: '1rem', width: '100%', marginTop: '1rem' }}>
+                                    <button
+                                        onClick={() => setQrModalStep('select')}
+                                        className="reg-submit-btn"
+                                        style={{ flex: 1, justifyContent: 'center', background: 'rgba(255,255,255,0.05)', color: 'var(--text-color)', border: '1px solid var(--section-border)', marginTop: 0 }}
+                                        disabled={isUpdatingCenter}
+                                    >
+                                        No (Go Back)
+                                    </button>
+                                    <button
+                                        onClick={handleConfirmCenter}
+                                        className="reg-submit-btn"
+                                        style={{ flex: 1, justifyContent: 'center', marginTop: 0 }}
+                                        disabled={isUpdatingCenter}
+                                    >
+                                        {isUpdatingCenter ? <span className="reg-spinner" /> : 'Yes, Confirm'}
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {qrModalStep === 'show_qr' && (
+                            <div className="confirm-modal-step">
+                                <div className="confirm-modal-icon">🎟️</div>
+                                <h3 className="confirm-modal-title">Your Exam QR Code</h3>
+                                <p className="confirm-modal-text">
+                                    Below is your exam entrance QR code for <strong style={{ color: 'var(--accent-color)' }}>{candidateData.candidate.your_exam_center}</strong>.
+                                </p>
+                                <div style={{ background: '#fff', padding: '12px', borderRadius: '12px', marginBottom: '1rem', display: 'inline-block', boxShadow: 'var(--shadow-md)' }}>
+                                    <img
+                                        src={candidateData.candidate['qrCode']}
+                                        alt="Exam QR Code"
+                                        style={{ display: 'block', width: '180px', height: '180px' }}
+                                    />
+                                </div>
+                                <p style={{ fontSize: '0.85rem', opacity: 0.7, margin: '0 0 1rem 0', maxWidth: '320px', lineHeight: '1.4' }}>
+                                    Your Index Number is: <strong style={{ fontSize: '1.1rem' }}>{candidateData.candidate.examIndexNumber}</strong>. Please download and present this QR code on the exam day.
+                                </p>
+                                <button
+                                    onClick={downloadQRCode}
+                                    className="reg-submit-btn"
+                                    style={{ padding: '0.75rem 1.5rem', fontSize: '0.95rem', marginTop: 0 }}
+                                >
+                                    Download QR
+                                </button>
+                                {downloadSuccess && (
+                                    <div style={{ color: '#4ade80', marginTop: '0.5rem', fontWeight: 600, fontSize: '0.85rem' }}>
+                                        Downloaded Successfully!
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
