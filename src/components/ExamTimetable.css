@@ -1,5 +1,5 @@
 /* ========================================================
-   Exam Timetable – Compact, Neat, Premium side-by-side Cards
+   Exam Timetable – Master Matrix Grid Layout (Clean & Balanced)
    ======================================================== */
 
 .exam-timetable {
@@ -27,7 +27,7 @@
     font-family: var(--font-heading, 'Outfit', sans-serif);
     margin-bottom: 0.5rem;
     letter-spacing: -0.02em;
-    background: var(--accent-gradient);
+    background: var(--accent-gradient, linear-gradient(135deg, #4361ee, #8b5cf6));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
@@ -42,166 +42,144 @@
     line-height: 1.5;
 }
 
-/* 2. Card Grid – Side-by-side on desktop, stacked on mobile */
-.district-card-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1.5rem;
-    /* Space between the columns */
-    flex-wrap: wrap;
-    margin-top: 1.5rem;
-}
-
-/* Individual District Card */
-.district-card {
+/* 2. Responsive Table Wrapper */
+.table-responsive-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--border-radius-lg, 12px);
+    box-shadow: var(--shadow-md, 0 4px 20px rgba(0, 0, 0, 0.05));
     background-color: var(--card-bg, #ffffff);
     border: 1px solid var(--section-border, #e2e8f0);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md);
-    flex: 1 1 310px;
-    max-width: 350px;
-    overflow: hidden;
-    transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+    margin-top: 1.5rem;
+    -webkit-overflow-scrolling: touch;
 }
 
-.district-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(59, 130, 246, 0.35);
-    box-shadow: var(--shadow-lg);
+/* 3. Matrix Table Structure */
+.matrix-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
-/* Card Header */
-.district-card-header {
+/* Center-aligned Table Header Configuration */
+.matrix-table th {
     background: var(--accent-gradient, linear-gradient(135deg, #4361ee, #8b5cf6));
-    padding: 0.85rem 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.district-card-header h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin: 0;
     color: #ffffff;
+    padding: 1.25rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
     font-family: var(--font-heading, 'Outfit', sans-serif);
     letter-spacing: 0.03em;
     text-transform: uppercase;
+    white-space: normal;
+    min-width: 190px;
+    border-bottom: 2px solid var(--section-border, #e2e8f0);
+    text-align: center;
 }
 
-/* Location Badge icon */
-.district-card-header::before {
-    content: "📍";
-    font-size: 1rem;
+/* Sticky Column Settings for Frozen Header Alignment */
+.matrix-table th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    background: #4361ee;
+    text-align: center;
 }
 
-/* Card Body */
-.district-card-body {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    /* Space between subject rows */
+.matrix-table td {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--section-border, #e2e8f0);
+    vertical-align: middle;
+    transition: background-color var(--transition-fast, 0.2s);
 }
 
-/* 3. Each Exam Row */
-.subject-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    border-radius: var(--border-radius-md);
-    padding: 0.35rem 0.75rem;
+.matrix-table tr:last-child td {
+    border-bottom: none;
+}
+
+.matrix-table tr:hover td {
     background-color: var(--bg-color, #f8fafc);
-    border: 1px solid var(--section-border, #e2e8f0);
-    transition: all var(--transition-fast);
 }
 
-.subject-item:hover {
+/* 4. Column Specific Cells */
+.subject-label-cell {
+    position: sticky;
+    left: 0;
+    z-index: 2;
     background-color: var(--card-bg, #ffffff);
-    border-color: var(--accent-color, #3b82f6);
-    transform: translateX(3px);
-}
-
-/* Subject Name on the Left */
-.subject-header {
-    flex: 1 1 auto;
+    min-width: 260px;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.03);
     text-align: left;
+    /* Kept text left-aligned inside cells for structural readability */
 }
 
-.subject-header h4 {
-    font-size: 0.8rem;
-    margin: 0;
-    color: var(--text-color);
+.subject-label-cell strong {
+    font-size: 0.9rem;
     font-weight: 700;
+    color: var(--text-color, #1f2937);
     font-family: var(--font-body, 'Inter', sans-serif);
     line-height: 1.4;
 }
 
-/* Date and Time Block on the Right */
-.subject-details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    text-align: left;
-    align-items: flex-start;
-    flex-shrink: 0;
-    width: 145px;
-    transform: translateY(-1px);
+/* Matrix intersection cells */
+.schedule-cell {
+    min-width: 180px;
+    text-align: center;
 }
 
-/* Individual Date/Time Line */
-.subject-details .exam-detail {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    /* 💡 CRITICAL FIX: Forces text baselines to line up evenly */
-    justify-content: flex-start;
-    gap: 0.35rem;
-    white-space: nowrap;
-}
-
-/* Label (e.g. "DATE:", "TIME:") */
-.subject-details .exam-detail .detail-label {
-    color: var(--accent-color, #3b82f6);
-    font-size: 0.6rem;
+.cell-date {
+    display: block;
+    font-size: 0.95rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    line-height: 1;
-    /* 💡 CRITICAL FIX: Strips rogue vertical box alignment padding */
-    margin: 0;
+    color: var(--text-color, #111827);
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    margin-bottom: 0.25rem;
 }
 
-/* Value text (e.g. "June 6, 2026") */
-.subject-details .exam-detail .detail-value {
-    color: var(--text-color);
-    font-size: 0.65rem;
+.cell-time {
+    display: block;
+    font-size: 0.75rem;
     font-weight: 500;
-    line-height: 1;
-    /* 💡 CRITICAL FIX: Strips rogue vertical box alignment padding */
-    letter-spacing: 0.01em;
+    color: var(--text-color);
+    opacity: 0.75;
     font-family: var(--font-body, 'Inter', sans-serif);
-    opacity: 0.85;
-    margin: 0;
 }
 
-.time-values {
+/* Multi-line Header Wrapper formatting */
+.th-line-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    line-height: 1.3;
 }
 
-
-/* 4. Responsiveness and Mobile Reflow Alignment */
-@media (max-width: 991px) {
-    .district-card-container {
-        gap: 1.5rem;
-    }
+.th-line-wrapper .sub-line {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
+/* Stacking time variants setup */
+.cell-time-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.25rem;
+}
+
+.cell-time.variant {
+    background-color: var(--bg-color, #f1f5f9);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--border-radius-sm, 4px);
+    border: 1px solid var(--section-border, #e2e8f0);
+    width: fit-content;
+}
+
+/* 5. Responsiveness and Cross-Platform Overrides */
 @media (max-width: 768px) {
     .exam-timetable {
         padding: 3rem 0.75rem;
@@ -211,55 +189,39 @@
         font-size: 1.85rem;
     }
 
-    .district-card-container {
-        flex-direction: column;
-        align-items: stretch;
+    .matrix-table th,
+    .matrix-table td {
+        padding: 1rem 1.15rem;
     }
 
-    .district-card {
-        max-width: 100%;
-        flex: 1 1 auto;
+    .subject-label-cell {
+        min-width: 220px;
     }
 }
 
 @media (max-width: 576px) {
-
-    /* Stack components inside the rows for neat alignment on smaller mobiles */
-    .subject-item {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.6rem;
-        padding: 0.9rem;
+    .subject-label-cell strong {
+        font-size: 0.85rem;
     }
 
-    .subject-header {
-        text-align: left;
+    .cell-date {
+        font-size: 0.88rem;
     }
 
-    /* Align detail labels and values to the left on mobile for optimal text flow */
-    .subject-details {
-        text-align: left;
-        align-items: flex-start;
-        transform: translateY(0);
-        width: auto;
+    .cell-time {
+        font-size: 0.7rem;
     }
+}
 
-    .subject-details .exam-detail {
-        justify-content: flex-start;
-        align-items: baseline;
-        /* Keeps baseline match safe on mobile view */
-    }
+.cell-time.variant {
+    /* Removes the pill background container entirely */
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    width: auto;
 
-    .subject-header h4 {
-        font-size: 0.82rem;
-    }
-
-    .subject-details .exam-detail .detail-label {
-        font-size: 0.6rem;
-    }
-
-    /* Mobile specificity font reduction override */
-    .subject-details .exam-detail .detail-value {
-        font-size: 0.64rem;
-    }
+    /* Adds subtle styling if you still want them to look like distinct clean text entries */
+    font-weight: 500;
+    opacity: 0.8;
 }

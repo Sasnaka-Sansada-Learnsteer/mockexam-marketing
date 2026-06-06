@@ -2,172 +2,119 @@ import React from "react";
 import "./ExamTimetable.css";
 
 const ExamTimetable = () => {
-    const districtData = [
+    // 1. Cleanly map out the distinct subject slots to build the rows
+    const subjectsList = [
+        { key: "bio_ii_math_i", label: "Biology II / Combined Mathematics I" },
+        { key: "bio_i_math_ii", label: "Biology I / Combined Mathematics II" },
+        { key: "chem_ii_ict_ii", label: "Chemistry II / ICT II" },
+        { key: "chem_i_ict_i", label: "Chemistry I / ICT I" },
+        { key: "physics_ii", label: "Physics II" },
+        { key: "physics_i", label: "Physics I" },
+    ];
+
+    // 2. Keep columns flat and index schedules by the subject keys defined above
+    const matrixData = [
         {
             district: "Colombo, Matara, Kalutara, Kurunegala",
-            exams: [
-                {
-                    subject: "Biology II, Combined Mathematics I",
-                    date: "2026-06-06",
-                    time: "8:30 AM - 11:40 AM",
-                },
-                {
-                    subject: "Biology I, Combined Mathematics II",
-                    date: "2026-06-06",
-                    time: ["12:40 PM - 2:40 PM", "12:40 PM - 3:50 PM"],
-                },
-                {
-                    subject: "Chemistry II, ICT II",
-                    date: "2026-06-07",
-                    time: "8:30 AM - 11:40 AM",
-                },
-                {
-                    subject: "Chemistry I, ICT I",
-                    date: "2026-06-07",
-                    time: "12:40 PM - 2:40 PM",
-                },
-                {
-                    subject: "Physics II",
-                    date: "2026-06-13",
-                    time: "8:30 AM - 11:40 AM",
-                },
-                {
-                    subject: "Physics I",
-                    date: "2026-06-13",
-                    time: "12:40 PM - 2:40 PM",
-                }
-            ]
+            schedule: {
+                bio_ii_math_i: { date: "2026-06-06", time: "8:30 AM - 11:40 AM" },
+                bio_i_math_ii: { date: "2026-06-06", time: ["12:40 PM - 2:40 PM", "12:40 PM - 3:50 PM"] },
+                chem_ii_ict_ii: { date: "2026-06-07", time: "8:30 AM - 11:40 AM" },
+                chem_i_ict_i: { date: "2026-06-07", time: "12:40 PM - 2:40 PM" },
+                physics_ii: { date: "2026-06-13", time: "8:30 AM - 11:40 AM" },
+                physics_i: { date: "2026-06-13", time: "12:40 PM - 2:40 PM" },
+            }
         },
         {
             district: "Kandy",
-            exams: [
-                {
-                    subject: "Biology II, Combined Mathematics I",
-                    date: "2026-06-06",
-                    time: "8:30 AM - 11:40 AM",
-                },
-                {
-                    subject: "Biology I, Combined Mathematics II",
-                    date: "2026-06-06",
-                    time: ["12:40 PM - 2:40 PM", "12:40 PM - 3:50 PM"],
-                },
-                {
-                    subject: "Chemistry II, ICT II",
-                    date: "2026-06-07",
-                    time: "8:30 AM - 11:40 AM",
-                },
-                {
-                    subject: "Chemistry I, ICT I",
-                    date: "2026-06-07",
-                    time: "12:40 PM - 2:40 PM",
-                },
-                {
-                    subject: "Physics II",
-                    date: "2026-06-20",
-                    time: "8:30 AM - 11:40 AM",
-                },
-                {
-                    subject: "Physics I",
-                    date: "2026-06-20",
-                    time: "12:40 PM - 2:40 PM",
-                }
-            ]
+            schedule: {
+                bio_ii_math_i: { date: "2026-06-06", time: "8:30 AM - 11:40 AM" },
+                bio_i_math_ii: { date: "2026-06-06", time: ["12:40 PM - 2:40 PM", "12:40 PM - 3:50 PM"] },
+                chem_ii_ict_ii: { date: "2026-06-07", time: "8:30 AM - 11:40 AM" },
+                chem_i_ict_i: { date: "2026-06-07", time: "12:40 PM - 2:40 PM" },
+                physics_ii: { date: "2026-06-20", time: "8:30 AM - 11:40 AM" },
+                physics_i: { date: "2026-06-20", time: "12:40 PM - 2:40 PM" },
+            }
+        },
+        {
+            district: "Ampara",
+            schedule: {
+                bio_ii_math_i: { date: "2026-06-08", time: "8:30 AM - 11:40 AM" },
+                bio_i_math_ii: { date: "2026-06-08", time: ["12:40 PM - 2:40 PM", "12:40 PM - 3:50 PM"] },
+                chem_ii_ict_ii: { date: "2026-06-09", time: "8:30 AM - 11:40 AM" },
+                chem_i_ict_i: { date: "2026-06-09", time: "12:40 PM - 2:40 PM" },
+                physics_ii: { date: "2026-06-11", time: "8:30 AM - 11:40 AM" },
+                physics_i: { date: "2026-06-11", time: "12:40 PM - 2:40 PM" },
+            }
         },
         {
             district: "Ratnapura",
-            exams: [
-                {
-                    subject: "Biology II, Combined Mathematics I",
-                    date: "2026-06-13",
-                    time: "8:30 AM - 11:40 AM",
-                },
-                {
-                    subject: "Biology I, Combined Mathematics II",
-                    date: "2026-06-13",
-                    time: ["12:40 PM - 2:40 PM", "12:40 PM - 3:50 PM"],
-                },
-                {
-                    subject: "Chemistry II, ICT II",
-                    date: "2026-06-14",
-                    time: "8:30 AM - 11:40 AM",
-                },
-                {
-                    subject: "Chemistry I, ICT I",
-                    date: "2026-06-14",
-                    time: "12:40 PM - 2:40 PM",
-                },
-                {
-                    subject: "Physics II",
-                    date: "2026-06-20",
-                    time: "8:30 AM - 11:40 AM",
-                },
-                {
-                    subject: "Physics I",
-                    date: "2026-06-20",
-                    time: "12:40 PM - 2:40 PM",
-                }
-            ]
+            schedule: {
+                bio_ii_math_i: { date: "2026-06-13", time: "8:30 AM - 11:40 AM" },
+                bio_i_math_ii: { date: "2026-06-13", time: ["12:40 PM - 2:40 PM", "12:40 PM - 3:50 PM"] },
+                chem_ii_ict_ii: { date: "2026-06-14", time: "8:30 AM - 11:40 AM" },
+                chem_i_ict_i: { date: "2026-06-14", time: "12:40 PM - 2:40 PM" },
+                physics_ii: { date: "2026-06-20", time: "8:30 AM - 11:40 AM" },
+                physics_i: { date: "2026-06-20", time: "12:40 PM - 2:40 PM" },
+            }
         }
     ];
+
+    // Helper function to format strings cleanly
+    const formatDate = (dateStr) => {
+        return new Date(dateStr).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            timeZone: "UTC"
+        });
+    };
 
     return (
         <section className="exam-timetable" id="timetable">
             <div className="container">
                 <div className="exam-timetable-heading" data-aos="fade-up">
                     <h2>Exam Timetable</h2>
-                    <p className="subtitle">View scheduled dates and times for your district region</p>
+                    <p className="subtitle">Cross-district schedule at a glance</p>
                 </div>
 
-                <div className="district-card-container">
-                    {districtData.map((district, districtIndex) => (
-                        <div
-                            className="district-card"
-                            key={districtIndex}
-                            data-aos="fade-up"
-                            data-aos-delay={districtIndex * 100}
-                        >
-                            <div className="district-card-header">
-                                <h3>{district.district}</h3>
-                            </div>
-                            <div className="district-card-body">
-                                {district.exams.map((exam, examIndex) => (
-                                    <div className="subject-item" key={examIndex}>
-                                        <div className="subject-header">
-                                            <h4>{exam.subject}</h4>
-                                        </div>
-                                        <div className="subject-details">
-                                            <div className="exam-detail">
-                                                <span className="detail-label">Date:</span>
-                                                {/* Added non-breaking space mapping to prevent layout jumps with small text */}
-                                                {"\u00a0"}
-                                                <span className="detail-value">
-                                                    {new Date(exam.date).toLocaleDateString("en-US", {
-                                                        year: "numeric",
-                                                        month: "long",
-                                                        day: "numeric",
-                                                        timeZone: "UTC" /* Prevents local engine from rolling the date backward/forward */
-                                                    })}
-                                                </span>
-                                            </div>
-                                            <div className="exam-detail">
-                                                <span className="detail-label">Time:</span>
-                                                {"\u00a0"}
-                                                {Array.isArray(exam.time) ? (
-                                                    <div className="time-values">
-                                                        {exam.time.map((t, idx) => (
-                                                            <span key={idx} className="detail-value" style={{ display: 'block' }}>{t}</span>
+                {/* Responsive wrapper to allow side-scrolling safely on mobile devices */}
+                <div className="table-responsive-wrapper" data-aos="fade-up">
+                    <table className="matrix-table">
+                        <thead>
+                            <tr>
+                                <th>Subject Paper</th>
+                                {matrixData.map((col, idx) => (
+                                    <th key={idx}>{col.district}</th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {subjectsList.map((subject) => (
+                                <tr key={subject.key}>
+                                    <td className="subject-label-cell">
+                                        <strong>{subject.label}</strong>
+                                    </td>
+                                    {matrixData.map((col, idx) => {
+                                        const session = col.schedule[subject.key];
+                                        return (
+                                            <td key={idx} className="schedule-cell">
+                                                <span className="cell-date">{formatDate(session.date)}</span>
+                                                {Array.isArray(session.time) ? (
+                                                    <div className="cell-time-stack">
+                                                        {session.time.map((t, tIdx) => (
+                                                            <span key={tIdx} className="cell-time variant">{t}</span>
                                                         ))}
                                                     </div>
                                                 ) : (
-                                                    <span className="detail-value">{exam.time}</span>
+                                                    <span className="cell-time">{session.time}</span>
                                                 )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
+                                            </td>
+                                        );
+                                    })}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
