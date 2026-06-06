@@ -179,6 +179,129 @@
     width: fit-content;
 }
 
+/* ========================================================
+   Timetable Cards Styling (Responsive Below 1120px)
+   ======================================================== */
+.timetable-cards-container {
+    display: none;
+}
+
+.timetable-card {
+    background-color: var(--card-bg, #ffffff);
+    border-radius: var(--border-radius-lg, 16px);
+    box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+    border: 1px solid var(--section-border, #e2e8f0);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-normal, 0.3s ease), box-shadow var(--transition-normal, 0.3s ease);
+}
+
+.timetable-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1));
+}
+
+.timetable-card-header {
+    background: var(--accent-gradient, linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%));
+    color: #ffffff;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--section-border, #e2e8f0);
+}
+
+.timetable-card-header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    line-height: 1.4;
+}
+
+.timetable-card-body {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex-grow: 1;
+}
+
+.timetable-card-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--section-border, #e2e8f0);
+}
+
+.timetable-card-row:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.card-subject-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-color, #0f172a);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    line-height: 1.4;
+    text-align: left;
+}
+
+.card-schedule-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: center;
+}
+
+.card-schedule-date,
+.card-schedule-time {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-color, #0f172a);
+    opacity: 0.85;
+}
+
+.card-icon {
+    color: var(--accent-color, #3b82f6);
+    flex-shrink: 0;
+}
+
+.card-time-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.card-time-item {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+@media (max-width: 1120px) {
+    .table-responsive-wrapper {
+        display: none !important;
+    }
+
+    .timetable-cards-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .timetable-cards-container {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* 5. Responsiveness and Cross-Platform Overrides */
 @media (max-width: 768px) {
     .exam-timetable {
