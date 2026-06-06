@@ -472,38 +472,16 @@ const CandidateProfile = () => {
                         )}
                     </div>
 
-                    {candidateData.candidate && (
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
-                            {candidateData.candidate.exam_center_confirmed26 === true ? (
-                                <>
-                                    <div style={{ background: '#fff', padding: '10px', borderRadius: '12px', display: 'inline-block', boxShadow: 'var(--shadow-md)' }}>
-                                        <img
-                                            src={candidateData.candidate['qrCode']}
-                                            alt="Exam QR Code"
-                                            style={{ display: 'block', width: '130px', height: '130px' }}
-                                        />
-                                    </div>
-                                    <button
-                                        onClick={downloadQRCode}
-                                        className="reg-submit-btn"
-                                        style={{ padding: '0.6rem 1.5rem', fontSize: '0.9rem', marginTop: 0 }}
-                                    >
-                                        Download QR Code
-                                    </button>
-                                    {downloadSuccess && (
-                                        <div style={{ color: '#4ade80', fontWeight: 600, fontSize: '0.8rem', marginTop: '-0.25rem' }}>
-                                            Downloaded Successfully!
-                                        </div>
-                                    )}
-                                </>
-                            ) : (
-                                <button
-                                    onClick={handleGetQRCodeClick}
-                                    className="reg-submit-btn"
-                                    style={{ padding: '0.75rem 1.75rem', fontSize: '0.95rem', marginTop: 0 }}
-                                >
-                                    Get QR Code
-                                </button>
+                    {(candidateData.candidate.examIndexNumber && candidateData.candidate['qrCode'] && candidateData.candidate['qrCodeData']) && (
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                            <div style={{ background: '#fff', padding: '8px', borderRadius: '8px', marginBottom: '0.75rem' }}>
+                                <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" style={{ display: 'block', width: '150px', height: '150px' }} />
+                            </div>
+                            <button onClick={downloadQRCode} className="reg-submit-btn" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', marginTop: 0 }}>
+                                Download QR
+                            </button>
+                            {downloadSuccess && (
+                                <div style={{ color: '#4ade80', marginTop: '0.5rem', fontWeight: 600, fontSize: '0.8rem' }}>Downloaded!</div>
                             )}
                         </div>
                     )}
