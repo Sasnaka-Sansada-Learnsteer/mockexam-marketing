@@ -472,15 +472,17 @@ const CandidateProfile = () => {
                         )}
                     </div>
 
-                    {candidateData.candidate && (
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                            <button
-                                onClick={candidateData.candidate.exam_center_confirmed26 === true ? downloadQRCode : handleGetQRCodeClick}
-                                className="reg-submit-btn"
-                                style={{ padding: '0.75rem 1.75rem', fontSize: '0.95rem', marginTop: 0 }}
-                            >
-                                {candidateData.candidate.exam_center_confirmed26 === true ? 'Download QR Code' : 'Confirm Exam Center'}
+                    {(candidateData.candidate.examIndexNumber && candidateData.candidate['qrCode'] && candidateData.candidate['qrCodeData']) && (
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                            <div style={{ background: '#fff', padding: '8px', borderRadius: '8px', marginBottom: '0.75rem' }}>
+                                <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" style={{ display: 'block', width: '150px', height: '150px' }} />
+                            </div>
+                            <button onClick={downloadQRCode} className="reg-submit-btn" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', marginTop: 0 }}>
+                                Download QR
                             </button>
+                            {downloadSuccess && (
+                                <div style={{ color: '#4ade80', marginTop: '0.5rem', fontWeight: 600, fontSize: '0.8rem' }}>Downloaded!</div>
+                            )}
                         </div>
                     )}
                 </div>               {/* ── Section 3: Actions & Results ── */}
