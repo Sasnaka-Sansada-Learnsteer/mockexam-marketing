@@ -37,7 +37,10 @@ const CandidateProfile = () => {
         const candidate = candidateData?.candidate;
         if (!candidate) return;
 
-        if (candidate.exam_center_confirmed26 === true) {
+        // Safely fallback to "false" if the property is missing from the API payload
+        const isConfirmed = candidate.exam_center_confirmed26 ?? "false";
+
+        if (isConfirmed === true || isConfirmed === "true") {
             setQrModalStep('show_qr');
         } else {
             const centers = candidate.eligible_exam_centers || [
@@ -50,7 +53,7 @@ const CandidateProfile = () => {
                 "Kurunegala",
                 "Ratnapura"
             ];
-            const currentCenter = candidate.your_exam_center || candidate["Preferred Exam Center"];
+            const currentCenter = candidate.final_exam_center || candidate.your_exam_center || candidate["Preferred Exam Center"];
             const defaultCenter = centers.includes(currentCenter) ? currentCenter : centers[0];
 
             setSelectedCenter(defaultCenter);
@@ -433,10 +436,6 @@ const CandidateProfile = () => {
                             <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Subject Stream</label>
                             <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{candidateData.candidate["Subject Stream"]}</div>
                         </div>
-                        {/*<div className="reg-field" style={{ gridColumn: '1 / -1' }}>*/}
-                        {/*    <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Preferred Exam Center</label>*/}
-                        {/*    <div style={{ color: 'var(--text-color)', fontWeight: 600, fontSize: '1.1rem', marginTop: '0.3rem' }}>{candidateData.candidate["Preferred Exam Center"]}</div>*/}
-                        {/*</div>*/}
                     </div>
                 </div>
 
@@ -451,41 +450,79 @@ const CandidateProfile = () => {
                             </div>
                         </div>
 
-                        {!candidateData.candidate.examIndexNumber ? (
-                            <div className="reg-alert-error" style={{ backgroundColor: 'rgba(255, 152, 0, 0.1)', border: '1px solid rgba(255, 152, 0, 0.3)', color: '#ff9800', margin: 0 }}>
-                                {candidateData.myExamInfoMessage || candidateData.candidate?.myExamInfoMessage || 'Your participation is not confirmed yet.'}
-                            </div>
-                        ) : (
+                        {(candidateData.candidate.exam_center_confirmed26 === true || candidateData.candidate.exam_center_confirmed26 === "true") ? (
                             <div>
                                 <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Exam Index Number</label>
                                 <div style={{ color: 'var(--text-color)', fontWeight: 'bold', fontSize: '2rem', marginTop: '0.2rem' }}>
-                                    {candidateData.candidate.examIndexNumber}
+                                    {candidateData.candidate.examIndexNumber || "Pending"}
                                 </div>
                                 <label className="reg-label" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Your Exam Center</label>
                                 <div style={{ color: 'var(--text-color)', fontWeight: 'bold', fontSize: '1rem', marginTop: '0.2rem' }}>
-                                    {candidateData.candidate["your_exam_center"]}
+                                    {candidateData.candidate.final_exam_center || candidateData.candidate.your_exam_center || "Pending Confirmation"}
                                 </div>
-                                <p style={{ color: 'var(--text-color)', opacity: 0.6, fontSize: '0.85rem', marginTop: '0.5rem', maxWidth: '250px' }}>
-                                    You need to bring this QR code on the exam day to mark your attendance.
+
+                                {!candidateData.candidate.examIndexNumber ? (
+                                    <div className="reg-alert-error" style={{ backgroundColor: 'rgba(255, 152, 0, 0.1)', border: '1px solid rgba(255, 152, 0, 0.3)', color: '#ff9800', margin: '1rem 0 0.75rem 0', width: '100%' }}>
+                                        {candidateData.myExamInfoMessage || candidateData.candidate?.myExamInfoMessage || 'Your participation is not confirmed yet.'}
+                                    </div>
+                                ) : (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1.25rem' }}>
+                                        {candidateData.candidate.examIndexNumber &&
+                                         candidateData.candidate['qrCode'] &&
+                                         candidateData.candidate['qrCodeData'] && (
+                                            <button
+                                                onClick={downloadQRCode}
+                                                className="reg-submit-btn"
+                                                style={{ padding: '0.6rem 1.2rem', marginTop: 0 }}
+                                            >
+                                                📥 Download QR Code
+                                            </button>
+                                        )}
+                                        {downloadSuccess && (
+                                            <div style={{ color: '#4ade80', fontWeight: 600, fontSize: '0.85rem' }}>Downloaded!</div>
+                                        )}
+                                    </div>
+                                )}
+                                <p style={{ color: '#4ade80', fontSize: '0.85rem', marginTop: '0.75rem', fontWeight: 600 }}>
+                                    ✓ Your examination center choice is permanently locked in.
                                 </p>
+                            </div>
+                        ) : (
+                            <div style={{ width: '100%' }}>
+                                <div className="reg-alert-error" style={{ backgroundColor: 'rgba(255, 152, 0, 0.1)', border: '1px solid rgba(255, 152, 0, 0.3)', color: '#ff9800', margin: '0 0 1.25rem 0', width: '100%' }}>
+                                    To get your exam index number and QR code, please confirm your exam center.
+                                </div>
+                                <button
+                                    onClick={handleGetQRCodeClick}
+                                    className="reg-submit-btn"
+                                    style={{ marginTop: '0.25rem', padding: '0.6rem 1.2rem', background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' }}
+                                >
+                                    📍 Confirm Exam Center
+                                </button>
                             </div>
                         )}
                     </div>
 
-                    {(candidateData.candidate.examIndexNumber && candidateData.candidate['qrCode'] && candidateData.candidate['qrCodeData']) && (
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                            <div style={{ background: '#fff', padding: '8px', borderRadius: '8px', marginBottom: '0.75rem' }}>
-                                <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" style={{ display: 'block', width: '150px', height: '150px' }} />
+                    {/* QR block only mounts when index is loaded AND the user profile is explicitly confirmed */}
+                    {(candidateData.candidate.examIndexNumber &&
+                        candidateData.candidate['qrCode'] &&
+                        candidateData.candidate['qrCodeData'] &&
+                        (candidateData.candidate.exam_center_confirmed26 === true || candidateData.candidate.exam_center_confirmed26 === "true")) && (
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                <div style={{ background: '#fff', padding: '8px', borderRadius: '8px', marginBottom: '0.75rem' }}>
+                                    <img src={candidateData.candidate['qrCode']} alt="Exam QR Code" style={{ display: 'block', width: '150px', height: '150px' }} />
+                                </div>
+                                <button onClick={downloadQRCode} className="reg-submit-btn" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', marginTop: 0 }}>
+                                    Download QR
+                                </button>
+                                {downloadSuccess && (
+                                    <div style={{ color: '#4ade80', marginTop: '0.5rem', fontWeight: 600, fontSize: '0.8rem' }}>Downloaded!</div>
+                                )}
                             </div>
-                            <button onClick={downloadQRCode} className="reg-submit-btn" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem', marginTop: 0 }}>
-                                Download QR
-                            </button>
-                            {downloadSuccess && (
-                                <div style={{ color: '#4ade80', marginTop: '0.5rem', fontWeight: 600, fontSize: '0.8rem' }}>Downloaded!</div>
-                            )}
-                        </div>
-                    )}
-                </div>               {/* ── Section 3: Actions & Results ── */}
+                        )}
+                </div>
+
+                {/* ── Section 3: Actions & Results ── */}
                 {(QUIZ_ENABLED || (RESULTS_ENABLED && candidateData.candidate.results_released)) && (
                     <div className="reg-section" style={{ borderBottom: 'none', paddingBottom: 0 }}>
                         <div className="reg-section-header">
@@ -519,7 +556,6 @@ const CandidateProfile = () => {
 
                                     {resultsExpanded && showingResultMessages && (
                                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 0' }}>
-                                            {/* Simple loading spinner placeholder for water-bubble */}
                                             <span className="reg-spinner-lg" style={{ marginBottom: '1rem' }} />
                                             <p style={{ color: 'var(--text-color)', fontWeight: 600 }}>{resultMessage}</p>
                                         </div>
@@ -735,7 +771,7 @@ const CandidateProfile = () => {
                                 <div className="confirm-modal-icon">🎟️</div>
                                 <h3 className="confirm-modal-title">Your Exam QR Code</h3>
                                 <p className="confirm-modal-text">
-                                    Below is your exam entrance QR code for <strong style={{ color: 'var(--accent-color)' }}>{candidateData.candidate.your_exam_center}</strong>.
+                                    Below is your exam entrance QR code for <strong style={{ color: 'var(--accent-color)' }}>{candidateData.candidate.final_exam_center || candidateData.candidate.your_exam_center}</strong>.
                                 </p>
                                 <div style={{ background: '#fff', padding: '12px', borderRadius: '12px', marginBottom: '1rem', display: 'inline-block', boxShadow: 'var(--shadow-md)' }}>
                                     <img
@@ -756,7 +792,7 @@ const CandidateProfile = () => {
                                 </button>
                                 {downloadSuccess && (
                                     <div style={{ color: '#4ade80', marginTop: '0.5rem', fontWeight: 600, fontSize: '0.85rem' }}>
-                                        Downloaded Successfully!
+                                        Downloadable Successfully!
                                     </div>
                                 )}
                             </div>
