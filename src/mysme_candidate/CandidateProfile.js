@@ -13,7 +13,6 @@ const CandidateProfile = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const [downloadSuccess, setDownloadSuccess] = useState(false);
-    const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [resultsExpanded, setResultsExpanded] = useState(false);
     const [resultsData, setResultsData] = useState(null);
     const [resultsLoading, setResultsLoading] = useState(false);
@@ -135,12 +134,7 @@ const CandidateProfile = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [navigate]);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsPopupVisible(true);
-        }, 1000);
-        return () => clearTimeout(timer);
-    }, []);
+
 
     const handleLogout = () => {
         localStorage.removeItem('candidateToken');

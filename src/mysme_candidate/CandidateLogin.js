@@ -28,8 +28,6 @@ const CandidateLogin = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState('checkNic'); // checkNic, login, signup
-  const [candidateExists, setCandidateExists] = useState(false);
-  const [hasMySmeAccount, setHasMySmeAccount] = useState(false);
   const navigate = useNavigate();
   const [autoChecked, setAutoChecked] = useState(false);
 
@@ -42,6 +40,10 @@ const CandidateLogin = () => {
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  // OTP verification
+  const [otpSentEmail, setOtpSentEmail] = useState('');
+  const [otpValue, setOtpValue] = useState('');
+  const [verifiedResetToken, setVerifiedResetToken] = useState('');
   const [fetchedFirstName, setFetchedFirstName] = useState('');
 
 
@@ -57,6 +59,7 @@ const CandidateLogin = () => {
       setAutoChecked(true);
       checkNicExists(locationState.NIC);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, navigate, locationState, autoChecked]);
 
   const checkNicExists = async (nicToUse = NIC) => {
@@ -77,9 +80,6 @@ const CandidateLogin = () => {
 
     try {
       const response = await axios.post(`${API_BASE_URL}/api/candidate/check-nic`, { NIC: nicToUse });
-
-      setCandidateExists(response.data.exists);
-      setHasMySmeAccount(response.data.hasMySmeAccount);
 
       if (response.data.firstName) {
         setFetchedFirstName(response.data.firstName);
@@ -121,7 +121,8 @@ const CandidateLogin = () => {
       setError(err.response?.data?.message || 'Login failed. Please check your password.');
       const token = err.response?.data?.resetToken;
       if (token) {
-        setResetToken(token); setShowForgotLink(true);
+        setResetToken(token);
+        setShowForgotLink(true);
       }
     } finally {
       setLoading(false);
@@ -146,11 +147,13 @@ const CandidateLogin = () => {
     setShowConfirmPopup(false);
     setLoading(true);
     try {
+      // Use the OTP-verified token for the final reset
+      const tokenToUse = verifiedResetToken || resetToken;
       await axios.post(`${API_BASE_URL}/api/candidate/reset-password`,
         { NIC, newPassword },
-        { headers: { Authorization: `Bearer ${resetToken}` } }
+        { headers: { Authorization: `Bearer ${tokenToUse}` } }
       );
-      
+
       // Auto login after reset
       const loginResponse = await axios.post(`${API_BASE_URL}/api/candidate/login`, {
         NIC,
@@ -163,6 +166,48 @@ const CandidateLogin = () => {
       setConfirmNewPassword('');
     } catch (err) {
       setError(err.response?.data?.message || 'Reset failed. Please try logging in again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSendOtp = async () => {
+    setError('');
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/api/candidate/send-otp`,
+        {},
+        { headers: { Authorization: `Bearer ${resetToken}` } }
+      );
+      setOtpSentEmail(response.data.email || '');
+      setOtpValue('');
+      setStep('verifyOtp');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to send OTP. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (!otpValue || otpValue.length !== 6) {
+      setError('Please enter the 6-digit OTP sent to your email.');
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/api/candidate/verify-otp`,
+        { otp: otpValue },
+        { headers: { Authorization: `Bearer ${resetToken}` } }
+      );
+      setVerifiedResetToken(response.data.resetToken);
+      setStep('resetPassword');
+    } catch (err) {
+      setError(err.response?.data?.message || 'OTP verification failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -298,8 +343,8 @@ const CandidateLogin = () => {
             />
             {showForgotLink && (
               <button type="button"
-                onClick={() => { setStep('resetPassword'); setError(''); }}
-                style={{ color: '#3182CE', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', marginTop: '0.5rem', fontSize: '0.85rem' }}>
+                onClick={() => { setStep('sendOtp'); setError(''); }}
+                style={{ color: '#fde68a', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', marginTop: '0.5rem', fontSize: '0.85rem' }}>
                 Forgot your password? Reset it here →
               </button>
             )}
@@ -391,6 +436,100 @@ const CandidateLogin = () => {
           </div>
         </div>
       )}
+    </form>
+  );
+
+  const renderSendOtpForm = () => (
+    <div className="reg-form">
+      <div className="reg-section">
+        <div className="reg-fields-grid" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="reg-field">
+            <label className="reg-label">NIC Number</label>
+            <input className="reg-input" type="text" value={NIC} disabled />
+          </div>
+          <div className="reg-field">
+            <p style={{ margin: 0, fontSize: '0.92rem', color: 'var(--text-color)', opacity: 0.85, lineHeight: 1.6 }}>
+              We will send a one-time password (OTP) to the email address registered with your account.
+              Click the button below to receive the OTP.
+            </p>
+          </div>
+        </div>
+      </div>
+      <button
+        type="button"
+        className="reg-submit-btn"
+        disabled={loading}
+        onClick={handleSendOtp}
+        style={{ width: '100%', justifyContent: 'center' }}
+      >
+        {loading ? 'Sending OTP…' : '📧 Send OTP to My Email'}
+      </button>
+      <button
+        type="button"
+        onClick={() => { setStep('login'); setError(''); }}
+        style={{ width: '100%', padding: '0.95rem 2.5rem', borderRadius: 'var(--border-radius-pill)', border: '1px solid rgba(255,255,255,0.3)', background: 'transparent', color: '#fff', cursor: 'pointer', fontWeight: 600 }}
+      >
+        Back to Login
+      </button>
+    </div>
+  );
+
+  const renderVerifyOtpForm = () => (
+    <form className="reg-form" onSubmit={handleVerifyOtp}>
+      <div className="reg-section">
+        <div className="reg-fields-grid" style={{ gridTemplateColumns: '1fr' }}>
+          {otpSentEmail && (
+            <div className="reg-field">
+              <p style={{ margin: 0, fontSize: '0.92rem', color: 'var(--text-color)', opacity: 0.85, lineHeight: 1.6 }}>
+                ✅ OTP sent successfully to <strong style={{ color: '#fde68a' }}>{otpSentEmail}</strong>.
+                Please check your inbox and enter the 6-digit code below.
+              </p>
+            </div>
+          )}
+          <div className="reg-field">
+            <label className="reg-label" htmlFor="otp-input">Enter OTP</label>
+            <input
+              className="reg-input"
+              type="text"
+              id="otp-input"
+              value={otpValue}
+              onChange={(e) => {
+                const val = e.target.value.replace(/\D/g, '').slice(0, 6);
+                setOtpValue(val);
+              }}
+              placeholder="6-digit OTP"
+              maxLength={6}
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              required
+              style={{ letterSpacing: '0.3em', fontSize: '1.3rem', textAlign: 'center' }}
+            />
+          </div>
+        </div>
+      </div>
+      <button
+        type="submit"
+        className="reg-submit-btn"
+        disabled={loading}
+        style={{ width: '100%', justifyContent: 'center' }}
+      >
+        {loading ? 'Verifying…' : 'Verify OTP'}
+      </button>
+      <button
+        type="button"
+        onClick={() => { handleSendOtp(); }}
+        disabled={loading}
+        style={{ width: '100%', padding: '0.95rem 2.5rem', borderRadius: 'var(--border-radius-pill)', border: '1px solid rgba(255,255,255,0.3)', background: 'transparent', color: '#fde68a', cursor: 'pointer', fontWeight: 600, fontSize: '0.9rem' }}
+      >
+        Resend OTP
+      </button>
+      <button
+        type="button"
+        onClick={() => { setStep('sendOtp'); setError(''); setOtpValue(''); }}
+        style={{ width: '100%', padding: '0.95rem 2.5rem', borderRadius: 'var(--border-radius-pill)', border: '1px solid rgba(255,255,255,0.3)', background: 'transparent', color: '#fff', cursor: 'pointer', fontWeight: 600 }}
+      >
+        Back
+      </button>
     </form>
   );
 
@@ -492,6 +631,8 @@ const CandidateLogin = () => {
         {step === 'checkNic' && renderNicForm()}
         {step === 'login' && renderLoginForm()}
         {step === 'signup' && renderSignupForm()}
+        {step === 'sendOtp' && renderSendOtpForm()}
+        {step === 'verifyOtp' && renderVerifyOtpForm()}
         {step === 'resetPassword' && renderResetPasswordForm()}
         <FloatingWhatsApp phoneNumber="94703445342" />
       </div>
