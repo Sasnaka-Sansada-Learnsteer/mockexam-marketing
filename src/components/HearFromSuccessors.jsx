@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./HearFromSuccessors.css";
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
@@ -16,50 +16,63 @@ const images = [
 ];
 
 const HearFromSuccessors = () => {
-  const trackRef = useRef(null);
-  const rafRef = useRef(null);
-  const pausedRef = useRef(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const dragStart = useRef(0);
+  const isDragging = useRef(false);
 
   useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
+    if (isPaused) return;
 
-    const startScroll = () => {
-      // One full set = half the total duplicated strip width
-      const totalWidth = track.scrollWidth / 2;
-      // px/sec so each tile is visible for SECONDS_PER_TILE seconds
-      const pxPerSec = totalWidth / (SECONDS_PER_TILE * images.length);
-      let lastTime = null;
-      let position = 0;
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, SECONDS_PER_TILE * 1000);
 
-      const step = (timestamp) => {
-        if (!lastTime) lastTime = timestamp;
-        const delta = timestamp - lastTime;
-        lastTime = timestamp;
+    return () => clearInterval(interval);
+  }, [isPaused, activeIndex]);
 
-        if (!pausedRef.current) {
-          position += pxPerSec * (delta / 1000);
-          if (position >= totalWidth) position -= totalWidth;
-          track.style.transform = `translateX(-${position}px)`;
+  const handlePointerDown = (e) => {
+    dragStart.current = e.clientX;
+    isDragging.current = true;
+    setIsPaused(true);
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const handlePointerUp = (e) => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    e.currentTarget.releasePointerCapture(e.pointerId);
+
+    const diff = e.clientX - dragStart.current;
+    const swipeThreshold = 30; // threshold for swiping
+    
+    if (Math.abs(diff) < 5) {
+      // It's a press/click!
+      const clickedEl = document.elementFromPoint(e.clientX, e.clientY);
+      const tile = clickedEl ? clickedEl.closest(".successor-tile") : e.target.closest(".successor-tile");
+      if (tile) {
+        const idx = parseInt(tile.getAttribute("data-index"), 10);
+        if (!isNaN(idx)) {
+          setActiveIndex(idx);
         }
-        rafRef.current = requestAnimationFrame(step);
-      };
+      }
+    } else if (diff < -swipeThreshold) {
+      // Swipe left -> next slide
+      setActiveIndex((prev) => (prev + 1) % images.length);
+    } else if (diff > swipeThreshold) {
+      // Swipe right -> prev slide
+      setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+    }
+    
+    // Always resume auto-play immediately
+    setIsPaused(false);
+  };
 
-      rafRef.current = requestAnimationFrame(step);
-    };
-
-    const timer = setTimeout(startScroll, 50);
-    return () => {
-      clearTimeout(timer);
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
-  const handleMouseEnter = () => { pausedRef.current = true; };
-  const handleMouseLeave = () => { pausedRef.current = false; };
-
-  // Duplicate for seamless loop
-  const allImages = [...images, ...images];
+  const handlePointerCancel = (e) => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    setIsPaused(false);
+  };
 
   return (
     <section className="hear-from-successors" data-aos="fade-up" data-aos-once="false">
@@ -74,19 +87,38 @@ const HearFromSuccessors = () => {
 
       <div
         className="successors-carousel-viewport"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerCancel}
+        style={{ "--active-index": activeIndex }}
       >
-        <div className="successors-carousel-track" ref={trackRef}>
-          {allImages.map((img, idx) => (
-            <div className="successor-tile" key={idx}>
-              <img src={img.src} alt={img.alt} />
+        <div className="successors-carousel-track">
+          {images.map((img, idx) => (
+            <div
+              className={`successor-tile ${idx === activeIndex ? "active" : ""}`}
+              key={idx}
+              data-index={idx}
+              onClick={() => setActiveIndex(idx)}
+            >
+              <img src={img.src} alt={img.alt} draggable="false" />
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="carousel-dots">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            className={`carousel-dot ${idx === activeIndex ? "active" : ""}`}
+            onClick={() => setActiveIndex(idx)}
+            aria-label={`Go to slide ${idx + 1}`}
+          />
+        ))}
       </div>
     </section>
   );
 };
 
 export default HearFromSuccessors;
+

@@ -6,7 +6,7 @@ import "./recap.css";
 //   "https://www.youtube.com/embed/YOUR_VIDEO_ID"
 // The video is displayed in vertical (9:16) format to match a phone-recorded
 // or portrait-mode highlight reel.
-const VIDEO_SRC = "https://www.youtube.com/embed/Icxbl5RHXAg?rel=0&modestbranding=1"; // ← replace VIDEO ID as needed
+const VIDEO_SRC = "https://player.vimeo.com/video/1197475522?h=ea484720c4licy"; // ← replace VIDEO ID as needed
 // ─────────────────────────────────────────────────────────────────────────────
 
 const Recap = () => {

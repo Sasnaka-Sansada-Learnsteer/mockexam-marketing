@@ -68,7 +68,7 @@ const AdminLogin = () => {
               navigate('/admin/qr-scanner-dashboard');
           } else {
               localStorage.setItem('userRole', 'admin');
-              if (panelId === '9935095') { // Special admin case
+              if (['9935095', '9935096', '9935097', '9935098', '9935099', '9935100'].includes(panelId)) { // Special admin case
                   navigate('/mysme/dashboard/overview');
               } else {
                   navigate('/admin/dashboard');

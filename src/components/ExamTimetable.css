@@ -1,283 +1,350 @@
-.exam-timetable {
-    padding: 5rem 0;
-    background-color: #f7f9fc;
-}
+/* ========================================================
+   Exam Timetable – Master Matrix Grid Layout (Clean & Balanced)
+   ======================================================== */
 
+.exam-timetable {
+    padding: 4.5rem 1rem;
+    background-color: var(--bg-color);
+    transition: background-color var(--transition-normal);
+}
 
 .exam-timetable .container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0;
+    padding: 0 1rem;
 }
 
-
-.exam-timetable h2 {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 2.5rem;
+/* 1. Heading Styles */
+.exam-timetable-heading {
     text-align: center;
-    position: relative;
-    padding-bottom: 1rem;
-    display : inline-block;
+    margin-bottom: 3rem;
 }
 
-
-.exam-timetable h2::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background-color: #4361ee;
+.exam-timetable-heading h2 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--text-color);
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+    background: var(--accent-gradient, linear-gradient(135deg, #4361ee, #8b5cf6));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
 }
 
-
-.district-card-container {
-    display: flex;
-    justify-content: center;
-}
-
-
-.district-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    width: 100%;
+.exam-timetable-heading .subtitle {
+    font-size: 1rem;
+    color: var(--text-color);
+    opacity: 0.7;
     max-width: 500px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto;
+    line-height: 1.5;
 }
 
-
-.district-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+/* 2. Responsive Table Wrapper */
+.table-responsive-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--border-radius-lg, 12px);
+    box-shadow: var(--shadow-md, 0 4px 20px rgba(0, 0, 0, 0.05));
+    background-color: var(--card-bg, #ffffff);
+    border: 1px solid var(--section-border, #e2e8f0);
+    margin-top: 1.5rem;
+    -webkit-overflow-scrolling: touch;
 }
 
+/* 3. Matrix Table Structure */
+.matrix-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
 
-.district-card-header {
-    background-color: #4361ee;
-    color: white;
-    padding: 1.5rem;
+/* Center-aligned Table Header Configuration */
+.matrix-table th {
+    background: var(--accent-gradient, linear-gradient(135deg, #4361ee, #8b5cf6));
+    color: #ffffff;
+    padding: 1.25rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: normal;
+    min-width: 190px;
+    border-bottom: 2px solid var(--section-border, #e2e8f0);
     text-align: center;
 }
 
-
-.district-card-header h3 {
-    font-size: 1.8rem;
-    margin: 0;
-    font-weight: 600;
-    color: white;
+/* Sticky Column Settings for Frozen Header Alignment */
+.matrix-table th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    background: #4361ee;
+    text-align: center;
 }
 
-
-.district-card-body {
-    padding: 1.5rem;
+.matrix-table td {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--section-border, #e2e8f0);
+    vertical-align: middle;
+    transition: background-color var(--transition-fast, 0.2s);
 }
 
-
-.subject-item {
-    align-items: flex-start;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background-color: #fafafa;
-    display: flex;
-    justify-content: space-between;
+.matrix-table tr:last-child td {
+    border-bottom: none;
 }
 
-
-.subject-item:last-child {
-    margin-bottom: 0;
+.matrix-table tr:hover td {
+    background-color: var(--bg-color, #f8fafc);
 }
 
-
-.subject-header {
-    flex: 1;
+/* 4. Column Specific Cells */
+.subject-label-cell {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background-color: var(--card-bg, #ffffff);
+    min-width: 260px;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.03);
     text-align: left;
+    /* Kept text left-aligned inside cells for structural readability */
 }
 
-
-.subject-header h4 {
-    font-size: 1.2rem;
-    margin: 0;
-    color: #333;
-    font-weight: 600;
+.subject-label-cell strong {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-color, #1f2937);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    line-height: 1.4;
 }
 
+/* Matrix intersection cells */
+.schedule-cell {
+    min-width: 180px;
+    text-align: center;
+}
 
-.subject-details {
+.cell-date {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-color, #111827);
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    margin-bottom: 0.25rem;
+}
+
+.cell-time {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-color);
+    opacity: 0.75;
+    font-family: var(--font-body, 'Inter', sans-serif);
+}
+
+/* Multi-line Header Wrapper formatting */
+.th-line-wrapper {
     display: flex;
-    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    line-height: 1.3;
+}
+
+.th-line-wrapper .sub-line {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* Stacking time variants setup */
+.cell-time-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.25rem;
+}
+
+.cell-time.variant {
+    background-color: var(--bg-color, #f1f5f9);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--border-radius-sm, 4px);
+    border: 1px solid var(--section-border, #e2e8f0);
+    width: fit-content;
+}
+
+/* ========================================================
+   Timetable Cards Styling (Responsive Below 1120px)
+   ======================================================== */
+.timetable-cards-container {
+    display: none;
+}
+
+.timetable-card {
+    background-color: var(--card-bg, #ffffff);
+    border-radius: var(--border-radius-lg, 16px);
+    box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+    border: 1px solid var(--section-border, #e2e8f0);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-normal, 0.3s ease), box-shadow var(--transition-normal, 0.3s ease);
+}
+
+.timetable-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1));
+}
+
+.timetable-card-header {
+    background: var(--accent-gradient, linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%));
+    color: #ffffff;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--section-border, #e2e8f0);
+}
+
+.timetable-card-header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    line-height: 1.4;
+}
+
+.timetable-card-body {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex-grow: 1;
+}
+
+.timetable-card-row {
+    display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    text-align: right;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--section-border, #e2e8f0);
 }
 
+.timetable-card-row:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
 
-.exam-detail {
+.card-subject-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-color, #0f172a);
+    font-family: var(--font-body, 'Inter', sans-serif);
+    line-height: 1.4;
+    text-align: left;
+}
+
+.card-schedule-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: center;
+}
+
+.card-schedule-date,
+.card-schedule-time {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
-}
-
-
-.detail-label {
-    color: #666;
-    font-size: 0.9rem;
-    font-weight: 600;
-    min-width: 60px;
-    text-align: left;
-    white-space: nowrap;
-    margin-right: 0.3rem;
-}
-
-
-.detail-value {
-    color: #333;
-    font-size: 1.1rem;
+    gap: 0.35rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    margin-left: 0.5rem;
-    white-space: nowrap;
+    color: var(--text-color, #0f172a);
+    opacity: 0.85;
 }
 
+.card-icon {
+    color: var(--accent-color, #3b82f6);
+    flex-shrink: 0;
+}
 
-/* FIXED MOBILE STYLES WITH CENTERED CONTENT */
-@media (max-width: 576px) {
+.card-time-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.card-time-item {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+@media (max-width: 1120px) {
+    .table-responsive-wrapper {
+        display: none !important;
+    }
+
+    .timetable-cards-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .timetable-cards-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 5. Responsiveness and Cross-Platform Overrides */
+@media (max-width: 768px) {
     .exam-timetable {
-        padding: 2rem 0;
+        padding: 3rem 0.75rem;
     }
 
-
-    .exam-timetable h2 {
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
+    .exam-timetable-heading h2 {
+        font-size: 1.85rem;
     }
 
-
-    .district-card-header {
-        padding: 1rem;
+    .matrix-table th,
+    .matrix-table td {
+        padding: 1rem 1.15rem;
     }
 
-
-    .district-card-header h3 {
-        font-size: 1.5rem;
-    }
-
-
-    .district-card-body {
-        padding: 1rem;
-    }
-
-
-    .subject-item {
-        flex-direction: column;
-        align-items: center; /* Center the entire subject item */
-        gap: 1.2rem;
-        padding: 1.2rem;
-        text-align: center; /* Center text within the item */
-    }
-
-
-    .subject-header {
-        width: 100%;
-        margin-bottom: 0;
-        text-align: center; /* Center subject name */
-    }
-
-
-    .subject-header h4 {
-        font-size: 1.2rem;
-    }
-
-
-    .subject-details {
-        width: 100%;
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center; /* Center date/time content */
-        align-items: center; /* Center the details container */
-    }
-
-
-    .exam-detail {
-        width: 100%;
-        display: flex;
-        flex-direction: column; /* Stack label and value vertically */
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-        text-align: center;
-    }
-
-
-    .detail-label {
-        min-width: auto;
-        width: 100%;
-        text-align: center;
-        white-space: nowrap;
-        margin-right: 0;
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: #555;
-    }
-
-
-    .detail-value {
-        text-align: center;
-        white-space: normal;
-        word-break: keep-all;
-        margin-left: 0;
-        font-size: 1.1rem;
-        width: 100%;
-        font-weight: 600;
-        color: #333;
-    }
-
-
-    /* Specific styling for time values */
-    .exam-detail .detail-value {
-        white-space: nowrap;
-        font-size: 1.2rem;
-    }
-
-
-    /* Add some visual separation */
-    .subject-details {
-        padding-top: 1rem;
-        margin-top: 0.5rem;
+    .subject-label-cell {
+        min-width: 220px;
     }
 }
 
-
-/* Extra small device optimization */
-@media (max-width: 400px) {
-    .subject-item {
-        padding: 1rem;
-        gap: 1rem;
+@media (max-width: 576px) {
+    .subject-label-cell strong {
+        font-size: 0.85rem;
     }
 
-
-    .subject-header h4 {
-        font-size: 1.1rem;
+    .cell-date {
+        font-size: 0.88rem;
     }
 
-
-    .detail-label {
-        font-size: 0.9rem;
-    }
-
-
-    .detail-value {
-        font-size: 1rem;
-    }
-
-
-    .exam-detail .detail-value {
-        font-size: 1.1rem;
+    .cell-time {
+        font-size: 0.7rem;
     }
 }
 
+.cell-time.variant {
+    /* Removes the pill background container entirely */
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    width: auto;
+
+    /* Adds subtle styling if you still want them to look like distinct clean text entries */
+    font-weight: 500;
+    opacity: 0.8;
+}

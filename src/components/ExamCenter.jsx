@@ -4,66 +4,64 @@ import "./ExamCenter.css";
 const ExamCenter = () => {
   const examCenter = [
     {
-      province: "Colombo Center",
-      venue: "University of Colombo",
+      province: "Colombo Center 1",
+      venue: "SLIIT Malabe",
       mapUrl:
-        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7921.805930042093!2d79.85647084578099!3d6.902206909028085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25963120b1509%3A0x2db2c18a68712863!2sUniversity%20of%20Colombo%20School%20of%20Computing%20(UCSC)!5e0!3m2!1sen!2slk!4v1753535419952!5m2!1sen!2slk",
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.7985117158014!2d79.9729445!3d6.9146775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae256db1a6771c5%3A0x2c63e344ab9a7536!2sSri%20Lanka%20Institute%20of%20Information%20Technology!5e0!3m2!1sen!2slk!4v1780337141866!5m2!1sen!2slk",
       directionsUrl:
-        "https://www.google.com/maps/dir/?api=1&destination=University+of+Colombo",
+        "https://www.google.com/maps/dir//Sri+Lanka+Institute+of+Information+Technology,+SLIIT+Malabe+Campus,+New+Kandy+Rd,+Malabe+10115/@6.8540837,79.9240067,13z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x3ae256db1a6771c5:0x2c63e344ab9a7536!2m2!1d79.9729445!2d6.9146775?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D",
     },
     {
-      province: "Galle Center",
-      venue: "St. Aloysius' College, Galle",
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d495.9624053147078!2d80.21169785889549!3d6.035947066330427!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1753905550586!5m2!1sen!2slk",
-      directionsUrl: "https://maps.google.com/maps/dir//St.+Aloysius'+College+St.+Aloysius'+College+Main+Building+Templers+Rd+Galle+80000/@6.0359809,80.2118981,16z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3ae173bdb100e2cf:0x16c14f666237c35f",
+      province: "Colombo Center 2",
+      venue: "SLIIT Metro Campus",
+      mapUrl:
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.815187450974!2d79.8506793!3d6.9126881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2596aaa8742d9%3A0xced655398fd4d621!2sSLIIT%20Metropolitan%20Campus!5e0!3m2!1sen!2slk!4v1780406706566!5m2!1sen!2slk",
+      directionsUrl:
+        "https://www.google.com/maps/dir//SLIIT+Metropolitan+Campus,+SLIIT+Metropolitan+Campus+16th+Floor,+BOC+Merchant+Tower,+28+St+Michaels+Rd,+Colombo+00300/@6.8496035,79.8031937,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3ae2596aaa8742d9:0xced655398fd4d621!2m2!1d79.8506793!2d6.9126881?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D",
+    },
+    {
+      province: "Kalutara Center",
+      venue: "Sri Sumangala Balika Maha Vidyalaya",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4788.08032165418!2d79.9097425!3d6.7026115!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae24624d4a813fd%3A0xb36b4d27ccccc07d!2sSri%20Sumangala%20Balika%20Maha%20Vidyalaya!5e1!3m2!1sen!2slk!4v1780356765650!5m2!1sen!2slk",
+      directionsUrl: "https://www.google.com/maps/dir//Sri+Sumangala+Balika+Maha+Vidyalaya,+A2,+Panadura/@6.7026115,79.9097425,1100m/data=!3m1!1e3!4m16!1m7!3m6!1s0x3ae24624d4a813fd:0xb36b4d27ccccc07d!2sSri+Sumangala+Balika+Maha+Vidyalaya!8m2!3d6.7026115!4d79.9097425!16s%2Fg%2F1tlczlw7!4m7!1m0!1m5!1m1!1s0x3ae24624d4a813fd:0xb36b4d27ccccc07d!2m2!1d79.909735!2d6.7026452!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D",
+    },
+    {
+      province: "Matara Center",
+      venue: "SLIIT Matara",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15636.907977991637!2d80.54818355188377!3d5.942399038612131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae138d4871611eb%3A0xb61d2dbf9146d81!2sSLIIT%20Matara%20Center!5e0!3m2!1sen!2slk!4v1780337813453!5m2!1sen!2slk",
+      directionsUrl: "https://www.google.com/maps/dir//SLIIT+Matara+Center,+EH+Cooray+Building,+No.24:+5th+Floor,+E.H.Cooray+Tower,+B535,+Matara/@5.9491765,80.5464577,860m/data=!3m1!1e3!4m16!1m7!3m6!1s0x3ae138d4871611eb:0xb61d2dbf9146d81!2sSLIIT+Matara+Center!8m2!3d5.9491765!4d80.5464577!16s%2Fg%2F113hzrbd0!4m7!1m0!1m5!1m1!1s0x3ae138d4871611eb:0xb61d2dbf9146d81!2m2!1d80.5464577!2d5.9491765!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D",
     },
     {
       province: "Kandy Center",
-      venue: "Viharamahadevi Girls' College, Kandy",
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.5919088098835!2d80.62441351019038!3d7.287185092689823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae36884a80ad257%3A0xeb3b08feb9c52601!2sViharamahadevi%20Balika%20Vidyalaya!5e0!3m2!1sen!2slk!4v1753905743284!5m2!1sen!2slk",
-      directionsUrl: "https://maps.google.com/maps/dir//Viharamahadevi+Balika+Vidyalaya+333+Peradeniya+Rd+Kandy+20000/@7.2871851,80.6269938,16z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3ae36884a80ad257:0xeb3b08feb9c52601",
+      venue: "SLIIT Peradeniya",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.6948422851297!2d80.6127217!3d7.275522199999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae368bfd631eeb9%3A0x881fd608acc078bb!2sSLIIT%20Kandy%20Center!5e0!3m2!1sen!2slk!4v1780336991882!5m2!1sen!2slk",
+      directionsUrl: "https://www.google.com/maps/dir//SLIIT+Kandy+Center,+670%2F1%2F1A+Peradeniya+Rd,+Peradeniya+20000/@7.2755222,80.6127217,858m/data=!3m1!1e3!4m16!1m7!3m6!1s0x3ae368bfd631eeb9:0x881fd608acc078bb!2sSLIIT+Kandy+Center!8m2!3d7.2755222!4d80.6127217!16s%2Fg%2F11bwyh4pqw!4m7!1m0!1m5!1m1!1s0x3ae368bfd631eeb9:0x881fd608acc078bb!2m2!1d80.6127217!2d7.2755222!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D",
     },
+    {
+      province: "Ampara Center",
+      venue: "D.S Senanayaka College, Ampara",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.446687613651!2d81.67192059999999!3d7.303607899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae519c71d83cf15%3A0xf98995dcbc660552!2z4LaRIOC3g-C3iiDgt4Pgt5rgtrHgt4_gtrHgt4_gtrrgtpog4Lai4LeP4Lat4LeS4LaaIOC2tOC3j-C3g-C2vSwg4LaF4La44LeK4La04LeP4La7!5e0!3m2!1sen!2slk!4v1780336815631!5m2!1sen!2slk",
+      directionsUrl: "https://www.google.com/maps/dir//%E0%B6%91+%E0%B7%83%E0%B7%8A+%E0%B7%83%E0%B7%9A%E0%B6%B1%E0%B7%8F%E0%B6%B1%E0%B7%8F%E0%B6%BA%E0%B6%9A+%E0%B6%A2%E0%B7%8F%E0%B6%AD%E0%B7%92%E0%B6%9A+%E0%B6%B4%E0%B7%8F%E0%B7%83%E0%B6%BD,+%E0%B6%85%E0%B6%B8%E0%B7%8A%E0%B6%B4%E0%B7%8F%E0%B6%BB,+D.S.Senanayaka+National+School,+Dharmapala+Mawatha,+Ampara/@7.3036079,81.6719206,858m/data=!3m1!1e3!4m16!1m7!3m6!1s0x3ae519c71d83cf15:0xf98995dcbc660552!2z4LaRIOC3g-C3iiDgt4Pgt5rgtrHgt4_gtrHgt4_gtrrgtpog4Lai4LeP4Lat4LeS4LaaIOC2tOC3j-C3g-C2vSwg4LaF4La44LeK4La04LeP4La7!8m2!3d7.3036079!4d81.6719206!16s%2Fg%2F11ckkxrkxx!4m7!1m0!1m5!1m1!1s0x3ae519c71d83cf15:0xf98995dcbc660552!2m2!1d81.6719205!2d7.303608!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D",
+    },
+    {
+      province: "Kurunegala Center",
+      venue: "SLIIT Kurunegala",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.7843729471133!2d80.36279417571912!3d7.4890448925230855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae33a1f76f3dfaf%3A0x288f333fefb6c535!2sSLIIT%20Kurunegala%20Center!5e0!3m2!1sen!2slk!4v1780487946597!5m2!1sen!2slk",
+      directionsUrl: "https://www.google.com/maps/dir//SLIIT+Kurunegala+Center,+8+Dambulla+Road,+Kurunegala,+Sri+Lanka/data=!4m9!4m8!1m0!1m5!1m1!19sChIJr9_zdh864zoRNcW27z8zjyg!2m2!1d80.3653691!2d7.4890449!3e0?entry=gemini&utm_source=gemini&utm_campaign=gem-default",
+    },
+    {
+      province: "Ratnapura Center",
+      venue: "Sivali Central College, Ratnapura",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.4629872021665!2d80.3850022!3d6.7132145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae3bec17d74cd83%3A0x7e2606f4c0f4af14!2sSivali%20Central%20College!5e0!3m2!1sen!2slk!4v1780487755151!5m2!1sen!2slk",
+      directionsUrl: "https://www.google.com/maps/dir//Sivali+Central+College,+P97P%2B73W+Zoological+and+Botanical+Labs+and+AL+Arts+Building,+Sivali+Central+Collage,+70000+A4,+Ratnapura,+Sri+Lanka/data=!4m9!4m8!1m0!1m5!1m1!19sChIJg810fcG-4zoRFK_0wPQGJn4!2m2!1d80.3850022!2d6.7132144999999994!3e0?entry=gemini&utm_source=gemini&utm_campaign=gem-default",
+    },
+
+
   ];
 
   return (
     <section className="hear-from-successors" data-aos="fade-up" data-aos-once="false">
-      <div className="container">
-        <h2 className="stats-title">Hear from Successors</h2>
-        <p className="description-text">
-          Discover the inspiring journeys of our students who have excelled in
-          their A/Ls with the help of our mock exams. Read their stories and get
-          motivated to achieve your own success!
-        </p>
-      </div>
 
-      <br />
-
-      <div className="success-gallery-wrapper">
-        <img
-          src="/SuccessStory1.jpeg"
-          alt="Success Story 1"
-          data-aos="zoom-in-up"
-          data-aos-easing="ease-out-back"
-          data-aos-duration="1000"
-          style={{ width: "100%", maxWidth: "400px" }}
-        />
-        <img
-          src="/SuccessStory2.jpeg"
-          alt="Success Story 2"
-          data-aos="zoom-in-up"
-          data-aos-easing="ease-out-back"
-          data-aos-duration="1000"
-          style={{ width: "100%", maxWidth: "400px" }}
-        />
-        <img
-          src="/SuccessStory3.jpeg"
-          alt="Success Story 3"
-          data-aos="zoom-in-up"
-          data-aos-easing="ease-out-back"
-          data-aos-duration="1000"
-          style={{ width: "100%", maxWidth: "400px" }}
-        />
-      </div>
 
       <div className="container" style={{ marginTop: '5rem' }}>
         <h2 className="stats-title">Exam Centers</h2>

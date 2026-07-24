@@ -1,7 +1,3 @@
-/* ═══════════════════════════════════════════════════
-   HEAR FROM SUCCESSORS — 1 focused tile, 2 partial peeks
-   ═══════════════════════════════════════════════════ */
-
 .hear-from-successors {
   padding: clamp(4rem, 8vw, 7rem) 0;
   background: radial-gradient(circle at top right, var(--bg-color), var(--card-bg));
@@ -9,39 +5,25 @@
   text-align: center;
 }
 
-/* ── Viewport: 2/3 of screen, centred, clips the overflowing strip ── */
+/* ── Viewport: centering the active tile, clips the overflowing strip ── */
 .successors-carousel-viewport {
-  width: min(80vw, 1060px);     /* 80% of screen — gap visible on both sides */
-  margin: 0 auto;               /* centred */
+  --viewport-w: min(80vw, 1060px);
+  --tile-w: min(286px, 49.5vw);
+  --gap: 1.5rem;
+
+  width: var(--viewport-w);
+  margin: 0 auto;
+  /* centred */
   overflow: hidden;
   cursor: grab;
   padding: 2.5rem 0;
-  position: relative;           /* Anchor for pseudo-elements */
-}
-
-.successors-carousel-viewport::before,
-.successors-carousel-viewport::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 20%;                   /* Slightly wider for a longer, smoother fade */
-  z-index: 2;
-  pointer-events: none;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-}
-
-.successors-carousel-viewport::before {
-  left: 0;
-  -webkit-mask-image: linear-gradient(to right, black 0%, transparent 100%);
-  mask-image: linear-gradient(to right, black 0%, transparent 100%);
-}
-
-.successors-carousel-viewport::after {
-  right: 0;
-  -webkit-mask-image: linear-gradient(to left, black 0%, transparent 100%);
-  mask-image: linear-gradient(to left, black 0%, transparent 100%);
+  position: relative;
+  /* Anchor for pseudo-elements */
+  touch-action: pan-y;
+  /* allow swipe gestures but let page scroll vertically */
+  user-select: none;
+  /* prevent image drag and selection outlines */
+  -webkit-user-select: none;
 }
 
 .successors-carousel-viewport:active {
@@ -51,32 +33,42 @@
 /* ── Moving strip ── */
 .successors-carousel-track {
   display: flex;
-  gap: 1.5rem;
+  gap: var(--gap);
   width: max-content;
   will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: translateX(calc(var(--viewport-w) / 2 - var(--tile-w) / 2 - var(--active-index) * (var(--tile-w) + var(--gap))));
 }
 
 /*
-  ── Tile sizing: 62% of the 66.67vw viewport ──
-  Visible: [~13vw peek] [gap] [~41vw tile] [gap] [~13vw peek] ≈ 66.67vw ✓
-  1 full tile in focus, ~32% of each neighbour showing on each side.
+  ── Tile sizing ──
+  Non-focused tiles are scaled down and partially faded for focus depth.
 */
 .successor-tile {
-  --tile-w: min(286px, 49.5vw);
   flex: 0 0 var(--tile-w);
   width: var(--tile-w);
-  aspect-ratio: 1 / 1;          /* square */
+  aspect-ratio: 1 / 1;
+  /* square */
   background: var(--card-bg);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-md);
   overflow: hidden;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.35s ease;
+  cursor: pointer;
+  opacity: 0.4;
+  transform: scale(0.8);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.35s ease;
 }
 
-.successor-tile:hover {
-  transform: translateY(-8px) scale(1.03);
+.successor-tile.active {
+  opacity: 1;
+  transform: scale(1.1);
   box-shadow: var(--shadow-lg);
+}
+
+.successor-tile.active:hover {
+  transform: scale(1.15) translateY(-4px);
 }
 
 .successor-tile img {
@@ -84,35 +76,58 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;  /* Anchor to top middle */
+  object-position: top center;
+  /* Anchor to top middle */
   transition: filter 0.35s ease;
 }
 
-.successor-tile:hover img {
+.successor-tile img:hover {
   filter: brightness(1.08);
+}
+
+/* ── Carousel Dots ── */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: var(--text-muted, #94a3b8);
+  opacity: 0.5;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+    background-color 0.35s ease,
+    opacity 0.35s ease,
+    transform 0.2s ease;
+}
+
+.carousel-dot:hover {
+  opacity: 0.8;
+  transform: scale(1.2);
+}
+
+.carousel-dot.active {
+  width: 28px;
+  opacity: 1;
+  background-color: var(--primary-color, #2563eb);
 }
 
 /* ═══════════════ MOBILE ═══════════════ */
 @media (max-width: 768px) {
   .successors-carousel-viewport {
-    width: min(88vw, 600px);    /* wider on mobile, still has edge gap */
-    margin: 0 auto;
-    padding: 1.5rem 0;
-  }
-
-  .successors-carousel-viewport::before,
-  .successors-carousel-viewport::after {
-    width: 12%;
-  }
-
-  .successors-carousel-track {
-    gap: 1rem;
-  }
-
-  /*
-    Mobile: tile = 53vw ≈ 62% of 85vw viewport → same 1+2 proportion
-  */
-  .successor-tile {
+    --viewport-w: min(88vw, 600px);
+    /* wider on mobile, still has edge gap */
     --tile-w: min(220px, 60.5vw);
+    --gap: 1rem;
+    padding: 1.5rem 0;
   }
 }
