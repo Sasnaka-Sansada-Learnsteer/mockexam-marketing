@@ -28,8 +28,6 @@ const CandidateLogin = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState('checkNic'); // checkNic, login, signup
-  const [candidateExists, setCandidateExists] = useState(false);
-  const [hasMySmeAccount, setHasMySmeAccount] = useState(false);
   const navigate = useNavigate();
   const [autoChecked, setAutoChecked] = useState(false);
 
@@ -61,6 +59,7 @@ const CandidateLogin = () => {
       setAutoChecked(true);
       checkNicExists(locationState.NIC);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, navigate, locationState, autoChecked]);
 
   const checkNicExists = async (nicToUse = NIC) => {
@@ -81,9 +80,6 @@ const CandidateLogin = () => {
 
     try {
       const response = await axios.post(`${API_BASE_URL}/api/candidate/check-nic`, { NIC: nicToUse });
-
-      setCandidateExists(response.data.exists);
-      setHasMySmeAccount(response.data.hasMySmeAccount);
 
       if (response.data.firstName) {
         setFetchedFirstName(response.data.firstName);

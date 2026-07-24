@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 import { Analytics } from "@vercel/analytics/react";
@@ -9,16 +9,11 @@ import ExamTimetable from "./components/ExamTimetable";
 import Stats from "./components/Stats";
 // import PopupNotification from "./components/PopupNotification";
 import NavBar from "./components/NavBar";
-import CountdownRegister from "./components/CountdownRegister";
-import RemainingSeats from "./components/RemainingSeats";
 import Footer from "./components/Footer";
 import ExamCenter from "./components/ExamCenter";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
-import MyExamInfoEntry from "./components/MyExamInfoEntry";
-import PopupCard from "./components/PopupCard";
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './mysme_admin/Login';
 import AdminDashboard from "./mysme_admin/AdminDashboard";
 import AdminLogin from "./mysme_admin/AdminLogin";
 import PrivateRoute from './mysme_admin/PrivateRoute';
@@ -86,7 +81,6 @@ function MarketingSite({ isDarkMode }) {
 }
 
 function App() {
-    const [token, setToken] = useState(null);
     // 1. Add state for Dark Mode – persisted in localStorage
     const [isDarkMode, setIsDarkMode] = useState(() => {
         try {
@@ -95,13 +89,6 @@ function App() {
             return false;
         }
     });
-
-    useEffect(() => {
-        const storedToken = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-        if (storedToken) {
-            setToken(storedToken);
-        }
-    }, []);
 
     // 2. Function to toggle the state and persist preference
     const toggleDarkMode = () => {
